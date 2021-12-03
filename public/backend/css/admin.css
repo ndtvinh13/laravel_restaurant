@@ -1,0 +1,262 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* TO hide the overflowed .left-side: 100vh*/
+    box-sizing: border-box;
+}
+/* https://medium.com/@zerox/keep-that-damn-footer-at-the-bottom-c7a921cb9551 */
+body > .container-fluid {
+    background-color: rgb(230, 230, 230);
+    min-height: 100vh; /*will cover the 100% of viewport  */
+    overflow: hidden;
+    display: block;
+    position: relative;
+}
+
+.navbar hr {
+    width: 2px;
+    height: 20px;
+    display: inline-block;
+    margin: 3px;
+    background-color: #000;
+}
+
+.row-second {
+    padding-left: 20px;
+    margin: 0;
+    background-color: #40163c;
+}
+
+.row {
+    margin: 0;
+}
+
+.left-side {
+    width: 100%;
+    /* padding: auto;
+  margin: auto; */
+    padding: 20px;
+    background-color: #40163c;
+    /* height: 100%; */
+    height: 100vh;
+}
+
+.nav {
+    width: 100%;
+    /* position: absolute; */
+    /* background-color: cyan; */
+}
+
+.navbar {
+    background-color: rgb(226, 189, 95);
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.main-link:hover {
+    background-color: #fd7e14;
+    border-radius: 10px;
+    transition: 0.5s;
+    color: white;
+}
+
+.nav-link {
+    color: wheat;
+}
+
+.second-link {
+    display: inline-block;
+    position: relative;
+}
+
+.second-link::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fd7e14;
+    transform: scaleX(0);
+    transition: 0.3s;
+    bottom: 0;
+    left: 0;
+}
+
+.second-link:hover {
+    color: #fd7e14;
+}
+
+.second-link:hover::before {
+    transform: scaleX(0.7);
+}
+
+.tabss {
+    background-color: cyan !important;
+    border-radius: 10px;
+}
+
+.btn {
+    width: 73px;
+}
+
+/* Page=========== */
+/* This uses the same format for other pages */
+.page-ti-co {
+    margin-top: 50px;
+    height: 500px;
+    border-style: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    position: relative;
+    /* width: 50%; */
+}
+
+.page-title {
+    text-align: center;
+    border-bottom-style: solid;
+    font-weight: bold;
+
+    padding: 10px;
+}
+
+.page-content {
+    height: 453px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+/* .page-content::-webkit-scrollbar {
+  display: none;
+} */
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 50px;
+}
+
+/* Track */
+/* ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 15px;
+} */
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 15px;
+}
+
+/* Horizontal scroll bar */
+::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Screen responsive for mobile version */
+@media only screen and (max-width: 770px) {
+    .page-ti-co {
+        margin-top: 0;
+        height: 100vh;
+        /* width: 450px; */
+        /* display: block; */
+        border-radius: 0;
+        position: relative;
+    }
+    .page-content {
+        height: 100%;
+        position: absolute;
+    }
+
+    .btn {
+        font-size: 13px;
+        width: 65px;
+        padding: 4px 4px;
+    }
+    .card {
+        box-shadow: none;
+    }
+    .card:hover {
+        box-shadow: none;
+    }
+}
+
+/* @media only screen and (max-width: 375px) {
+  .page-ti-co {
+    padding: 0;
+    margin: 0;
+    width: 320px;
+  }
+  .page-content {
+    height: 100%;
+    position: absolute;
+  }
+} */
+
+@media only screen and (max-width: 577px) {
+    .active-tab {
+        border-radius: 5px;
+        border-left: none !important;
+        padding-left: 0 !important;
+        font-weight: bold;
+        color: #fff;
+        background-color: #fd7e14;
+    }
+}
+/* footer */
+footer {
+    padding: 10px;
+    width: 100%;
+    background-color: rgb(197, 163, 77);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Active -- When clicked on */
+.active-tab {
+    border-left: 2px solid #fd7e14;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+.active-tab-child {
+    color: #fff;
+}
+
+.alert {
+    margin: 0;
+}
+
+.card {
+    width: 100%;
+    height: 20rem;
+    /* margin-bottom: 0px !important; */
+    margin-top: 3rem;
+    border-style: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.card-text {
+    display: flex;
+    justify-content: center;
+    font-size: 5rem;
+}

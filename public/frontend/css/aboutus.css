@@ -1,0 +1,30 @@
+.column-left {
+  /* min-height: 500px;
+  background-size: auto, cover;
+  object-fit: cover; */
+  padding: 0;
+  margin: 0;
+}
+
+.column-left img {
+  max-height: 100%;
+  width: 100%;
+  filter: brightness(70%);
+}
+
+.column-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #333;
+  color: #ffff;
+}
+
+.paragraph {
+  padding: 8%;
+}
+
+#break-line {
+  height: 50px;
+  width: 100%;
+}

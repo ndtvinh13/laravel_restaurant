@@ -1,0 +1,121 @@
+.menu-content {
+    margin: 1.5rem 0;
+}
+
+/* =======Ctegory Name======= */
+.cat-name-wrapper {
+    margin: 5px 0;
+    /* text-align: center; */
+}
+
+.cat-name {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
+.cat-name:hover {
+    color: #fd7e14;
+}
+
+/* =======Products======= */
+.menu-title {
+    font-family: "Pacifico", "cursive";
+    color: #fd7e14;
+    text-shadow: 1px 1px black;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.menu-product {
+    position: relative;
+}
+
+.menu-card {
+    margin-bottom: 24px;
+}
+
+/* =======Modal======= */
+.modal-open {
+    overflow: scroll !important;
+    padding: 0 !important;
+}
+
+.quantity-input {
+    width: 50px !important;
+    text-align: center;
+    /* margin-left: 10px; */
+    border-radius: 5px;
+    border: solid 1px;
+}
+
+.qty-box {
+    display: flex;
+}
+
+.menu-btn {
+    border: solid 1px;
+    width: 30px;
+    text-align: center;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+}
+
+.menu-btn:active {
+    background-color: #ffb375;
+}
+
+.page-break {
+    margin-top: 2.75rem;
+}
+
+/*==========Paginate==========*/
+
+.pagination > li > span {
+    color: #fff !important;
+    background-color: #e5e5e5 !important;
+    /* border-color: #fd7e14 !important; */
+}
+
+.pagination > li > a {
+    color: #fd7e14 !important;
+    /* background-color: #e5e5e5 !important; */
+    /* border-color: #fd7e14 !important; */
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: #fd7e14 !important;
+    border-color: #fd7e14 !important;
+}
+
+/*=============Search===============*/
+.ui-menu-item {
+    padding: 5px 5px;
+    font-weight: normal;
+}
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+    background: #ffb375 !important;
+    color: #fff !important;
+    border-radius: 10px;
+    border: none;
+}
+
+/*==============Sort=================*/
+.sort-font {
+    text-decoration: underline;
+    color: #333;
+    font-style: italic;
+    margin: 0 10px;
+}
+
+.sort-font:hover {
+}

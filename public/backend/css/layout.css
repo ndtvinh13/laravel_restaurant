@@ -1,0 +1,84 @@
+.text-warning,
+.text-success,
+.text-danger {
+  padding: 10px 25px;
+}
+
+.table {
+  /* height: 100%;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; */
+
+  /* position: relative; */
+
+  /* overflow: scroll; */
+
+  vertical-align: middle;
+}
+
+.tbl-header {
+  /* display: flex;
+  justify-content: space-between;
+  width: 100%; */
+  /* text-align: center; */
+  position: sticky;
+  top: 0;
+}
+
+.tbl-content > td {
+  /* padding-left: 85px; */
+}
+
+/* Product table */
+.tbl-product {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* catlist table */
+.tbl-catlist {
+  table-layout: fixed;
+}
+
+/* prodlist table */
+.tbl-prodlist {
+  font-size: 14.5px;
+  table-layout: fixed;
+  word-wrap: break-word;
+  text-overflow: clip;
+}
+
+@media only screen and (max-width: 770px) {
+  .tbl-product {
+    font-weight: 10px;
+  }
+
+  .form-control,
+  .form-select {
+    width: 95%;
+  }
+  .column-display {
+    display: none;
+  }
+  .tbl-prodlist {
+    font-size: 13.5px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .tbl-product {
+    font-size: 12px;
+    font-weight: 10px;
+  }
+
+  .form-control,
+  .form-select {
+    width: 95%;
+  }
+
+  .tbl-prodlist {
+    font-size: 12.5px;
+  }
+}

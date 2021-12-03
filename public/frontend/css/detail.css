@@ -1,0 +1,20 @@
+.detail-brake-line {
+    margin-bottom: 25px;
+}
+
+.btn-cart-detail {
+    margin: 1.5rem 0;
+}
+
+.detail-image {
+    height: 302px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-img-cont {
+    height: 250px;
+    width: 350px;
+    border: #333 solid;
+}
