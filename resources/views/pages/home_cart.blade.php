@@ -13,6 +13,20 @@
     </div>
 
     <hr>
+
+    @if(Session::has('msg'))
+    <div class="alert alert-success">
+        {{ Session::get('msg') }}
+    </div>
+    @endif
+
+    @php
+        $cartCount=Cart::content()->count();
+        echo "<pre>";
+        print_r($cartCount);
+        echo "</pre>";
+    @endphp
+
     @php
     $content=Cart::content();
         echo "<pre>";
@@ -84,11 +98,18 @@
                 <div class="card card-checkout">
                     <div class="card-header">Oder Summary</div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
                         <div class="cart-text">
-                          <h5 class="card-text">Subtotal:</h5>
-                          <h5 class="card-text">${{Cart::subtotal()}}</h5>
-                          
+                          <h6 class="card-text">Subtotal:</h6>
+                          <h6 class="card-text">${{Cart::subtotal()}}</h6>
+                        </div>
+                        <div class="cart-text">
+                          <h6 class="card-text">Tax:</h6>
+                          <h6 class="card-text">${{Cart::tax()}}</h6>
+                        </div>
+                        <hr>
+                        <div class="cart-text">
+                          <h5 class="card-text">Total:</h5>
+                          <h5 class="card-text">${{Cart::total()}}</h5>
                         </div>
                         <a href="#" class="btn btn-checkout">checkout</a>
                     </div>

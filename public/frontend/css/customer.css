@@ -1,0 +1,45 @@
+.cust-header {
+    font-size: 1.75rem;
+    text-align: center;
+    font-weight: bold;
+    margin: 2rem;
+}
+
+.all-forms-wrapper {
+    height: 100%;
+    width: 100%;
+    /* position: absolute; */
+    /* display: flex;
+    align-items: center;
+    justify-content: space-evenly; */
+}
+
+.form-wrapper {
+}
+
+.cust-title {
+    text-align: center;
+    font-size: 1.75rem;
+    margin: 1rem;
+}
+
+.mid-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cust-btn-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.cust-btn {
+    color: #fff;
+    background-color: orangered;
+}
+
+.cust-break {
+    margin: 2rem;
+}

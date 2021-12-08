@@ -119,3 +119,15 @@
 
 .sort-font:hover {
 }
+
+/* ========Cart count========= */
+.cart-count {
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 50%;
+    background-color: red;
+    color: #fff;
+    vertical-align: top;
+    margin-left: -10px;
+    position: relative;
+}

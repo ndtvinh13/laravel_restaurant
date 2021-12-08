@@ -71,11 +71,14 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></a>
+                <a class="nav-link active" aria-current="page" href="#">
+                  <i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i>
+                  <span class="cart-count">{{Cart::content()->count();}}</span>
+                </a>
               </li>
               <li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
               </li>
               </li>
             </ul>
@@ -147,6 +150,7 @@
     <main>
       
       <hr class="page-break">
+      
       <div class="container-fluid p-0">
         <span class="fw-bold font-weight-bold">Sort By:</span>
         <a href="{{route('menu')}}" class="sort-font">All</a>
@@ -154,6 +158,7 @@
         <a href="{{route('sort').'?sort=price_asc'}}" class="sort-font">Price - Low to High</a>
         <a href="{{route('sort').'?sort=popularity'}}" class="sort-font">Popularity</a>
       </div>
+     
       
       <div class="menu-content container-fluid col-auto p-0">
         <div class="row">
@@ -202,31 +207,28 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script>
-      $(document).ready(function(){
-        
-        src="{{ route('search.product') }}";
-        $( "#search_text" ).autocomplete({
-          source: function(request,response){
-            $.ajax({
-              url: src,
-              data:{
-                term: request.term
+      //Ajax search
+      $(document).ready(function () {
+          src = "{{ route('search.product') }}";
+          $("#search_text").autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      url: src,
+                      data: {
+                          term: request.term,
+                      },
+                      dataType: "json",
+                      success: function (data) {
+                          response(data);
+                      },
+                  });
               },
-              dataType:"json",
-              success:function(data){
-                response(data);
-              }
+              minLength: 1,
+          });
 
-            })
-          },
-          minLength:1,
-        });
-        
-        $(document).on('click','ui-menu-item',function(){
-          $('#search-form').submit();
-        });
-
+          // $(document).on("click", "ui-menu-item", function () {
+          //     $("#search-form").submit();
+          // });
       });
-      
     </script>
-</html>
+    </html>

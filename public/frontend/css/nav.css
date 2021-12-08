@@ -120,6 +120,9 @@ header {
 /* =========================Main================ */
 main {
     flex-grow: 1;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 /* test--------------- */
@@ -370,4 +373,78 @@ main {
     font-family: "Pacifico", "cursive";
     color: #fd7e14;
     text-shadow: 2px 2px black;
+}
+
+/* =====Move top btn========= */
+.btn-top-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#btn-move-top {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    bottom: 20px;
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    color: #333;
+    background-color: #228b22;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+#btn-move-top:active,
+#btn-move-top:hover {
+    color: #228b22;
+    background-color: #333;
+}
+
+.btnAppear {
+    animation-name: btnAppear;
+    animation-fill-mode: both;
+    animation-duration: 0.2s;
+}
+
+@keyframes btnAppear {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+    25% {
+        opacity: 0.5;
+        bottom: 5px;
+    }
+    50% {
+        opacity: 1;
+        bottom: 10px;
+    }
+    75% {
+        bottom: 15px;
+    }
+    100% {
+        bottom: 20px;
+    }
+}
+
+.btnDisAppear {
+    animation-name: btnDisAppear;
+    animation-fill-mode: both;
+    animation-duration: 0.4s;
+}
+
+@keyframes btnDisAppear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
 }

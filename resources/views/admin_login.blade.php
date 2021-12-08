@@ -16,7 +16,7 @@
 
                 {{-- For outputing error message --}}
                 @if(Session::has('msg'))
-                <span>*{{ Session::get('msg') }}*</span>
+                <span class="text-danger">*{{ Session::get('msg') }}*</span>
                 @endif
 
             </div>

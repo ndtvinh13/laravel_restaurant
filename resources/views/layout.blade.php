@@ -14,6 +14,7 @@
     <link href="{{asset('public/frontend/css/cart.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/menu.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/detail.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/frontend/css/customer.css')}}" rel="stylesheet" />
 
     <!-- font -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Pacifico')}}" rel='stylesheet'>
@@ -73,18 +74,29 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></a>
+                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
               </li>
               <li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
               </li>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      {{-- Move-to-top button --}}
+      <div id="btn-top-wrapper-wrapper"> 
+        <div class="btn-top-wrapper">
+       
+          <div id="btn-move-top">
+            <i class="fa fa-chevron-up"></i>
+          </div>
+        </div>
+      </div>
     </header>
+
+    
 
     <main>  
       {{-- Content --}}
@@ -103,7 +115,7 @@
         </div>
         <hr style="color:#fd7e14;">
         <p class="">Copyright © 2021</p>
-      </div>
+    </div>
   
   
   </body>
@@ -114,4 +126,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
+    <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
 </html>

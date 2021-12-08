@@ -1,5 +1,8 @@
 <?php
 
+// use App\Models\Customer;
+// use App\Models\AdminAccount;
+
 return [
 
     /*
@@ -40,6 +43,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -63,6 +71,13 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\AdminAccount::class,
+            'table' => 'tbl_admin',
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+            'table' => 'tbl_user',
         ],
 
         // 'users' => [
