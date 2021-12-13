@@ -78,8 +78,19 @@
               </li>
               <li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+
+                @php
+                    $user = Auth::guard('customer')->user();
+                @endphp
+
+                @if (Auth::guard('customer')->check())
+                  <div>Hello, {{ $user->user_name }} !</div>
+                  <a href="{{route('customer.logout')}}">Log out</a>
+                @else
+                  <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                @endif
               </li>
+              
               </li>
             </ul>
             {{-- search bar --}}

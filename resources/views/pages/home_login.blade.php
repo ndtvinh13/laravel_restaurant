@@ -18,9 +18,10 @@
                                     {{ Session::get('msg') }}
                                 </div>
                             @endif
-                            @if($errors->any())
+
+                            @if($errors->first('user_name') || $errors->first('user_email') || $errors->first('user_confirm_password'))
                                 <div class="alert alert-warning">All field MUST be required</div>
-                             @endif
+                            @endif
 
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" name="user_name">
@@ -30,12 +31,22 @@
                             </div>
                             <div class="mb-3">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="user_password">
+                                @if ($errors->first('user_password'))
+                                    @error('user_password')
+                                        <div class="alert-warning">{{$message}}</div>
+                                    @enderror
+                                @endif
+                                
                             </div>
+                            
                             <div class="mb-3">
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" name="user_confirm_password">
+                            {{-- @error('user_confirm_password')
+                                <div class="alert-warning">{{$message}}</div>
+                            @enderror --}}
                             </div>
                             <div class="cust-btn-div">
-                                <button type="submit" class="btn cust-btn">Sign up</button>
+                                <button type="submit" class="btn cust-btn" name="submit_register">Sign up</button>
                             </div>
                         </div>
                     </form>
@@ -55,18 +66,19 @@
                                     {{ Session::get('login_msg') }}
                                 </div>
                             @endif
-                            @if($errors->any())
+
+                            @if($errors->first('userEmail') || $errors->first('userPassword'))
                                 <div class="alert alert-warning">All field MUST be required</div>
                             @endif
 
                             <div class="mb-3">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name="user_email">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name="userEmail">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="user_password">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="userPassword">
                             </div>
                             <div class="cust-btn-div">
-                                <button type="submit" class="btn cust-btn">Sign in</button>
+                                <button type="submit" class="btn cust-btn" name="submit_login">Sign in</button>
                             </div>
                         </div>
                     </form>

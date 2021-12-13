@@ -15,17 +15,19 @@
     margin: 3rem 0;
 }
 
-.fa-remove {
+.fa-trash {
     color: grey !important;
+    transition: 0.3s;
 }
 
-.fa-remove:hover {
+.fa-trash:hover {
     color: red !important;
 }
 
 .fa-repeat {
     color: grey !important;
     margin-right: 50px;
+    transition: 0.3s;
 }
 
 .fa-repeat:hover {

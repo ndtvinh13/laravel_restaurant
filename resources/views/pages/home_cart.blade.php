@@ -22,16 +22,16 @@
 
     @php
         $cartCount=Cart::content()->count();
-        echo "<pre>";
-        print_r($cartCount);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($cartCount);
+        // echo "</pre>";
     @endphp
 
     @php
-    $content=Cart::content();
-        echo "<pre>";
-        print_r($content);
-        echo "</pre>";
+        $content=Cart::content();
+        // echo "<pre>";
+        // print_r($content);
+        // echo "</pre>";
     @endphp
     {{-- Shopping cart --}}
     <div class="container-fluid p-0 what-is">
@@ -51,7 +51,10 @@
                     </thead>
 
                     <tbody>
-
+                    @if(Auth::guard('customer')->check())
+                      This is user table
+                      {{dd(Cart::instance(Auth::guard('customer')->user())->content())}}
+                    @else  
                       {{-- Loop to display item products --}}
                       @foreach($content as $each_content)
                       <tr>
@@ -83,12 +86,13 @@
                         {{-- Total = price * qty --}}
                         <td>{{"$".$total = $each_content->price * $each_content->qty}}</td>
                         <td>
-                          <a href="{{route('cart.delete',['rowId' => $each_content->rowId])}}"><i class="fa fa-remove fa-lg"></i></a>
+                          <a href="{{route('cart.delete',['rowId' => $each_content->rowId])}}"><i class="fa fa-trash fa-lg"></i></a>
                         </td>
                       </tr>
                       @endforeach
                       {{-- End of loop --}}
-
+                    
+                    @endif
                     </tbody>
                   </table>
             </div>
@@ -103,7 +107,7 @@
                           <h6 class="card-text">${{Cart::subtotal()}}</h6>
                         </div>
                         <div class="cart-text">
-                          <h6 class="card-text">Tax:</h6>
+                          <h6 class="card-text">Tax (9%):</h6>
                           <h6 class="card-text">${{Cart::tax()}}</h6>
                         </div>
                         <hr>

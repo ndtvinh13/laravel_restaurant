@@ -15,6 +15,20 @@ class CustomerController extends Controller
         return view('pages.home_login');
     }
 
+    //Customer list
+    public function list_customer(){
+        $dataCustomer = Customer::all();
+        return view('admin.list_customer')->with('customers',$dataCustomer);
+    }
+
+    //Customer delete
+    public function delete_customer(Request $request){
+        $customerId = $request->user_id;
+        $dataCustomer = Customer::find($customerId);
+        $dataCustomer->delete();
+        return redirect()->route('custlist')->with('msg', 'Delete a customer succesfully!');
+    }
+
     //Customer register
     public function register(Request $request){
         $request->validate([
@@ -54,12 +68,12 @@ class CustomerController extends Controller
     //Customer login
     public function login(Request $request){
         $request->validate([
-            'user_email' => 'required',
-            'user_password' => 'required',
+            'userEmail' => 'required',
+            'userPassword' => 'required',
         ]);
 
-        $email = $request->user_email;
-        $pass = $request->user_password;
+        $email = $request->userEmail;
+        $pass = $request->userPassword;
         $credentials = [
             'email' => $email,
             'password'=>$pass
@@ -74,7 +88,7 @@ class CustomerController extends Controller
     //Customer logout
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('customer')->logout();
         return redirect()->route('customer');
     }
 

@@ -46,6 +46,7 @@ Route::get('/sort', [MenuController::class, 'sort_product'])->name('sort');
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
 Route::post('/customer-register', [CustomerController::class, 'register'])->name('customer.register');
 Route::post('/customer-login', [CustomerController::class, 'login'])->name('customer.login');
+Route::get('/customer-logout', [CustomerController::class, 'logout'])->name('customer.logout');
 
 
 //-----------------------------Cart--------------------------------//
@@ -88,6 +89,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
     Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
     Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
+
+    //-----------------------------Customer-----------------------------//
+    Route::get('/list-customer', [CustomerController::class, 'list_customer'])->name('custlist');
+    Route::get('/delete-customer/{user_id}', [CustomerController::class, 'delete_customer'])->name('custdelete');
 });
 
 

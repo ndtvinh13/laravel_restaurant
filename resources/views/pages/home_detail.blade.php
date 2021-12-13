@@ -3,9 +3,13 @@
 
     @foreach($dataDetails as $product)
         <div class="detail-wrapper">
+
+            {{-- Title --}}
+            <h3 class="title-checkout">Food Detail</h3>
+
             <div class="container-fluid">
                 <a class="btn" href="{{route('menu')}}">Back to Menu</a>
-                <div>Another search box??</div>
+                {{-- <div>Another search box??</div> --}}
                 <hr class="detail-brake-line">
             </div>
             <form action="{{route('cart.save')}}" method="POST">
@@ -30,6 +34,11 @@
                             </div>
 
                             <input type="hidden" name="product_hidden" value="{{$product['product_id']}}"/>
+
+                            @if (Auth::guard('customer')->check())
+                                {{-- {{Cart::instance(Auth::guard('customer')->user())->store()}} --}}
+                            @endif
+
                             <button type="submit" class="btn btn-cart-detail">Add to Cart</i></button>
                         </div>
                     </div>
