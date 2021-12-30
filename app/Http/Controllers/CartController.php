@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
+
 
 class CartController extends Controller
 {
@@ -23,10 +25,12 @@ class CartController extends Controller
 
     public function save_cart(Request $request){
         $productId = $request->product_hidden;
+        $categoryId = $request->category_hidden;
         $quantity = $request->quantity;
 
         $dataCategory = Category::select()->orderby('category_id','desc')->get();
         $dataProduct = Product::select()->where('product_id',$productId)->first();
+        $dataCategoryId = Category::where('category_id', $categoryId)->first();
         // $productInfo=Product::where('product_id',$productId)->first();
 
         // Cart::add('293ad', 'Product 1', 1, 9.99, 550);
@@ -36,8 +40,9 @@ class CartController extends Controller
         $data['qty'] = $quantity;
         $data['name'] = $dataProduct->product_name;
         $data['price'] = $dataProduct->product_price;
-        $data['weight'] = '123';
+        $data['weight'] = '0';
         $data['options']['image'] = $dataProduct->product_image;
+        $data['options']['category'] = $dataCategoryId->category_name;
         
         // Set tax
         Cart::setGlobalTax(9);

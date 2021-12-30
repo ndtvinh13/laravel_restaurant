@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryProduct;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Auth;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +56,12 @@ Route::post('/save-cart',[CartController::class,'save_cart'])->name('cart.save')
 Route::get('/delete-cart/{rowId}',[CartController::class,'delete_cart'])->name('cart.delete');
 Route::post('/update-cart',[CartController::class,'update_cart'])->name('cart.update');
 
+
+//-----------------------------Checkout--------------------------------//
+Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+Route::post('/save-checkout',[CheckoutController::class,'save_checkout'])->name('checkout.save');
+Route::get('/payment',[CheckoutController::class,'payment'])->name('payment');
+Route::post('/place-order',[CheckoutController::class,'place_order'])->name('order');
 
 
 //-----------------------------Back-end-----------------------------//

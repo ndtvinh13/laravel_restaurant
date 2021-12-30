@@ -20,7 +20,8 @@
                             <th scope="col">Customer ID</th>
                             <th scope="col">Customer Name</th>
                             <th scope="col">Customer Email</th>
-                            <th scope="col">Password</th>
+                            {{-- <th scope="col">Password</th> --}}
+                            <th scope="col">Updated</th>
                             <th scope="col">Action*</th>
                         </tr>
                     </thead>
@@ -31,7 +32,8 @@
                             <td>{{$customer->user_id}}</td>
                             <td>{{$customer->user_name}}</td>
                             <td>{{$customer->email}}</td>
-                            <td>{{Str::limit($customer->password,15,'xxx')}}</td>
+                            {{-- <td>{{Str::limit($customer->password,15,'xxx')}}</td> --}}
+                            <td>{{$customer->updated_at}}</td>
                             <td>
                                 <!-- Edit and Delete buttons -->
                                 {{-- <a href="" class="btn btn-primary">Edit</a> --}}

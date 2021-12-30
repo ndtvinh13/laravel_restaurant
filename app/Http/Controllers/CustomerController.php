@@ -38,6 +38,7 @@ class CustomerController extends Controller
             'user_confirm_password' => 'required'
         ]);
 
+        //Get all request values
         $data = $request->all();
         
         $userCount = Customer::where('email',$data['user_email'])->count();

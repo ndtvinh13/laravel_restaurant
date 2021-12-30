@@ -5,7 +5,7 @@
         <!-- Category List page -->
         <div class="container-fluid page-ti-co p-0 col-11 col-sm-8 col-md-8">
             <!-- <div class="wrapper-container"> -->
-            <div class="page-title">Category List</div>
+            <div class="page-title">Product List</div>
             <div class="page-content">
 
                 @if(Session::has('msg'))

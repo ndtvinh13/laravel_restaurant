@@ -15,6 +15,7 @@
     <link href="{{asset('public/frontend/css/menu.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/detail.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/customer.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/frontend/css/checkout.css')}}" rel="stylesheet" />
 
     <!-- font -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Pacifico')}}" rel='stylesheet'>
@@ -22,6 +23,7 @@
     rel="stylesheet"
     href="{{asset('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')}}"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>Restaurant</title>
   </head>
@@ -74,7 +76,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
+                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-sm" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
               </li>
               <li>
               <li class="nav-item">
@@ -117,8 +119,9 @@
         <div class="footer-info">
           <a class="navbar-brand footer-left" href="{{URL::to('/main-page')}}">BurgerZ</a>
           <div class="footer-right">
-            <a href="#"><i class="fa fa-facebook-square fa-lg"></i></a>
-            <a href="#"><i class="fa fa-instagram fa-lg"></i></a>
+            <a href="#"><i class="fab fa-facebook-square fa-lg"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="#"><i class="fab fa-github fa-lg"></i></a>
           </div>
         </div>
         <hr style="color:#fd7e14;">

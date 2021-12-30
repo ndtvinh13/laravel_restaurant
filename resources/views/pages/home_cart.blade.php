@@ -9,7 +9,7 @@
 
     <div class="container-fluid shopping-option">
         <a class="btn" href="{{route('menu')}}">Continue shopping</a>
-        <div class="btn">Go to Checkout</div>
+        <a class="btn">Go to Checkout</a>
     </div>
 
     <hr>
@@ -29,10 +29,13 @@
 
     @php
         $content=Cart::content();
-        // echo "<pre>";
-        // print_r($content);
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($content);
+        echo "</pre>";
     @endphp
+
+    
+
     {{-- Shopping cart --}}
     <div class="container-fluid p-0 what-is">
         <div class="row shopping-row">
@@ -49,12 +52,9 @@
                         <th></th>
                       </tr>
                     </thead>
-
+                    {{-- {{dd(Cart::instance('cart')->count())}}  --}}
                     <tbody>
-                    @if(Auth::guard('customer')->check())
-                      This is user table
-                      {{dd(Cart::instance(Auth::guard('customer')->user())->content())}}
-                    @else  
+
                       {{-- Loop to display item products --}}
                       @foreach($content as $each_content)
                       <tr>
@@ -92,7 +92,6 @@
                       @endforeach
                       {{-- End of loop --}}
                     
-                    @endif
                     </tbody>
                   </table>
             </div>
@@ -115,7 +114,7 @@
                           <h5 class="card-text">Total:</h5>
                           <h5 class="card-text">${{Cart::total()}}</h5>
                         </div>
-                        <a href="#" class="btn btn-checkout">checkout</a>
+                        <a href="{{route('checkout')}}" class="btn btn-checkout">Checkout</a>
                     </div>
                   </div>
             </div>

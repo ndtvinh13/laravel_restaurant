@@ -1,0 +1,55 @@
+.checkout-input {
+    width: 80%;
+}
+
+.checkout-text {
+    width: 100%;
+}
+
+.btn-checkout-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-checkout-sub {
+    color: #fff;
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+    width: 10rem;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+/* ===================Review=================== */
+.review-div {
+    background-color: #f5f5f5;
+    padding: 20px 15px;
+}
+
+.review-text {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.review-edit {
+    color: black;
+    transition: 0.3s;
+}
+
+.review-edit:hover {
+    color: #fd7e14;
+}
+
+.review-info {
+    margin: 0 6px;
+}
+
+.review-total-div {
+    margin-top: 25px;
+}
+
+/* ======================Payment====================== */
+.payment-type {
+    font-weight: bold;
+}

@@ -23,6 +23,7 @@
                         <div class="col-md-6 mx-0">
                             <h5 class="card-title">{{$product['product_name']}}</h5>
                             <h6 class="card-title">${{$product['product_price']}}</h6>
+                            <input type="hidden" name="category_hidden" value="{{$product['category_id']}}">
                             <p class="card-text">{{$product['product_desc']}}</p>
                             <p class="card-text fst-italic fw-bold">{{$product['product_type']==0 ? 'None featured' : 'Featured'}}</p>
                             {{-- Quantity box --}}

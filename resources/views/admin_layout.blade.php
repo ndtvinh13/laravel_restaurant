@@ -162,8 +162,8 @@
               </li>
 
               <!-- Customers -->
-              <li class="nav-item">
-                <a href="" class="nav-link px-0 align-middle main-link">
+              <li class="nav-item {{$cRN=='custlist' ? 'active-tab' : ''}}">
+                <a href="{{route('custlist')}}" class="nav-link px-0 align-middle main-link">
                   <i class="fa fa-users"></i>
                   <span class="ms-1 d-none d-sm-inline">Customers</span>
                 </a>

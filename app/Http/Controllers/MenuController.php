@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 
+
 class MenuController extends Controller
 {
     public function index(){
-
         $dataCategory=Category::select('category_name','category_id')->orderby('category_id','desc')->get();
-        $dataProduct=Product::select()->orderby('category_id','desc')->paginate(9);
+        $dataProduct=Product::select()->orderby('category_id','desc')->paginate(3);
 
         // return view('pages.menu',['products'=>$dataProduct],['categories'=>$dataCategory]);
         return view('pages.menu')->with('products',$dataProduct)->with('categories',$dataCategory);
