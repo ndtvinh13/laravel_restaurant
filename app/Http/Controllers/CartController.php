@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Product;
+use App\Models\ShoppingCart;
 // use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -14,6 +16,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
 
+session_start();
 
 class CartController extends Controller
 {
@@ -23,10 +26,12 @@ class CartController extends Controller
         return view('pages.home_cart')->with('categories',$dataCategory);
     }
 
+    // Add
     public function save_cart(Request $request){
         $productId = $request->product_hidden;
-        $categoryId = $request->category_hidden;
         $quantity = $request->quantity;
+        $categoryId = $request->category_hidden;
+        // $quantity = $request->quantity;
 
         $dataCategory = Category::select()->orderby('category_id','desc')->get();
         $dataProduct = Product::select()->where('product_id',$productId)->first();
@@ -46,23 +51,175 @@ class CartController extends Controller
         
         // Set tax
         Cart::setGlobalTax(9);
+        $this->restoreFromDb();
         Cart::add($data);
+        $this->storeIntoDb();
+        $this->display();
+        // if(Auth::guard('customer')->check()){
+        //     $user_name = Auth::guard('customer')->user()->user_name;
+        //     ShoppingCart::deleteCartRecord($user_name);
+        //     Cart::store($user_name);
+        // }
 
         // return view('pages.home_cart')->with('categories',$dataCategory)->with('products',$dataProduct);
 
         return redirect()->route('cart.show')->with('msg','Successfully add an item');
     }
 
+    public function save_cart_ajax(Request $request){
+        $productId = $request->input('product_id');
+        $quantity = $request->input('qty');
+        $categoryId = $request->input('category_id');
+        // $quantity = $request->quantity;
+
+        $dataCategory = Category::select()->orderby('category_id','desc')->get();
+        $dataProduct = Product::select()->where('product_id',$productId)->first();
+        $dataCategoryId = Category::where('category_id', $categoryId)->first();
+        // $productInfo=Product::where('product_id',$productId)->first();
+
+        // Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+        // Cart::destroy();
+
+        $data['id'] = $dataProduct->product_id;
+        $data['qty'] = $quantity;
+        $data['name'] = $dataProduct->product_name;
+        $data['price'] = $dataProduct->product_price;
+        $data['weight'] = '0';
+        $data['options']['image'] = $dataProduct->product_image;
+        $data['options']['category'] = $dataCategoryId->category_name;
+        
+        // Set tax
+        Cart::setGlobalTax(9);
+        $this->restoreFromDb();
+        Cart::add($data);
+        $this->storeIntoDb();
+        $this->display();
+    }
+
+    // Display cart item using Ajax
+    public function display(){
+        $result = [];
+        $result['count'] = Cart::content()->count();
+        echo json_encode($result);
+    }
+    
+
+    // Item Increment and Decrement using Ajax
+    public function cart_item_ajax(Request $request){
+        $rowId = $request->input('row_id');
+        $itemQty = $request->input('item_qty');
+        $itemPrice = $request->input('item_price');
+        Cart::update($rowId,$itemQty);
+        // $this->display();
+        $this->item_display_ajax($itemPrice,$itemQty);
+    }
+
+    // Del cart ajax
+    public function cart_item_del_ajax(Request $request){
+        $rowId = $request->input('row_id');
+        Cart::remove($rowId);
+        $this->display_del_item();
+
+    }
+
+    public function display_del_item(){
+        $result = [];
+        $result['count'] = Cart::content()->count();
+        $result['subtotal'] = Cart::subtotal();
+        $result['total'] = Cart::total();
+        $result['tax'] = Cart::tax();
+        $result['del_item'] = '';
+        echo json_encode($result);
+    }
+
+    // display each item Ajax
+    public function item_display_ajax($price,$qty){
+        $result = [];
+        $itemSub = number_format($price * $qty,2);
+        $result['count'] = Cart::content()->count();
+        $result['subtotal'] = Cart::subtotal();
+        $result['total'] = Cart::total();
+        $result['tax'] = Cart::tax();
+        $result['itemSub'] = $itemSub;
+        echo json_encode($result);
+    }
+
+    // Delete
     public function delete_cart($rowId){
-        Cart::update($rowId,0);
+        $this->restoreFromDb();
+        Cart::remove($rowId);
+        $this->storeIntoDb();
+        $this->display();
         return redirect()->route('cart.show')->with('msg','Successfully delete an item');
     }
 
+    // Update
     public function update_cart(Request $request){
         $rowId = $request->rowId_qty;
         $quantity = $request->quantity;
+        $this->restoreFromDb();
         Cart::update($rowId,$quantity);
+        $this->storeIntoDb();
+        $this->display();
         return redirect()->route('cart.show')->with('msg','Successfully update an item');
+    }
+
+    public function storeIntoDb(){
+        //Nếu đã đăng nhập thì store trên DB
+        if(Auth::guard('customer')->check()){
+            $user_name = Auth::guard('customer')->user()->user_name;
+            ShoppingCart::deleteCartRecord($user_name);
+            Cart::store($user_name);
+        }
+    }
+
+    public function restoreFromDb(){
+        //Nếu đã đăng nhập thì store trên DB
+        if(Auth::guard('customer')->check()){
+            $user_name = Auth::guard('customer')->user()->user_name;
+            // ShoppingCart::deleteCartRecord($user_name);
+            Cart::restore($user_name);
+        }
+    }
+
+    // Coupon
+    public function coupon_check(Request $request){
+        $data = $request->coupon;
+        $coupon = Coupon::where('coupon_code',$data)->first();
+        if($coupon){
+            $count_coupon = $coupon->count();
+            if($count_coupon > 0){
+                // get session when there is a coupon
+                $coupon_session = Session::get('coupon');
+                if($coupon_session==true){
+                    $is_available = 0;
+                    if($is_available == 0){
+                        $cou = array(
+                            'code'=>$coupon->coupon_code,
+                            'function'=>$coupon->coupon_function,
+                            'discount'=>$coupon->coupon_discount,
+                        );
+                        Session::put('coupon',$cou);
+                    }
+                }else{
+                    $cou = array(
+                        'code'=>$coupon->coupon_code,
+                        'function'=>$coupon->coupon_function,
+                        'discount'=>$coupon->coupon_discount,
+                    );
+                    Session::put('coupon',$cou);
+                }
+                Session::save();
+                return redirect()->back()->with('coupon_msg',"Successfully add a coupon!");
+            }
+        } else {
+            return redirect()->back()->with('wrong_coupon_msg',"Coupon is invalid!");
+        }
+    }
+
+    // Test
+    public function test(){
+        echo json_encode('2');
     }
 
 }

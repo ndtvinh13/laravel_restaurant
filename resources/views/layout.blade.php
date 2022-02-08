@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{-- Meta --}}
+    {{-- <meta name="description" content="{{$meta_desc}}">
+    <meta name="keywords" content="{{$meta_keywords}}"/>
+    <meta name="robots" content="INDEX,FOLLOW"/>
+    <link  rel="canonical" href="{{$url_canonical}}" />
+    <meta property="og:title" content="{{$meta_title}}" /> --}}
+    {{-- End Meta --}}
     <link
       href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css')}}"
       rel="stylesheet"    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
@@ -24,6 +31,8 @@
     href="{{asset('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')}}"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <title>Restaurant</title>
   </head>
@@ -113,7 +122,16 @@
       @yield('content')
     </main> 
 
-
+      {{-- Current cart will be destroyed when there is no login 
+        which will conflict with the idea that if the user needs 
+        to be logged in to buy items --> ????? --}}
+      @php
+        // if(Auth::guard('customer')->check() == FALSE){
+        //   Cart::destroy();
+        // }
+      @endphp
+    
+    
     {{-- footer --}}
     <div class="container-fluid footer">
         <div class="footer-info">
@@ -130,7 +148,7 @@
   
   
   </body>
-  
+    {{-- Scripts --}}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
@@ -138,4 +156,127 @@
     ></script>
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
     <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
+    <script>
+      // Add cart using Ajax
+      $(function () {
+        $('.addItem').click(function (e) { 
+          let product_id = $(this).attr('product_id');
+          let category_id = $(this).attr('category_id');
+          console.log(category_id);
+          $.ajax({
+            type: "get",
+            url: "{{route('cart.save.ajax')}}",
+            data: {product_id: product_id, category_id: category_id, qty:1},
+            success: function (response) {
+              displayCart(response);
+            }
+          });
+        });
+      });
+
+      function displayCart(data){
+          let cart = JSON.parse(data);
+          let count = cart.count;
+          $('.cart-count').html(count);
+      }
+      
+    </script>
+    <script>
+      // Delete an item with - using Ajax
+      $(function (){
+        $('.dec').click(function (e){
+          let row_id = $(this).attr("row_id");
+          let item_qty = $(this).next().val();
+          let item_price = $(this).next().attr('item_price');
+          let current = $(this).parent().parent().parent().next();
+          let sum = item_qty*item_price;
+          // console.log(row_id,item_qty,item_price,current);
+          let pos = $(this).parent().parent().parent().parent();
+          // Delete the item when its quantity = 0 - using ajax
+          if(item_qty==0){
+            $.ajax({
+              type: "get",
+              url: "{{route('cart.item.del.ajax')}}",
+              data: {row_id: row_id},
+              success: function (response) {
+                delItem(response,pos);
+              }
+            });
+          }else{
+          $.ajax({
+            type: "get",
+            url: "{{route('cart.item.ajax')}}",
+            data: {row_id: row_id, item_qty: item_qty, item_price: item_price},
+            success: function (response) {
+              displayItem(response);
+              current.each(function(i){
+                console.log(current.eq(i).html("$"+sum.toFixed(2)));
+              });
+            }
+          });
+          }
+        });
+      });
+      
+      // Add an item with + using Ajax
+      $(function (){
+        $('.inc').click(function (e){
+          let row_id = $(this).attr("row_id");
+          let item_qty = $(this).prev().val();
+          let item_price = $(this).prev().attr('item_price');
+          let current = $(this).parent().parent().parent().next();
+          let sum = item_qty*item_price;
+          console.log(row_id,item_qty,item_price,current,sum);
+
+          let coup = $('.coupon-discount').children().children().first().html();
+          console.log(coup);
+
+          $.ajax({
+            type: "get",
+            url: "{{route('cart.item.ajax')}}",
+            data: {row_id: row_id, item_qty: item_qty, item_price: item_price},
+            success: function (response) {
+              displayItem(response);
+              current.each(function(i){
+                console.log(current.eq(i).html("$"+sum.toFixed(2)));
+              });
+            }
+          });
+        });
+      });
+
+      // JSON Parse
+      function displayItem(data){
+        let coup = parseInt($('.coupon-discount').children().children().first().html());
+        console.log(coup);
+        let item = JSON.parse(data);
+        let count = item.count;
+        let subtotal = item.subtotal;
+        let total = item.total - coup;
+        let tax = item.tax;
+        let itemSub = item.itemSub;
+        $('.cart-count').html(count);
+        $('.subtotal-ajax').html("$"+subtotal);
+        $('.total-ajax').html("$"+total.toFixed(2));
+        $('.tax-ajax').html("$"+tax);
+      }
+
+      function delItem(data,pos){
+              let item = JSON.parse(data);
+              let count = item.count;
+              let del_item = item.del_item;
+              let posi = pos;
+              let subtotal = item.subtotal;
+              let total = item.total;
+              let tax = item.tax;
+              $('.cart-count').html(count);
+              $('.subtotal-ajax').html("$"+subtotal);
+              $('.total-ajax').html("$"+total);
+              $('.tax-ajax').html("$"+tax);
+              posi.html(del_item);
+            }
+    </script>
 </html>

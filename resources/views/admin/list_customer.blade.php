@@ -13,8 +13,11 @@
                     {{ Session::get('msg') }}
                 </div>
                 @endif
-
-                <table class="table table-sm table-hover table-responsive-md tbl-prodlist">
+                <div class="customer-search-wrapper container-fluid p-0 d-flex align-items-center">
+                    <input class="form-control customer-search-ajax" type="text" placeholder="Enter Customer Name" aria-label="default input example">
+                    <i class="fas fa-search-dollar fa-2x"></i>
+                </div>
+                <table class="table table-sm table-hover table-responsive-md tbl-prodlist table-striped">
                     <thead>
                         <tr class="bg-warning tbl-header p-0">
                             <th scope="col">Customer ID</th>
@@ -25,22 +28,9 @@
                             <th scope="col">Action*</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="customer-tbody">
+                        {{-- table body display --}}
                         
-                        @foreach ($customers as $customer)    
-                        <tr>
-                            <td>{{$customer->user_id}}</td>
-                            <td>{{$customer->user_name}}</td>
-                            <td>{{$customer->email}}</td>
-                            {{-- <td>{{Str::limit($customer->password,15,'xxx')}}</td> --}}
-                            <td>{{$customer->updated_at}}</td>
-                            <td>
-                                <!-- Edit and Delete buttons -->
-                                {{-- <a href="" class="btn btn-primary">Edit</a> --}}
-                                <a onclick="return confirm('Do you want to delete?')" href="{{route('custdelete',['user_id' => $customer->user_id])}}" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                        @endforeach
     
                     </tbody>
                 </table>
@@ -50,5 +40,32 @@
           </div>
         </div>
       </div>
+      {{-- customer search ajax --}}
+      <script>
+          $(document).ready(function () {
+                fetch_customer_data();
+                function fetch_customer_data(query = ''){
+                    $.ajax({
+                        method: "get",
+                        url: "{{route('cust.search.ajax')}}",
+                        data: {query: query},
+                        success: function (response) {
+                            // console.log(response);
+                            // $('.customer-tbody').html(response.data)
+                            searchData(response);
+                        }
+                    });
+                }
+                function searchData(resp){
+                    let item = JSON.parse(resp);
+                    let data = item.data;
+                    $('.customer-tbody').html(data)
+                }
 
+                $('.customer-search-ajax').keyup(function () { 
+                    var query = $(this).val();
+                    fetch_customer_data(query);
+                });
+          });
+      </script>
 @endsection

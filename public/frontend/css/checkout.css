@@ -53,3 +53,20 @@
 .payment-type {
     font-weight: bold;
 }
+
+/* ======================Confirmation================= */
+.confirm-order {
+    margin-top: 10px;
+}
+
+.confirmation-line {
+    border: 2px solid #333;
+    border-color: black;
+}
+
+#confirmation-info-line {
+    height: 20px;
+    width: 1px;
+    margin: 0 5px;
+    padding: 0;
+}

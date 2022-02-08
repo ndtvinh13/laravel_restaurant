@@ -35,41 +35,41 @@
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModal{{$product['product_id']}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                {{-- Modal body --}}
-                                                <div class="modal-body">
-                                                    <div class="container-fluid">
-                                                        <div class="row">
-                                                            <div class="col-md-5">
-                                                                <img src="{{asset('/public/uploads/products/'.$product['product_image'])}}"  class="card-img-top"/>
-                                                            </div>
-                                                            <div class="col-md-7 ms-auto">
-                                                                <h5 class="card-title">{{$product['product_name']}}</h5>
-                                                                <h6 class="card-title">${{$product['product_price']}}</h6>
-                                                                <p class="card-text">{{$product['product_desc']}}</p>
-                                                                <p class="card-text fst-italic fw-bold">{{$product['product_type']==0 ? 'None featured' : 'Featured'}}</p>
-                                                                
-                                                                <div class="qty-box">
-                                                                    <label class="fw-bold">Quantity:</label>
-                                                                    <div class="menu-btn dec">-</div>
-                                                                    <input class="quantity-input" type="number" value="1" name="quantity"/>
-                                                                    <div class="menu-btn inc">+</div>
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    {{-- Modal body --}}
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-5">
+                                                                    <img src="{{asset('/public/uploads/products/'.$product['product_image'])}}"  class="card-img-top"/>
                                                                 </div>
-                                                                <input type="hidden" name="product_hidden" value="{{$product['product_id']}}"/>
+                                                                <div class="col-md-7 ms-auto">
+                                                                    <h5 class="card-title">{{$product['product_name']}}</h5>
+                                                                    <h6 class="card-title">${{$product['product_price']}}</h6>
+                                                                    <p class="card-text">{{$product['product_desc']}}</p>
+                                                                    <p class="card-text fst-italic fw-bold">{{$product['product_type']==0 ? 'None featured' : 'Featured'}}</p>
+                                                                    
+                                                                    <div class="qty-box">
+                                                                        <label class="fw-bold">Quantity:</label>
+                                                                        <div class="menu-btn dec">-</div>
+                                                                        <input class="quantity-input" type="number" value="1" name="quantity"/>
+                                                                        <div class="menu-btn inc">+</div>
+                                                                    </div>
+                                                                    <input type="hidden" name="product_hidden" value="{{$product['product_id']}}"/>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {{-- Modal footer --}}
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></button>
+                                                        <button type="button" class="btn" data-bs-dismiss="modal">Back</button>
+                                                    </div>
                                                 </div>
-                                                {{-- Modal footer --}}
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></button>
-                                                    <button type="button" class="btn" data-bs-dismiss="modal">Back</button>
-                                                </div>
-                                            </div>
                                             </div>
                                         </div>
                                     </form>

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryProduct;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -53,8 +54,12 @@ Route::get('/customer-logout', [CustomerController::class, 'logout'])->name('cus
 //Menu cart
 Route::get('/cart',[CartController::class,'index'])->name('cart.show');
 Route::post('/save-cart',[CartController::class,'save_cart'])->name('cart.save');
+Route::get('/save-cart-ajax',[CartController::class,'save_cart_ajax'])->name('cart.save.ajax');
 Route::get('/delete-cart/{rowId}',[CartController::class,'delete_cart'])->name('cart.delete');
 Route::post('/update-cart',[CartController::class,'update_cart'])->name('cart.update');
+Route::get('/cart-item-ajax',[CartController::class,'cart_item_ajax'])->name('cart.item.ajax');
+Route::get('/cart-item-del-ajax',[CartController::class,'cart_item_del_ajax'])->name('cart.item.del.ajax');
+Route::post('/coupon-check',[CartController::class,'coupon_check'])->name('coupon.check');
 
 
 //-----------------------------Checkout--------------------------------//
@@ -62,9 +67,10 @@ Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
 Route::post('/save-checkout',[CheckoutController::class,'save_checkout'])->name('checkout.save');
 Route::get('/payment',[CheckoutController::class,'payment'])->name('payment');
 Route::post('/place-order',[CheckoutController::class,'place_order'])->name('order');
+Route::get('/confirmation',[CheckoutController::class,'confirmation'])->name('confirmation');
 
 
-//-----------------------------Back-end-----------------------------//
+//=====================================Back-end====================================//
 Route::get('/admin-login', [LoginController::class, 'index'])->name('loginPage');
 
 Route::post('/admin-dashboard', [LoginController::class, 'login'])->name('login');
@@ -99,13 +105,28 @@ Route::middleware('auth')->group(function () {
     //-----------------------------Customer-----------------------------//
     Route::get('/list-customer', [CustomerController::class, 'list_customer'])->name('custlist');
     Route::get('/delete-customer/{user_id}', [CustomerController::class, 'delete_customer'])->name('custdelete');
+    Route::get('/search-customer-ajax', [CustomerController::class, 'search_customer_ajax'])->name('cust.search.ajax');
+
+    //-----------------------------Order-----------------------------//
+    Route::get('/manage-order', [CheckoutController::class, 'manage_order'])->name('order.manage');
+    Route::get('/view-order/{orderId}', [CheckoutController::class, 'view_order'])->name('order.view');
+    Route::get('/delete-order/{orderId}', [CheckoutController::class, 'delete_order'])->name('order.delete');
+
+    //-----------------------------Coupon-----------------------------//
+    Route::get('/add-coupon', [CouponController::class, 'add_coupon'])->name('coupon.add');
+    Route::post('/insert-coupon', [CouponController::class, 'insert_coupon'])->name('coupon.insert');
+    Route::get('/list-coupon', [CouponController::class, 'list_coupon'])->name('coupon.list');
+    Route::get('/delete-coupon/{couponId}', [CouponController::class, 'delete_coupon'])->name('coupon.delete');
+
+
 });
 
-
-// Route::get('/dashboard',[AdminController::class,'show_dashboard'])->name('admin.dashboard');
-
-// Route::post('/admin-dashboard',[AdminController::class,'dashboard']);
-Route::get('/logout', [LoginController::class, 'logout']);
+// ---------------------------Admin Logout--------------------------//
+Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
 // Route::get('/product',[AdminController::class,'product'])->name('admin.product');
 
+
+
+// Test
+Route::get('/test', [CartController::class, 'test'])->name('test');

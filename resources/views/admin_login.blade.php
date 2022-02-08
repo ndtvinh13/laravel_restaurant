@@ -13,12 +13,17 @@
         <div class="container-login">
             <h1>Admin Login</h1>
             <div class="error-output">
-
                 {{-- For outputing error message --}}
                 @if(Session::has('msg'))
                 <span class="text-danger">*{{ Session::get('msg') }}*</span>
+            </div>
+            <div>
                 @endif
-
+                @foreach ($errors->all() as $allErrors)
+                    <ul>
+                        <li>{{$allErrors}}</li>
+                    </ul>
+                @endforeach
             </div>
             <div class="container">
                 <form action="{{route('login')}}" method="POST">
@@ -33,9 +38,18 @@
                         <label for="exampleInputPassword1" class="form-label">Password*</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" name="admin_password">
                     </div>
+                    {{-- Captcha --}}
+                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    <br/>
+                    @if($errors->has('g-recaptcha-response'))
+                    <span class="invalid-feedback" style="display:block">
+                        <strong>{{$errors->first('g-recaptcha-response')}}</strong>
+                    </span>
+                    @endif
                     <div class="cont-btn">
                         <button type="submit" class="btn" name="login">Log in</button>
                     </div>
+                    
                 </form>
             </div>
         </div>
@@ -43,5 +57,6 @@
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </body>
 </html>

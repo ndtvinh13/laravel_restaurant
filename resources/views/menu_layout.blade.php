@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {{-- Meta --}}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{-- <meta name="description" content="{{$meta_desc}}">
+    <meta name="keywords" content="{{$meta_keywords}}"/>
+    <meta name="robots" content="INDEX,FOLLOW"/>
+    <link  rel="canonical" href="{{$url_canonical}}" /> --}}
+    {{-- End Meta --}}
     <link
       href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css')}}"
       rel="stylesheet"    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
@@ -13,13 +19,14 @@
     <link href="{{asset('public/frontend/css/nav.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/aboutus.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/menu.css')}}" rel="stylesheet" />
-
     <!-- font -->
     <link href="{{asset('https://fonts.googleapis.com/css?family=Pacifico')}}" rel='stylesheet'>
     <link
     rel="stylesheet"
     href="{{asset('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')}}"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <title>Menu</title>
   </head>
@@ -71,9 +78,9 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="{{route('cart.show')}}">
                   <i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i>
-                  <span class="cart-count">{{Cart::content()->count();}}</span>
+                  <span class="cart-count">{{Cart::content()->count()}}</span>
                 </a>
               </li>
               <li>
@@ -81,11 +88,13 @@
 
                 @php
                     $user = Auth::guard('customer')->user();
+
                 @endphp
 
                 @if (Auth::guard('customer')->check())
                   <div>Hello, {{ $user->user_name }} !</div>
                   <a href="{{route('customer.logout')}}">Log out</a>
+                  <div>{{(Cart::instance('default')->content()->count())}}</div>
                 @else
                   <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
                 @endif
@@ -94,7 +103,7 @@
               </li>
             </ul>
             {{-- search bar --}}
-            <form class="d-flex" action="{{route('search.result')}}" id="search-form" method="POST">
+            <form class="d-flex search-bar-wrapper" action="{{route('search.result')}}" id="search-form" method="POST">
               @csrf
 
               <input
@@ -105,7 +114,7 @@
                 id="search_text"
                 name="search_item"
               />
-              <button class="btn" type="submit" name="btn_search">
+              <button class="btn btn-search" type="submit" name="btn_search">
                 <i class="fa fa-search"></i>
               </button>
             </form>
@@ -156,12 +165,11 @@
     </header>
     
    
-    
-
     <main>
       
       <hr class="page-break">
       
+      {{-- Sort functions --}}
       <div class="container-fluid p-0">
         <span class="fw-bold font-weight-bold">Sort By:</span>
         <a href="{{route('menu')}}" class="sort-font">All</a>
@@ -178,7 +186,7 @@
 
             {{-- Loop for outputing all categories --}}
             @foreach($categories as $category)
-              <div class="cat-name-wrapper"><a class="cat-name" href="{{URL::to('/category/'.$category['category_id'])}}">{{$category['category_name']}}</a></div>
+              <div class="cat-name-wrapper"><a class="cat-name" href="{{URL::to('/category/'.$category['category_id'])}}"><i class="fas fa-utensils fa-xs"></i> {{$category['category_name']}}</a></div>
             @endforeach
 
 
@@ -198,8 +206,9 @@
         <div class="footer-info">
           <a class="navbar-brand footer-left" href="{{URL::to('/main-page')}}">BurgerZ</a>
           <div class="footer-right">
-            <a href="#"><i class="fa fa-facebook-square fa-lg"></i></a>
-            <a href="#"><i class="fa fa-instagram fa-lg"></i></a>
+            <a href="#"><i class="fab fa-facebook-square fa-lg"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="#"><i class="fab fa-github fa-lg"></i></a>
           </div>
         </div>
         <hr style="color:#fd7e14;">
@@ -222,24 +231,25 @@
       $(document).ready(function () {
           src = "{{ route('search.product') }}";
           $("#search_text").autocomplete({
-              source: function (request, response) {
+              source: (request, response)  =>{
                   $.ajax({
                       url: src,
-                      data: {
-                          term: request.term,
-                      },
+                      data: {term: request.term,},
                       dataType: "json",
                       success: function (data) {
                           response(data);
+                          console.log(request);
                       },
+                      async: false
                   });
               },
               minLength: 1,
           });
+          
 
-          // $(document).on("click", "ui-menu-item", function () {
-          //     $("#search-form").submit();
-          // });
+          $(document).on("click", ".ui-menu-item", function () {
+              $("#search-form").submit();
+          });
       });
     </script>
     </html>

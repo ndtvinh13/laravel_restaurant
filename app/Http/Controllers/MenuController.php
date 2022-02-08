@@ -41,7 +41,7 @@ class MenuController extends Controller
 
     //Search product using ajax
     public function search_product(Request $request){
-        $query = $request->get('term','');
+        $query = $request->get('term');
         $dataProduct = Product::where('product_name','LIKE','%'.$query.'%')->get();
 
         $data=[];

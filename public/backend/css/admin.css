@@ -117,6 +117,16 @@ body > .container-fluid {
     /* width: 50%; */
 }
 
+.page-ti-co-order {
+    margin-top: 50px;
+    height: 700px;
+    border-style: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    position: relative;
+}
+
 .page-title {
     text-align: center;
     border-bottom-style: solid;
@@ -127,6 +137,15 @@ body > .container-fluid {
 
 .page-content {
     height: 453px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.page-content-order {
+    height: 657px;
     position: absolute;
     width: 100%;
     display: flex;
@@ -181,6 +200,19 @@ body > .container-fluid {
         position: absolute;
     }
 
+    .page-ti-co-order {
+        margin-top: 0;
+        height: 100vh;
+        /* width: 450px; */
+        /* display: block; */
+        border-radius: 0;
+        position: relative;
+    }
+    .page-content-order {
+        height: 100%;
+        position: absolute;
+    }
+
     .btn {
         font-size: 13px;
         width: 65px;
@@ -214,6 +246,23 @@ body > .container-fluid {
         font-weight: bold;
         color: #fff;
         background-color: #fd7e14;
+        width: 80%;
+        text-align: center;
+    }
+
+    .nav-item .collapse {
+        margin: 0 !important;
+        align-items: center;
+    }
+
+    .second-link {
+        text-align: center;
+        /* display: none; */
+    }
+
+    .fas,
+    .fa {
+        font-size: 0.8rem !important;
     }
 }
 /* footer */
@@ -259,4 +308,8 @@ footer {
     display: flex;
     justify-content: center;
     font-size: 5rem;
+}
+
+.hr-order-detail {
+    height: 2px;
 }

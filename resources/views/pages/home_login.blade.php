@@ -20,7 +20,7 @@
                             @endif
 
                             @if($errors->first('user_name') || $errors->first('user_email') || $errors->first('user_confirm_password'))
-                                <div class="alert alert-warning">All field MUST be required</div>
+                                <div class="alert alert-warning"><i class="far fa-times-circle"></i> All field MUST be required</div>
                             @endif
 
                             <div class="mb-3">
@@ -33,7 +33,7 @@
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="user_password">
                                 @if ($errors->first('user_password'))
                                     @error('user_password')
-                                        <div class="alert-warning">{{$message}}</div>
+                                        <div class="alert-warning"><i class="fas fa-exclamation"></i> {{$message}}</div>
                                     @enderror
                                 @endif
                                 
@@ -62,13 +62,12 @@
                         <div class="container">
                             {{-- Error message --}}
                             @if(Session::has('login_msg'))
-                                <div class="alert alert-danger cust-alert">
-                                    {{ Session::get('login_msg') }}
+                                <div class="alert alert-danger cust-alert"><i class="far fa-times-circle"></i>{{ Session::get('login_msg') }}
                                 </div>
                             @endif
 
                             @if($errors->first('userEmail') || $errors->first('userPassword'))
-                                <div class="alert alert-warning">All field MUST be required</div>
+                                <div class="alert alert-warning"><i class="far fa-times-circle"></i> All field MUST be required</div>
                             @endif
 
                             <div class="mb-3">

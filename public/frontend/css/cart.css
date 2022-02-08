@@ -54,6 +54,14 @@
     justify-content: space-between;
 }
 
+/* ===========Cart section================ */
+
+.no-cart-item {
+    text-align: center;
+    height: 100% !important;
+    width: 100% !important;
+}
+
 /* ============Responsive===================== */
 @media only screen and (max-width: 500px) {
     .column-display {

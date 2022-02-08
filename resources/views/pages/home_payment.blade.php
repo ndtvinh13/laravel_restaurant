@@ -5,17 +5,23 @@
     @php
         $userName = Auth::guard('customer')->user()->user_name;  
         $userId = Auth::guard('customer')->user()->user_id;
+        $shippingId = Session::get('shipping_id');
         $content=Cart::content();
         $cartCount=Cart::content()->count();
     @endphp
     {{-- Title --}}
-    <h3 class="title-checkout">{{$userName}}, You almost there!</h3>
+    <h3 class="title-checkout">{{$userName}}, You're almost there!</h3>
     {{-- Directions --}}
     <div class="container-fluid shopping-option">
-        <a class="btn" href="{{route('menu')}}">Continue shopping</a>
-        <a class="btn" href="{{url()->previous()}}">Back to Checkout</a>
+        <a class="btn" href="{{route('menu')}}"><i class="fas fa-chevron-circle-left"></i> Continue shopping</a>
+        <a class="btn" href="{{url()->previous()}}">Back to Checkout <i class="fas fa-chevron-circle-right"></i></a>
     </div>
     <hr>
+    @if(Session::has('msg'))
+        <div class="alert alert-success"><i class="far fa-check-circle"></i>{{ Session::get('msg') }}
+        </div>
+    @endif
+    {{-- Progress bar --}}
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
     </div>
@@ -29,7 +35,7 @@
                     <div class="cust-title">Payment Method</div>
                     <div class="container checkout-input">
                         @if ($errors->any())
-                            <div class="alert alert-warning">Please choose your method below!</div>
+                            <div class="alert alert-warning"><i class="far fa-times-circle"></i> Please choose your method below!</div>
                         @endif
 
                         {{-- Payment table --}}
@@ -60,7 +66,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
+                        <input type="hidden" value="{{$shippingId}}" name="shipping_id">
                         <input type="hidden" value="{{$userId}}" name="user_id">
                         <div class="container-fluid checkout-text p-0">
                             <div class="container-fluid btn-checkout-div p-0">
@@ -112,8 +118,6 @@
     </form>
 
     <hr>
-
-    
 
 </div>
 

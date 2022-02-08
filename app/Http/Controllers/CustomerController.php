@@ -7,6 +7,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class CustomerController extends Controller
@@ -19,6 +20,47 @@ class CustomerController extends Controller
     public function list_customer(){
         $dataCustomer = Customer::all();
         return view('admin.list_customer')->with('customers',$dataCustomer);
+    }
+
+    // Search customer using ajax
+    public function search_customer_ajax(Request $request){
+        // check if it receive ajax method
+        if($request->ajax()){
+            $query = $request->get('query');
+            if($query != ''){
+                $data = Customer::where('user_name','like','%'.$query.'%')->orderby('user_id','asc')->get();
+            }else{
+                $data = Customer::orderby('user_id','asc')->get();
+            }
+            $data_row = $data->count();
+            $result = '';
+            if($data_row > 0){
+                foreach($data as $row){
+                    $result .='
+                    <tr>
+                        <td>'.$row->user_id.'</td>
+                        <td>'.$row->user_name.'</td>
+                        <td>'.$row->email.'</td>
+                        <td>'.$row->updated_at.'</td>
+                        <td>
+                            <!-- Edit and Delete buttons -->
+                            <!-- <a href="" class="btn btn-primary">Edit</a> -->
+                            <a onclick="return confirm(\'Do you want to delete?\')" href="'.route('custdelete',$row->user_id).'" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>';
+                }
+            }else{
+                $result = '
+                    <tr> 
+                        <td align="center" colspan="5" class="fs-5 text-danger" >No data is found!!!</td>
+                    </tr>
+                ';
+            }
+            $data = [];
+            $data['data'] = $result;
+
+            echo json_encode($data);
+        }
     }
 
     //Customer delete

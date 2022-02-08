@@ -12,13 +12,15 @@
                     @foreach($products as $product)
                         <div class="col-md-4 col-6">
                             <div class="card menu-card">
-                                <img src="{{asset('/public/uploads/products/'.$product['product_image'])}}" height=160  class="card-img-top">
+                                <div class="menu-card-img">
+                                    <img src="{{asset('/public/uploads/products/'.$product['product_image'])}}" height=160  class="card-img-top">
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{$product['product_name']}}</h5>
                                     <h6 class="card-title">${{$product['product_price']}}</h6>
                                     <p class="card-text">{{Str::limit($product['product_desc'],20,'...')}}</p>
                                     <a href="{{route('product.detail',['product_id'=>$product->product_id])}}" class="btn">Detail <i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></a>
-                                    <a href="" class="btn">More</a>
+                                    <button class="btn addItem" product_id ="{{$product->product_id}}" category_id ="{{$product->category_id}}" ><i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
                         </div> 
@@ -33,7 +35,30 @@
     </div>
     
             
+    <script>
+        $(function () {
+          $('.addItem').click(function (e) { 
+            let product_id = $(this).attr('product_id');
+            let category_id = $(this).attr('category_id');
+            console.log(category_id);
+            $.ajax({
+            type: "get",
+            url: "{{route('cart.save.ajax')}}",
+            data: {product_id: product_id, category_id: category_id, qty:1},
+            success: function (response) {
+              displayCart(response);
+            }
+          });
+          });
+          
+        });
 
+        function displayCart(data){
+            let cart = JSON.parse(data)
+            let count = cart.count;
+            $('.cart-count').html(count);
+        }
+      </script>
 
 {{-- <!-- a Tag for previous page -->
     <a href="{{$products->previousPageUrl()}}">

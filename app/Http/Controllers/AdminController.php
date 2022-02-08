@@ -67,6 +67,7 @@ class AdminController extends Controller
         // null -> means to set admin_name and admin_id to null
         Session::put('admin_name', null);
         Session::put('admin_id', null);
+        // Auth::user()->logout();
         return Redirect::to('/admin-login');
     }
 }

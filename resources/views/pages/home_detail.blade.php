@@ -36,9 +36,6 @@
 
                             <input type="hidden" name="product_hidden" value="{{$product['product_id']}}"/>
 
-                            @if (Auth::guard('customer')->check())
-                                {{-- {{Cart::instance(Auth::guard('customer')->user())->store()}} --}}
-                            @endif
 
                             <button type="submit" class="btn btn-cart-detail">Add to Cart</i></button>
                         </div>

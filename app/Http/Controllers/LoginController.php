@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminAccount;
+use App\Rules\captcha;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
 
 class LoginController extends Controller
 {
@@ -19,6 +20,11 @@ class LoginController extends Controller
 
     function login(Request $request)
     {
+        $request->validate([
+            'admin_email' => 'required',
+            'admin_password' => 'required',
+            'g-recaptcha-response' => new Captcha(),
+        ]);
 
         $user = $request->admin_email;
         $pass = $request->admin_password;

@@ -53,7 +53,7 @@
                     <tr>
                         <td>Description</td>
                         <td>
-                        <textarea class="form-control" rows="4"  id="floatingTextarea" name="product_desc">{{$products['product_desc']}}</textarea>
+                        <textarea class="form-control" rows="4"  id="ckeditor1" name="product_desc">{{$products['product_desc']}}</textarea>
                         </td>
                     </tr>
     
@@ -100,5 +100,4 @@
           </div>
         </div>
       </div>
-
 @endsection
