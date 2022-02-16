@@ -12,6 +12,7 @@ use App\Http\Requests;
 // session_start();
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Customer;
 
 class AdminController extends Controller
 {
@@ -35,7 +36,9 @@ class AdminController extends Controller
         $dataProductCount = count($dataProduct);
         $dataCategory = Category::all();
         $dataCategoryCount = count($dataCategory);
-        return view('admin.dashboard', ['products' => $dataProductCount], ['categories' => $dataCategoryCount]);
+        $dataUser = Customer::all();
+        $dataUserCount = count($dataUser);
+        return view('admin.dashboard', ['products' => $dataProductCount], ['categories' => $dataCategoryCount])->with(compact('dataUserCount'));
         
     }
 

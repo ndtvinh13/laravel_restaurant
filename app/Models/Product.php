@@ -18,4 +18,8 @@ class Product extends Model
         return $this->belongsTo(Category::class,'product_id','category_id');
         // return $this->belongsTo(Category::class,'category_id','product_id');
     }
+
+    // public function getRouteKeyName(){
+    //     return 'slug';
+    // }
 }

@@ -13,16 +13,31 @@ class CouponController extends Controller
 
     // Insert Coupon
     public function insert_coupon(Request $request){
-        $data = $request->all();
-        $coupon = new Coupon();
-        $coupon->coupon_name = $data['coupon_name'];
-        $coupon->coupon_code = $data['coupon_code'];
-        $coupon->coupon_qty = $data['coupon_qty'];
-        $coupon->coupon_function = $data['coupon_function'];
-        $coupon->coupon_discount = $data['coupon_discount'];
-        $coupon->save();
+        $request->validate([
+            'coupon_name' => 'requried',
+            'coupon_code' => 'required|min:6',
+            'coupon_qty' => 'required',
+            'coupon_function' => 'required',
+            'coupon_discount' => 'required'
+        ]);
 
-        return redirect()->back()->with('msg','Successfully insert a coupon');
+        $data = $request->all();
+
+        $couponCount = Coupon::where('coupon_code',$data['coupon_code'])->count();
+        if($couponCount > 0){
+            return redirect()->back()->with('msg','The coupon exists!');
+        }else{
+            
+            $coupon = new Coupon();
+            $coupon->coupon_name = $data['coupon_name'];
+            $coupon->coupon_code = $data['coupon_code'];
+            $coupon->coupon_qty = $data['coupon_qty'];
+            $coupon->coupon_function = $data['coupon_function'];
+            $coupon->coupon_discount = $data['coupon_discount'];
+            $coupon->save();
+    
+            return redirect()->back()->with('msg','Successfully insert a coupon');
+        }
     }
 
     // List adll coupons

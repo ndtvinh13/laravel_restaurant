@@ -10,7 +10,7 @@
                         <thead>
                         <tr class="bg-warning tbl-header p-0">
                             <th scope="col">Customer Name</th>
-                            <th scope="col">Shipping#</th>
+                            <th scope="col">Code</th>
                             <th scope="col">Payment#</th>
                             <th scope="col">Total</th>
                             <th scope="col">Status</th>
@@ -28,7 +28,7 @@
                         @foreach($orderData as $item)
                             <tr class="tbl-content">
                                 <td>{{$item->user_name}}</td>
-                                <td>{{$item->shipping_id}}</td>
+                                <td>{{$item->code}}</td>
                                 <td>{{$item->payment_id}}</td>
                                 <td>{{$item->total}}</td>
                                 <td>{{$item->status}}</td>

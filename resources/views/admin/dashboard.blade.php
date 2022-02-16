@@ -26,6 +26,15 @@
                     </div>
                   </div>
 
+                  {{-- Customer Card --}}
+                  <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Customer</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Number of Customers</h5>
+                      <hr>
+                      <p class="card-text">{{$dataUserCount}}</p>
+                    </div>
+                  </div>
 
                 </div>
           </div>

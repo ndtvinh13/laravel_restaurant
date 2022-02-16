@@ -28,9 +28,9 @@
 
     @php
         $content = Cart::content();
-        // echo "<pre>";
-        // print_r($content);
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($content);
+        echo "</pre>";
         // $coupon = Session::get('coupon');
         // print_r($coupon['function']);
         print_r(json_encode(Session::get('coupon')));
@@ -58,7 +58,7 @@
                     <tbody>
                       @php
                         if(Auth::guard('customer')->check()){
-                          Cart::destroy();
+                          // Cart::destroy();
                           Cart::restore(Auth::guard('customer')->user()->user_name);
                           Cart::store(Auth::guard('customer')->user()->user_name);
                         }
@@ -128,17 +128,20 @@
                           <h6 class="card-text tax-ajax">${{Cart::tax()}}</h6>
                         </div>
                         <div class="cart-text">
-                          <h6 class="card-text">Discount:</h6>
+                          <h6 class="card-text">Discount 
+                            @if ($cou = Session::get('coupon'))
+                                <a href="{{route('coupon.session.del')}}"><i class="fas fa-times fa-xs"></i></a>
+                            @endif :</h6>
                           <h6 class="card-text coupon-discount">
                             @if ($cou = Session::get('coupon'))
-                                @if ($cou['function']==0)
-                                  - {{$cou['discount']}}%
-                                @else
-                                  {{-- - ${{$cou['discount']}} --}}
-                                  <div class="d-flex">- $<h6>{{$cou['discount']}}</h6><div>
-                                @endif 
+                              @if ($cou['function']==0)
+                                <div class="d-flex">- <h6 discount_val="percent">{{$cou['discount']}}</h6>%<div>
+                              @else
+                                {{-- - ${{$cou['discount']}} --}}
+                                <div class="d-flex">- $<h6 discount_val="amount">{{$cou['discount']}}</h6><div>
+                              @endif 
                             @else
-                              - $0 
+                              <div class="d-flex">- $<h6>0</h6><div> 
                             @endif
                           </h6>
                         </div>
@@ -150,12 +153,12 @@
                             @if ($cou = Session::get('coupon'))
                               @if ($cou['function'] == 1)
                                   @if (Cart::total() < $cou['discount'])
-                                      $0.00
+                                      ${{number_format(0, 2)}}
                                   @else
                                       ${{Cart::total() - $cou['discount']}}
                                   @endif
                               @else
-                              asdasdasd
+                                ${{number_format(Cart::total()*( 1 - $cou['discount']/100), 2)}}  
                               @endif
                             @else
                               ${{Cart::total()}}
@@ -166,6 +169,13 @@
                     </div>
                   </div>
             </div>
+            {{-- cart remove --}}
+            <hr class="col-md-8 col-12">
+            <div class="cart-del-all">
+              <p><em>Empty cart </em> <a href="{{route('cart.delete.all')}}" class="btn"><i class="fas fa-cart-arrow-down"></i></a></p>
+            </div>
+            
+            {{-- Coupon --}}
             <hr class="col-md-8 col-12">
             <h6><i class="fas fa-tag"></i> Coupon</h6>
             <div class="col-md-8 col-12">
@@ -182,8 +192,10 @@
               {{-- Coupon form --}}
               <form action="{{route('coupon.check')}}" method="POST">
                 @csrf
-                <input type="text" placeholder="Enter Coupon" name="coupon">
-                <button type="submit">Add</button>
+                <div class="container d-flex p-0">
+                  <input class="coupon-input form-control" type="text" placeholder="Enter Coupon" name="coupon">
+                <button class="btn" type="submit">Add</button>
+                </div>
               </form>
             </div>
         </div>

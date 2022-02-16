@@ -22,7 +22,7 @@
                                     <h5 class="card-title">{{$product['product_name']}}</h5>
                                     <h6 class="card-title">${{$product['product_price']}}</h6>
                                     <p class="card-text">{{Str::limit($product['product_desc'],20,'...')}}</p>
-                                    <a href="" class="btn"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></a>
+                                    <a type="button" class="btn addItem" product_id ="{{$product->product_id}}" category_id ="{{$product->category_id}}"><i class="fas fa-plus"></i></a>
                                     {{-- {{URL::to('/product-detail/'.$product['product_id'])}} --}}
 
                                     {{-- Modal to display the same product --}}
@@ -60,13 +60,14 @@
                                                                         <div class="menu-btn inc">+</div>
                                                                     </div>
                                                                     <input type="hidden" name="product_hidden" value="{{$product['product_id']}}"/>
+                                                                    <input type="hidden" name="category_hidden" value="{{$product['category_id']}}">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     {{-- Modal footer --}}
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn"><i class="fa fa-shopping-cart fa-xs" aria-hidden="true"></i></button>
+                                                        <button type="submit" class="btn"><i class="fas fa-cart-plus"></i></button>
                                                         <button type="button" class="btn" data-bs-dismiss="modal">Back</button>
                                                     </div>
                                                 </div>

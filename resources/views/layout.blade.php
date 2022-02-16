@@ -62,7 +62,7 @@
           >
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{route('main.page')}}">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{URL::to('/menu')}}">Menu</a>
@@ -85,7 +85,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart fa-sm" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
+                <a class="nav-link active" aria-current="page" href="{{route('cart.show')}}"><i class="fa fa-shopping-cart fa-sm" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
               </li>
               <li>
               <li class="nav-item">
@@ -123,7 +123,7 @@
     </main> 
 
       {{-- Current cart will be destroyed when there is no login 
-        which will conflict with the idea that if the user needs 
+        which will CONFLICT with the idea that if the user needs 
         to be logged in to buy items --> ????? --}}
       @php
         // if(Auth::guard('customer')->check() == FALSE){
@@ -230,10 +230,6 @@
           let current = $(this).parent().parent().parent().next();
           let sum = item_qty*item_price;
           console.log(row_id,item_qty,item_price,current,sum);
-
-          let coup = $('.coupon-discount').children().children().first().html();
-          console.log(coup);
-
           $.ajax({
             type: "get",
             url: "{{route('cart.item.ajax')}}",
@@ -251,16 +247,30 @@
       // JSON Parse
       function displayItem(data){
         let coup = parseInt($('.coupon-discount').children().children().first().html());
-        console.log(coup);
+        let discount_val = $('.coupon-discount').children().children().first().attr('discount_val');
+        console.log(discount_val);
         let item = JSON.parse(data);
         let count = item.count;
         let subtotal = item.subtotal;
-        let total = item.total - coup;
         let tax = item.tax;
         let itemSub = item.itemSub;
+        // let total = item.total - coup;
+        let total_amount = item.total - coup;
+        let total_percent = item.total * (1 - coup/100);
+        
+        if(discount_val == "amount")
+          if(total_amount < 0){
+            let neg_total = parseInt(0);
+            $('.total-ajax').html("$"+neg_total.toFixed(2));
+          }else{
+            $('.total-ajax').html("$"+total_amount.toFixed(2));
+          }
+        else
+          $('.total-ajax').html("$"+total_percent.toFixed(2));
+        
+        
         $('.cart-count').html(count);
         $('.subtotal-ajax').html("$"+subtotal);
-        $('.total-ajax').html("$"+total.toFixed(2));
         $('.tax-ajax').html("$"+tax);
       }
 

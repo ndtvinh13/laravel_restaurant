@@ -12,7 +12,7 @@ body {
 body > .container-fluid {
     background-color: rgb(230, 230, 230);
     min-height: 100vh; /*will cover the 100% of viewport  */
-    overflow: hidden;
+    overflow: scroll;
     display: block;
     position: relative;
 }

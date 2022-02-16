@@ -109,7 +109,10 @@ class CartController extends Controller
         $rowId = $request->input('row_id');
         $itemQty = $request->input('item_qty');
         $itemPrice = $request->input('item_price');
+        $this->restoreFromDb();
         Cart::update($rowId,$itemQty);
+        $this->storeIntoDb();
+        
         // $this->display();
         $this->item_display_ajax($itemPrice,$itemQty);
     }
@@ -117,7 +120,9 @@ class CartController extends Controller
     // Del cart ajax
     public function cart_item_del_ajax(Request $request){
         $rowId = $request->input('row_id');
+        $this->restoreFromDb();
         Cart::remove($rowId);
+        $this->storeIntoDb();
         $this->display_del_item();
 
     }
@@ -153,6 +158,15 @@ class CartController extends Controller
         return redirect()->route('cart.show')->with('msg','Successfully delete an item');
     }
 
+    // Delete all
+    public function delete_cart_all(){
+        $this->restoreFromDb();
+        Cart::destroy();
+        $this->storeIntoDb();
+        $this->display();
+        return redirect()->route('cart.show')->with('msg','All cart items are successfully removed!');
+    }
+
     // Update
     public function update_cart(Request $request){
         $rowId = $request->rowId_qty;
@@ -168,7 +182,7 @@ class CartController extends Controller
         //Nếu đã đăng nhập thì store trên DB
         if(Auth::guard('customer')->check()){
             $user_name = Auth::guard('customer')->user()->user_name;
-            ShoppingCart::deleteCartRecord($user_name);
+            // ShoppingCart::deleteCartRecord($user_name);
             Cart::store($user_name);
         }
     }
@@ -215,6 +229,12 @@ class CartController extends Controller
         } else {
             return redirect()->back()->with('wrong_coupon_msg',"Coupon is invalid!");
         }
+    }
+
+    // Delete session coupon
+    public function session_coupon_del(){
+        Session::forget('coupon');
+        return redirect()->back();
     }
 
     // Test

@@ -10,8 +10,8 @@ use App\Models\Product;
 class MenuController extends Controller
 {
     public function index(){
-        $dataCategory=Category::select('category_name','category_id')->orderby('category_id','desc')->get();
-        $dataProduct=Product::select()->orderby('category_id','desc')->paginate(3);
+        $dataCategory = Category::select('category_name','category_id')->orderby('category_id','desc')->get();
+        $dataProduct = Product::select()->orderby('category_id','desc')->paginate(9);
 
         // return view('pages.menu',['products'=>$dataProduct],['categories'=>$dataCategory]);
         return view('pages.menu')->with('products',$dataProduct)->with('categories',$dataCategory);
@@ -19,24 +19,31 @@ class MenuController extends Controller
 
     //Category on menu page
     public function category_menu($category_id){
-        $dataCategory=Category::select()->orderby('category_id','desc')->get();
-        $dataProduct=Product::select()->orderby('category_id','desc')->get();
+        $dataCategory = Category::select()->orderby('category_id','desc')->get();
+        $dataProduct = Product::select()->orderby('category_id','desc')->get();
 
-        $dataCatProd=Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_product.category_id',$category_id)->paginate(9);
+        $dataCatProd = Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_product.category_id',$category_id)->paginate(9);
 
-        $categoryName=Category::select()->where('tbl_category_product.category_id',$category_id)->get();
+        $categoryName = Category::select()->where('tbl_category_product.category_id',$category_id)->get();
 
         // If more than 3 arguments -> use this with()
         return view('pages.menu_category')->with('products',$dataProduct)->with('categories',$dataCategory)->with('dataCatProds',$dataCatProd)->with('categoryNames',$categoryName);
     }
 
     public function product_detail($product_id){
-        $dataCategory=Category::select()->orderby('category_id','desc')->get();
-        $dataProduct=Product::select()->orderby('category_id','desc')->get();
+        $dataCategory = Category::select()->orderby('category_id','desc')->get();
+        $dataProduct = Product::select()->orderby('category_id','desc')->get();
 
-        $dataDetail=Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_product.product_id',$product_id)->get();
+        $dataDetail = Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_product.product_id',$product_id)->get();
 
-        return view('pages.home_detail')->with('products',$dataProduct)->with('categories',$dataCategory)->with('dataDetails',$dataDetail);
+        foreach($dataDetail as $item){
+            $categoryId = $item->category_id;
+        }
+
+        // Get all products with the same category id
+        $dataRelated = Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_category_product.category_id',$categoryId)->whereNotIn('product_id',[$product_id])->get()->chunk(3);
+
+        return view('pages.home_detail')->with('products',$dataProduct)->with('categories',$dataCategory)->with('dataDetails',$dataDetail)->with(compact('dataRelated'));
     }
 
     //Search product using ajax

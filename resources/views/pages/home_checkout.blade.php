@@ -62,7 +62,7 @@
                             <h5>Order Summary ({{$cartCount}})</h5>
                             <div><a href="{{route('cart.show')}}" class="review-edit">Edit <i class="fas fa-shopping-cart fa-sm"></i></a></div>
                         </div>
-                        {{-- Loop to displayc product --}}
+                        {{-- Loop to display product --}}
                         @foreach($content as $each_content)
                             <div class="review-text">
                                 <div class="d-flex">
@@ -84,12 +84,40 @@
                             <div>Sales Tax</div>
                             <div>${{Cart::tax()}}</div>
                         </div>
-                        <div class="review-text review-total-div">
-                            <h5 class="review-total">Total</h5>
-                            <h5 class="review-total">${{Cart::total()}}</h5>
-                        </div>
-                        
-
+                        <div class="review-text">
+                            <h6>Discount:</h6>
+                            <h6 class="coupon-discount">
+                              @if ($cou = Session::get('coupon'))
+                                @if ($cou['function']==0)
+                                  <div class="d-flex">- <h6 discount_val="percent">{{$cou['discount']}}</h6>%<div>
+                                @else
+                                  {{-- - ${{$cou['discount']}} --}}
+                                  <div class="d-flex">- $<h6 discount_val="amount">{{$cou['discount']}}</h6><div>
+                                @endif 
+                              @else
+                                <div class="d-flex">- $<h6>0</h6><div> 
+                              @endif
+                            </h6>
+                          </div>
+                          <hr>
+                          <div class="review-text">
+                            <h5 class="review-text">Total:</h5>
+                            <h5 class="review-text total-ajax">
+                              @if ($cou = Session::get('coupon'))
+                                @if ($cou['function'] == 1)
+                                    @if (Cart::total() < $cou['discount'])
+                                        ${{number_format(0, 2)}}
+                                    @else
+                                        ${{Cart::total() - $cou['discount']}}
+                                    @endif
+                                @else
+                                  ${{number_format(Cart::total()*( 1 - $cou['discount']/100), 2)}}  
+                                @endif
+                              @else
+                                ${{Cart::total()}}
+                              @endif
+                            </h5>
+                          </div>
                     </div>
                 </div>
             </div>

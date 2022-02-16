@@ -6,6 +6,7 @@
         $userName = Auth::guard('customer')->user()->user_name;  
         $userId = Auth::guard('customer')->user()->user_id;
         $shippingId = Session::get('shipping_id');
+        $cou = Session::get('coupon');
         $content=Cart::content();
         $cartCount=Cart::content()->count();
     @endphp
@@ -107,7 +108,11 @@
                         </div>
                         <div class="review-text review-total-div">
                             <h5 class="review-total">Total</h5>
-                            <h5 class="review-total">${{Cart::total()}}</h5>
+                            <h5 class="review-total">${{Cart::total()-2}}</h5>
+                            <input type="hidden" value="{{Cart::total()-2}}" name="cart_total">
+                            @if ($cou == true)
+                                <input type="hidden" value="{{$cou['code']}}" name="coupon_code">
+                            @endif
                         </div>
                         
 

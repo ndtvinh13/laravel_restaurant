@@ -58,8 +58,6 @@
 
 
 <div class="container-fluid" id="aboutus">
-  <button id="btn">Button ne</button>
-  <input type="text" name="" id="input">
     <div class="row">
         <div class="col-lg-6 column-left"><img src="public/frontend/images/burger_about_1.jpg"></div>
         <div class="col-lg-6 column-right ">
@@ -142,24 +140,6 @@
 <div class="container-fluid end-text">
   <h1>We ensure to bring to the customers our best service and experience</h1>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $('#input').keyup(function (e) { 
-    console.log($('#input').val());
-    $.ajax({
-      type: "get",
-      url: "url",
-      data: "data",
-      dataType: "dataType",
-      success: function (response) {
-        
-      }
-    });
-  });
- 
-});
-</script>
 
 
 @endsection 

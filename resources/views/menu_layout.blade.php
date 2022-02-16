@@ -252,4 +252,30 @@
           });
       });
     </script>
+
+    {{-- Ajax add --}}
+    <script>
+      $(function () {
+        $('.addItem').click(function (e) { 
+          let product_id = $(this).attr('product_id');
+          let category_id = $(this).attr('category_id');
+          console.log(category_id);
+          $.ajax({
+          type: "get",
+          url: "{{route('cart.save.ajax')}}",
+          data: {product_id: product_id, category_id: category_id, qty:1},
+          success: function (response) {
+            displayCart(response);
+          }
+        });
+        });
+        
+      });
+
+      function displayCart(data){
+          let cart = JSON.parse(data)
+          let count = cart.count;
+          $('.cart-count').html(count);
+      }
+    </script>
     </html>

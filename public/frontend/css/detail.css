@@ -17,4 +17,96 @@
     height: 250px;
     width: 350px;
     border: #333 solid;
+    border-radius: 10px;
+}
+
+/* ============ Related items =============== */
+.btn-related-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-related {
+    border-radius: 50%;
+}
+
+.carousel-item-related {
+    height: auto;
+}
+
+.item-related {
+    text-align: center;
+}
+
+.img-related {
+    width: 200px !important;
+    height: 100px !important;
+}
+
+.text-related {
+    text-align: center;
+}
+
+.btn-add-related {
+    border: none !important;
+    padding: 5px 12px;
+    border-radius: 50px;
+    background-color: #fd7e14 !important;
+    color: #fff !important;
+    transition: 0.4s;
+}
+
+.btn-add-related:hover {
+    background-color: #228b22 !important;
+}
+
+/* ============ Comments ============== */
+.comment-section-wrapper {
+    margin: 20px 0;
+}
+
+.review-name {
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f2f5;
+    width: 200px;
+    padding: 5px;
+}
+.review-name:focus {
+    border: none;
+    outline: none;
+}
+
+.review-text {
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f2f5;
+    margin: 8px 0 !important;
+}
+.review-text:focus {
+    outline: none;
+}
+
+.btn-review-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-review {
+    width: 80px;
+    padding: 5px;
+    background-color: #17a8fd;
+    color: #fff;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-review:hover {
+    background-color: #35b7fe;
+    border: none;
+}
+
+.fa-clock,
+.fa-user-circle {
+    color: #3fbbd9;
 }

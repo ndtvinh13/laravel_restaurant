@@ -8,6 +8,7 @@
         $userId = Auth::guard('customer')->user()->user_id;
         $order_id = Session::get('orderId');
         $order_date = Session::get('orderDate');
+        $code = Session::get('code');
         $content = Cart::content();
         $cartCount = Cart::content()->count();
         // clear out the cart when the order is placed
@@ -35,7 +36,7 @@
     </div>
 
     <div class="confirm-order d-flex align-items-center">
-        <div><b>Oder#</b>{{$order_id}}</div>
+        <div><b>Oder#</b>{{$code}}</div>
         <hr id="confirmation-info-line">
         <div>{{$cartCount}} items</div>
     </div>
