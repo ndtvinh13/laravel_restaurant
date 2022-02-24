@@ -17,10 +17,10 @@ class loginCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
+        if (Auth::guard('customer')->check()) {
             return $next($request);
         } else {
-            return redirect()->route('loginPage');
+            return redirect()->route('customer');
         }
     }
 }

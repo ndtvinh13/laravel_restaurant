@@ -32,6 +32,9 @@ class CartController extends Controller
         $quantity = $request->quantity;
         $categoryId = $request->category_hidden;
         // $quantity = $request->quantity;
+        if($quantity == 0){
+            return redirect()->back();
+        }
 
         $dataCategory = Category::select()->orderby('category_id','desc')->get();
         $dataProduct = Product::select()->where('product_id',$productId)->first();

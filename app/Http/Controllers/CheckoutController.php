@@ -21,10 +21,12 @@ use function Psy\sh;
 class CheckoutController extends Controller
 {
     public function index(){
-        if(Auth::guard('customer')->check()){
+        // if(Auth::guard('customer')->check()){
+        //     return view('pages.home_checkout');
+        // }
+        //     return redirect()->route('customer');
+
             return view('pages.home_checkout');
-        }
-            return redirect()->route('customer');
     }
 
     public function save_checkout(Request $request){

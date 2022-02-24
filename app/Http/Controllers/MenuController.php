@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 
 
@@ -43,7 +44,11 @@ class MenuController extends Controller
         // Get all products with the same category id
         $dataRelated = Product::join('tbl_category_product', 'tbl_product.category_id', '=','tbl_category_product.category_id')->where('tbl_category_product.category_id',$categoryId)->whereNotIn('product_id',[$product_id])->get()->chunk(3);
 
-        return view('pages.home_detail')->with('products',$dataProduct)->with('categories',$dataCategory)->with('dataDetails',$dataDetail)->with(compact('dataRelated'));
+        // Get all product comments with the same product id
+        $dataComment = Comment::where('product_id',$product_id )->where('status',0)->paginate(5);
+        $commentCount = Comment::where('product_id',$product_id )->where('status',0)->get()->count();
+
+        return view('pages.home_detail')->with('products',$dataProduct)->with('categories',$dataCategory)->with('dataDetails',$dataDetail)->with(compact('dataRelated','dataComment','commentCount'));
     }
 
     //Search product using ajax

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblComment extends Migration
+class CreateTblRating extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTblComment extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_comment', function (Blueprint $table) {
+        Schema::create('tbl_rating', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
-            $table->string('name',15);
-            $table->text('comment',150);
-            $table->integer('status');
+            $table->integer('rating');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTblComment extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_comment');
+        Schema::dropIfExists('tbl_rating');
     }
 }

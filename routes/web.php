@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryProduct;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -65,16 +66,21 @@ Route::post('/coupon-check',[CartController::class,'coupon_check'])->name('coupo
 Route::get('/coupon-check',[CartController::class,'session_coupon_del'])->name('coupon.session.del');
 
 
-//-----------------------------Checkout--------------------------------//
-Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
-Route::post('/save-checkout',[CheckoutController::class,'save_checkout'])->name('checkout.save');
-Route::get('/payment',[CheckoutController::class,'payment'])->name('payment');
-Route::post('/place-order',[CheckoutController::class,'place_order'])->name('order');
-Route::get('/confirmation',[CheckoutController::class,'confirmation'])->name('confirmation');
+//==================== Middleware Customer ====================//
+Route::middleware('loginCheck')->group(function () {
+    
+    //-----------------------------Checkout--------------------------------//
+    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+    Route::post('/save-checkout',[CheckoutController::class,'save_checkout'])->name('checkout.save');
+    Route::get('/payment',[CheckoutController::class,'payment'])->name('payment');
+    Route::post('/place-order',[CheckoutController::class,'place_order'])->name('order');
+    Route::get('/confirmation',[CheckoutController::class,'confirmation'])->name('confirmation');
+
+});
 
 
 // --------------------------- Review-----------------------------//
-
+Route::post('/comment',[CommentController::class,'save_comment'])->name('comment');
 
 
 //=====================================Back-end====================================//
@@ -126,6 +132,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/list-coupon', [CouponController::class, 'list_coupon'])->name('coupon.list');
     Route::get('/delete-coupon/{couponId}', [CouponController::class, 'delete_coupon'])->name('coupon.delete');
 
+    // ----------------------------Comment----------------------------//
+    Route::get('/list-comment', [CommentController::class, 'list_comment'])->name('comment.list');
+    Route::get('/search-comment-ajax', [CommentController::class, 'comment_search_ajax'])->name('comment.search.ajax');
+    Route::get('/approval-comment-ajax', [CommentController::class, 'comment_approval_ajax'])->name('comment.approval.ajax');
 
 });
 

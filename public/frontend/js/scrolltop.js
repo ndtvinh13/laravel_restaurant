@@ -29,3 +29,14 @@ function scrollToTop() {
         }
     }
 }
+
+// on scroll
+$(function () {
+    $(window).on("scroll", function () {
+        if ($(window).scrollTop()) {
+            $("header").addClass("nav-on-scroll");
+        } else {
+            $("header").removeClass("nav-on-scroll");
+        }
+    });
+});

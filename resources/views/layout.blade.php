@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     {{-- Meta --}}
     {{-- <meta name="description" content="{{$meta_desc}}">
     <meta name="keywords" content="{{$meta_keywords}}"/>
@@ -104,6 +105,7 @@
           </div>
         </div>
       </nav>
+      
       {{-- Move-to-top button --}}
       <div id="btn-top-wrapper-wrapper"> 
         <div class="btn-top-wrapper">
@@ -184,6 +186,7 @@
       }
       
     </script>
+
     <script>
       // Delete an item with - using Ajax
       $(function (){
@@ -288,5 +291,49 @@
               $('.tax-ajax').html("$"+tax);
               posi.html(del_item);
             }
+    </script>
+
+    <script>
+      // Adding comment
+      // $(function () {
+        
+         
+      //   $('.btn-review').click(function (e) { 
+      //     e.preventDefault();
+      //     // var _token = $('input[name="_token"]').val();
+      //     var _token = $('.review-token').val();
+      //     var product_id = $('.productId').val();
+      //     var review_name = $('input[name="name"]').val();
+      //     var review_comment = $('.review-comment-text').val();
+
+      //     console.log(product_id,review_name, review_comment, _token);
+
+          
+      //     // $.ajaxSetup({
+      //     //   headers: {
+      //     //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //     //   }
+      //     // });
+
+      //     $.ajax({
+      //       type: "POST",
+      //       url: "{{route('comment')}}",
+      //       data: {product_id: product_id, review_name: review_name, review_comment: review_comment, _token: _token},
+      //       success: function (response) {
+      //         // commentDisplay(response);
+      //         // $('.review-wrapper').children().html(response);
+      //         console.log(response);
+      //       }
+      //     });
+          
+      //   });
+
+      //   function commentDisplay(data){
+      //     let output = JSON.parse(data);
+          
+      //   }
+        
+      // });
+
     </script>
 </html>

@@ -77,13 +77,13 @@
     outline: none;
 }
 
-.review-text {
+.review-comment-text {
     border-radius: 5px;
     border: none;
     background-color: #f0f2f5;
     margin: 8px 0 !important;
 }
-.review-text:focus {
+.review-comment-text:focus {
     outline: none;
 }
 
@@ -110,3 +110,104 @@
 .fa-user-circle {
     color: #3fbbd9;
 }
+
+.fa-comment {
+    color: #17a8fd;
+}
+
+/* ====== Paginate ==== */
+.comment-paginate {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-paginate .pagination {
+    margin: 0;
+}
+
+.comment-paginate .pagination > li > a {
+    color: #17a8fd !important;
+    border: none;
+}
+
+.comment-paginate .pagination > li > a:hover {
+    background-color: #fff !important;
+    border: none;
+}
+
+.comment-paginate .pagination > .active > a,
+.comment-paginate .pagination > .active > a:focus,
+.comment-paginate .pagination > .active > a:hover,
+.comment-paginate .pagination > .active > span,
+.comment-paginate .pagination > .active > span:focus,
+.comment-paginate .pagination > .active > span:hover {
+    color: #17a8fd !important;
+    font-weight: bold;
+    text-decoration: underline;
+    background-color: #fff !important;
+    border: none;
+}
+
+.comment-paginate .pagination > .disabled > span {
+    background-color: #fff !important;
+    border: none;
+}
+
+/* ============= rating ========================*/
+.star-icon {
+    color: #ffd700 !important;
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: 800;
+}
+
+.rating-css input {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+.rating-css input + label {
+    font-size: 25px;
+    text-shadow: 1px 1px #333;
+    cursor: pointer;
+}
+
+.rating-css input:checked + label ~ label {
+    color: #b4afaf;
+    text-shadow: none;
+}
+
+.rating-css label:active {
+    transform: scale(0.6);
+    transition: 0.3s ease;
+}
+
+/* .rating-css input:checked ~ input:not(:checked) ~ label {
+    color: #ddd;
+}
+
+.rating-css input:checked ~ input:not(:checked) + label:hover ~ label {
+    color: #ddd;
+}
+
+.rating-css:hover input + label,
+.rating-css:hover input:checked + label {
+    color: #ffd700;
+}
+
+.rating-css:hover input:checked ~ input:not(:checked) ~ label:hover,
+.rating-css:hover input:checked ~ input:not(:checked) + label {
+    color: #ffd700;
+}
+
+.rating-css:hover input:checked ~ input:not(:checked) ~ label:hover ~ label {
+    color: #ddd !important;
+}
+
+.rating-css input + label:hover ~ label {
+    color: #ddd !important;
+} */
+
+/* End of Star Rating */

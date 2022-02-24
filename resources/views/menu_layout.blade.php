@@ -123,6 +123,22 @@
         </div>
       </nav>
       
+      
+
+        {{-- Move top button --}}
+        <div id="btn-top-wrapper-wrapper"> 
+          <div class="btn-top-wrapper">
+         
+            <div id="btn-move-top">
+              <i class="fa fa-chevron-up"></i>
+            </div>
+          </div>
+        </div>
+
+    </header>
+    
+   
+    <main>
       <!-- carousel -->
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -162,10 +178,6 @@
           <span class="visually-hidden">Next</span>
         </button>
         </div>
-    </header>
-    
-   
-    <main>
       
       <hr class="page-break">
       
@@ -224,6 +236,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
+    <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script>
@@ -277,5 +290,7 @@
           let count = cart.count;
           $('.cart-count').html(count);
       }
+
+      
     </script>
     </html>

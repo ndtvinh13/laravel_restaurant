@@ -188,9 +188,17 @@
 
               <!-- Customers -->
               <li class="nav-item {{$cRN=='custlist' ? 'active-tab' : ''}}">
-                <a href="{{route('custlist')}}" class="nav-link px-0 align-middle main-link">
+                <a href="{{route('custlist')}}" class="nav-link px-0 align-middle main-link {{$cRN=='custlist' ? 'active-tab-child' : ''}}">
                   <i class="fa fa-users"></i>
                   <span class="ms-1 d-none d-sm-inline">Customers</span>
+                </a>
+              </li>
+
+              <!-- Comment -->
+              <li class="nav-item {{$cRN=='comment.list' ? 'active-tab' : ''}}">
+                <a href="{{route('comment.list')}}" class="nav-link px-0 align-middle main-link {{$cRN=='comment.list' ? 'active-tab-child' : ''}}">
+                  <i class="fas fa-comment-alt"></i>
+                  <span class="ms-1 d-none d-sm-inline">Comment</span>
                 </a>
               </li>
             
