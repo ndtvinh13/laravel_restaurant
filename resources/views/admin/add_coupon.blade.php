@@ -31,7 +31,14 @@
                     <!-- Code section -->
                     <tr>
                         <td>Coupon Code</td>
-                        <td><input type="text" class="form-control" placeholder="Enter a coupon code" name="coupon_code"></td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Enter a coupon code" name="coupon_code">
+                            @if ($errors->first('coupon_code'))
+                            @error('coupon_code')
+                                <div class="alert-warning"><i class="fas fa-exclamation"></i> {{$message}}</div>
+                            @enderror
+                            @endif
+                        </td>
                     </tr>
   
                     <!-- Coupon number -->
@@ -57,7 +64,17 @@
                         <td>% or Amount</td>
                         <td><input type="text" class="form-control" name="coupon_discount"></td>
                     </tr>
-    
+                    
+                    <!-- Coupon start-end date input -->
+                    <tr>
+                        <td>Start Date</td>
+                        <td><input type="text" class="form-control" name="coupon_start" id="start_date"></td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td><input type="text" class="form-control" name="coupon_end" id="end_date"></td>
+                    </tr>
+
                     <!-- Button Section -->
                     <tr>
                         <td></td>

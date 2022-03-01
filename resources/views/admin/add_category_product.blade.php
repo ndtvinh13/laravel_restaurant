@@ -6,15 +6,20 @@
             <div class="container-fluid page-ti-co p-0 col-11 col-sm-8 col-md-8">
                 <div class="page-title">Add New Category</div>
 
-                @if($errors->any())
+                {{-- @if($errors->any())
                     <div class="alert alert-danger">Category MUST NOT be empty</div>
                 @endif
-                
+                 --}}
                 <div class="page-content d-flex p-5 flex-column">
                     
                     @if(Session::has('msg'))
                         <div class="text-success">
                             {{ Session::get('msg') }}
+                        </div>
+                    @endif
+                    @if(Session::has('error_msg'))
+                        <div class="text-warning">
+                            {{ Session::get('error_msg') }}
                         </div>
                     @endif
 
@@ -33,6 +38,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection

@@ -17,6 +17,7 @@
       rel="stylesheet"    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href="{{asset('public/frontend/css/nav.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/aboutus.css')}}" rel="stylesheet" />
     <link href="{{asset('public/frontend/css/cart.css')}}" rel="stylesheet" />
@@ -148,7 +149,7 @@
         <p class="">Copyright © 2021</p>
     </div>
   
-  
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
   </body>
     {{-- Scripts --}}
     <script

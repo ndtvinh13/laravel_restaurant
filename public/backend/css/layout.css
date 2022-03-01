@@ -91,6 +91,33 @@
     border: none;
 }
 
+/* =================== buttons ================= */
+.btn-import {
+    margin: 5px 0 !important;
+}
+
+/* ==================== coupon ======================= */
+#start_date,
+#end_date {
+    width: 40%;
+}
+
+.coupon-status-active {
+    padding: 0.5px 6px;
+    background-color: #198754;
+    border-radius: 10px;
+    color: #fff;
+    width: fit-content;
+}
+
+.coupon-status-inactive {
+    padding: 0.5px 6px;
+    background-color: #ffc107;
+    border-radius: 10px;
+    color: #333;
+    width: fit-content;
+}
+
 /* ================Responsive==================== */
 @media only screen and (max-width: 770px) {
     .tbl-product {

@@ -18,10 +18,13 @@
                     <thead>
                         <tr class="bg-warning tbl-header p-0">
                             <th scope="col">Name</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">End</th>
                             <th scope="col">Code</th>
                             <th scope="col">Qty</th>
                             <th scope="col">Function</th>
                             <th scope="col">Discount</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action*</th>
                         </tr>
                     </thead>
@@ -29,6 +32,8 @@
                         @foreach($data as $item)
                             <tr>
                                 <td>{{$item->coupon_name}}</td>
+                                <td>{{$item->start}}</td>
+                                <td>{{$item->end}}</td>
                                 <td>{{$item->coupon_code}}</td>
                                 <td>{{$item->coupon_qty}}</td>
                                 <td>
@@ -46,8 +51,15 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @if ($item->status == 1)
+                                        <div class="coupon-status-active">Active</div>
+                                    @else
+                                        <div class="coupon-status-inactive">Inactive</div>
+                                    @endif
+                                </td>
+                                <td>
                                     <!-- Edit and Delete buttons -->
-                                    <a onclick="return confirm('Do you want to delete?')" href="{{route('coupon.delete',$item->coupon_id)}}" class="btn btn-danger"><i class="fas fa-eraser"></i></a>
+                                    <a onclick="return confirm('Do you want to delete?')" href="{{route('coupon.delete',$item->coupon_id)}}" class="text-danger"><i class="fas fa-eraser"></i></a>
                                 </td>
                             </tr>
                         @endforeach

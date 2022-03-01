@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-    
 
 
 
@@ -118,4 +117,5 @@ class ProductController extends Controller
         $data->delete();
         return Redirect::to('/list-product')->with('msg','Sucessfully Delete a Product!!');
     }
+
 }

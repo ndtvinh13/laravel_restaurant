@@ -202,7 +202,7 @@ class CartController extends Controller
     // Coupon
     public function coupon_check(Request $request){
         $data = $request->coupon;
-        $coupon = Coupon::where('coupon_code',$data)->first();
+        $coupon = Coupon::where('coupon_code',$data)->where('status',1)->first();
         if($coupon){
             $count_coupon = $coupon->count();
             if($count_coupon > 0){
@@ -227,17 +227,19 @@ class CartController extends Controller
                     Session::put('coupon',$cou);
                 }
                 Session::save();
-                return redirect()->back()->with('coupon_msg',"Successfully add a coupon!");
+                // return redirect()->back()->with('msg',"Successfully add a coupon!");
+                return redirect()->back()->with('success',"Successfully add a coupon!");
             }
         } else {
-            return redirect()->back()->with('wrong_coupon_msg',"Coupon is invalid!");
+            // return redirect()->back()->with('wrong_coupon_msg',"The coupon is invalid or expired!");
+            return redirect()->back()->with('errors',"The coupon is invalid or expired!");
         }
     }
 
     // Delete session coupon
     public function session_coupon_del(){
         Session::forget('coupon');
-        return redirect()->back();
+        return redirect()->back()->with('info','Coupon is removed!');
     }
 
     // Test

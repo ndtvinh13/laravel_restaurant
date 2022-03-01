@@ -32,11 +32,10 @@
         print_r($content);
         echo "</pre>";
         // $coupon = Session::get('coupon');
+        // echo $coupon['code'];
         // print_r($coupon['function']);
         print_r(json_encode(Session::get('coupon')));
     @endphp
-    
-    
 
     {{-- Shopping cart --}}
     <div class="container-fluid p-0 what-is">
@@ -151,6 +150,7 @@
                           {{-- <h5 class="card-text total-ajax">${{Cart::total()-$cou['discount']}}</h5> --}}
                           <h5 class="card-text total-ajax">
                             @if ($cou = Session::get('coupon'))
+                              {{-- <input type="hidden" name="coupon_code" value="{{Session::get('coupon')['code']}}"> --}}
                               @if ($cou['function'] == 1)
                                   @if (Cart::total() < $cou['discount'])
                                       ${{number_format(0, 2)}}

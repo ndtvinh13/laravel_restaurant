@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Category;
+use Excel;
+use App\Exports\ExcelExport;
+use App\Imports\ExcelImport;
+use Alert;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class CategoryProduct extends Controller
@@ -34,13 +40,31 @@ class CategoryProduct extends Controller
         // return Redirect::to('/add-category-product');
 
         //===========================Another method=========================
-        $request->validate([
+        // $validator = $request->validate([
+        //     'category_name'=>'required'
+        // ]);
+
+        $validator = Validator::make($request->all(), [
             'category_name'=>'required'
         ]);
-        $data= new Category();
+        
+        if ($validator->fails()) {
+            return back()->with('errors', $validator->messages()->all()[0])->withInput();
+        }
+
+        $name = $request->category_name;
+        $nameCount = Category::where('category_name','like','%'.$name.'%')->count();
+        if($nameCount > 0){
+            alert()->warning('Category is created!')->autoClose(2000);
+            return redirect()->back()->with('error_msg','Category is created!');
+        }
+
+        $data = new Category();
         $data->category_name = $request->category_name;
         $data->save();
-        return Redirect::to('/add-category-product')->with('msg','Sucessfully add category!!');
+        
+        // Alert::success('Sucessfully added category!!');
+        return redirect()->back()->with('success','Sucessfully added category!!');
 
     }
 
@@ -63,7 +87,7 @@ class CategoryProduct extends Controller
             $data=Category::find($request->category_product_id);
             $data->category_name=$request->category_name;
             $data->update();
-            return Redirect::to('/list-category-product')->with('msg','Sucessfully Update category!!');
+            return Redirect::to('/list-category-product')->with('success','Sucessfully Update category!!');
     }
 
     //Delete Category
@@ -71,11 +95,30 @@ class CategoryProduct extends Controller
         // $result=DB::table('tbl_category_product')->where('category_id', $category_product_id)->delete();
         // Session::flash('msg','Sucessfully Delete category!!');
         // return Redirect::to('/list-category-product');
-
             //===========================Another method=========================
             $data = Category::find($category_product_id);
             $data->delete();
-            return Redirect::to('/list-category-product')->with('msg','Sucessfully Update category!!');
+            
+            return Redirect::to('/list-category-product')->with('success','Sucessfully Update category!!');
+    }
+
+    // Import file
+    public function import_csv(Request $request){
+
+        if($request->file('file')){
+            $path = $request->file('file')->getRealPath();
+            Excel::import(new ExcelImport, $path);
+            return redirect()->back();
+        }else{
+            return redirect()->back()->with('error_msg','Please choose a file!');
+        }
+
+        
+    }
+
+    // Export file
+    public function export_csv(){
+        return Excel::download(new ExcelExport , 'category.xlsx');
     }
 
 }

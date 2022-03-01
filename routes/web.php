@@ -97,20 +97,18 @@ Route::middleware('auth')->group(function () {
     //-----------------------------Category product-----------------------------//
     Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product'])->name('catadd');
     Route::get('/list-category-product', [CategoryProduct::class, 'list_category_product'])->name('catlist');
-
     Route::post('/save-category-product', [CategoryProduct::class, 'save_category_product']);
-
     Route::get('/edit-category-product/{category_product_id}', [CategoryProduct::class, 'edit_category_product']);
     Route::post('/update-category-product/{category_product_id}', [CategoryProduct::class, 'update_category_product']);
     Route::get('/delete-category-product/{category_product_id}', [CategoryProduct::class, 'delete_category_product']);
+    Route::post('/import-csv', [CategoryProduct::class, 'import_csv'])->name('admin.import');
+    Route::post('/export-csv', [CategoryProduct::class, 'export_csv'])->name('admin.export');
 
 
     //-----------------------------Product-----------------------------//
     Route::get('/add-product', [ProductController::class, 'add_product'])->name('prodadd');
     Route::get('/list-product', [ProductController::class, 'list_product'])->name('prodlist');
-
     Route::post('/save-product', [ProductController::class, 'save_product']);
-
     Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
     Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
     Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);

@@ -26,6 +26,8 @@
       rel="stylesheet"
     />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="{{asset('/public/backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
     {{-- <script type="text/javascript">CKEDITOR.replace('ckeditor1')</script> --}}
     <!-- JQuery -->
@@ -226,6 +228,31 @@
       crossorigin="anonymous"
     ></script>
     <script src="{{asset('/public/backend/js/script.js')}}"></script>
+    <script>
+      $( function() {
+        $( "#start_date" ).datepicker({
+          showAnim: 'slide',
+          dateFormat: 'mm/dd/yy',
+          // minDate: +1,
+          });
+        $( "#end_date" ).datepicker({
+          showAnim: 'slide',
+          dateFormat: 'mm/dd/yy',
+          // minDate: +1,
+          });
+
+        function getDate( element ) {
+          var date;
+          try {
+            date = $.datepicker.parseDate( dateFormat, element.value );
+          } catch( error ) {
+            date = null;
+          }
+          return date;
+        }
+      });
+    </script>
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
   </body>
 </html>
 

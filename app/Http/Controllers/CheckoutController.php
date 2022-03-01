@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Payment;
@@ -85,6 +86,7 @@ class CheckoutController extends Controller
         $data = $request->all();
         $contents = Cart::content();
 
+
         $request->validate([
             'payment' => 'required|in:debit,credit,paypal'
         ]);
@@ -131,6 +133,14 @@ class CheckoutController extends Controller
             $orderDetails->save();
         }
 
+        // Coupon code is decreased by 1 after each checkout
+        if(Session::get('coupon') == true){
+            $orderDetails->coupon_code = $data['coupon_code'];
+            $coupon = Coupon::where('coupon_code',$data['coupon_code'])->first();
+            $coupon->coupon_qty = $coupon->coupon_qty - 1;
+            $coupon->save();
+        }
+
         // Display order number and date
         $orderId = OrderDetails::select('order_id')->where('order_id',$order_id)->value('order_id');
         $orderCode = OrderDetails::select('code')->where('code',$order_code)->value('code');
@@ -156,6 +166,7 @@ class CheckoutController extends Controller
             $orderShipping = Shipping::where('user_id',$userId)->get();
         }
         
+        alert()->success('Sweet!','Thank you for your support.')->autoClose(3000);
         return view('pages.home_confirmation')->with('orderMethod',$orderMethod)->with('orderShipping',$orderShipping);
     }
 

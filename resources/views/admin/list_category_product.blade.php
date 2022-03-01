@@ -30,7 +30,7 @@
                         <td>{{$category_product['category_name']}}</td>
                         <td class="col-2">
                             <a href="{{URL::to('/edit-category-product/'.$category_product['category_id'])}}" class="btn btn-primary">Edit</a>
-                            <a onclick="return confirm('Do you want to delete?')" href="{{URL::to('/delete-category-product/'.$category_product['category_id'])}}" class="btn btn-danger">Delete</a>
+                            <a onclick="return confirm('Do you want to delete?')" href="{{URL::to('/delete-category-product/'.$category_product['category_id'])}}" class="btn btn-danger ">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -38,11 +38,49 @@
                 </tbody>
             </table>
         <!-- </div> -->
+
+        <div class="container d-flex">
+            <form action="{{route('admin.import')}}" method="POST" enctype="multipart/form-data">
+                @if(Session::has('error_msg'))
+                    <div class="text-danger p-0">
+                        {{ Session::get('error_msg') }}
+                    </div>
+                @endif
+                @csrf
+                    <input type="file" name="file" accept=".xlsx"><br>
+                    <input type="submit" value="Import" name="import_csv" class="btn btn-info btn-import">
+            </form>
+            <form action="{{route('admin.export')}}" method="POST">
+                @csrf
+                <input type="submit" value="Export" name="export_csv" class="btn btn-warning btn-export">
+            </form>
+        </div>
+
         </div>
     </div>
 
 </div>
 </div>
 
+<script>
+    $('#submitForm').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+
+                form.submit();
+            }
+        });
+    });
+</script>
 
 @endsection
