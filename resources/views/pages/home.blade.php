@@ -79,7 +79,7 @@
         <div class="card comment-card">
           {{-- <img src="" class="card-img-top" alt="..."> --}}
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">Customer 1</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <p>
               <i class="fa fa-star"></i>
@@ -95,7 +95,7 @@
         <div class="card comment-card">
           {{-- <img src="" class="card-img-top" alt="..."> --}}
           <div class="card-body">
-            <h5 class="card-title">Card title2</h5>
+            <h5 class="card-title">Customer 2</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <p>
               <i class="fa fa-star"></i>
@@ -111,7 +111,7 @@
         <div class="card comment-card">
           {{-- <img src="" class="card-img-top" alt="..."> --}}
           <div class="card-body">
-            <h5 class="card-title">Card title3</h5>
+            <h5 class="card-title">Customer 3</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <p>
               <i class="fa fa-star"></i>

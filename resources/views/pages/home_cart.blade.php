@@ -28,9 +28,9 @@
 
     @php
         $content = Cart::content();
-        echo "<pre>";
-        print_r($content);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($content);
+        // echo "</pre>";
         // $coupon = Session::get('coupon');
         // echo $coupon['code'];
         // print_r($coupon['function']);

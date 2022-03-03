@@ -255,4 +255,7 @@
         border-radius: 5px;
         /* width: fit-content; */
     }
+    .aboutus-heading {
+        margin-top: 25px;
+    }
 }
