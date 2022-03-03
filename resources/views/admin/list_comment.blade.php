@@ -65,6 +65,7 @@
                 $('.comment-search-ajax').keyup(function () { 
                     var query = $(this).val();
                     fetch_customer_data(query);
+                    console.log(fetch_customer_data(query));
                 });
           });
       </script>
@@ -78,6 +79,17 @@
                 // only $(this) NOT $(this).html() :[[
                 var current = $(this);
                 console.log(comment_status, comment_id, current);
+                Swal.fire({
+                    toast: true,
+                    title: "Comment is updated!",
+                    icon: "success",
+                    position: "top-end",
+                    padding: '1rem',
+                    width: '400px',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                });
                 $.ajax({
                     type: "get",
                     url: "{{route('comment.approval.ajax')}}",

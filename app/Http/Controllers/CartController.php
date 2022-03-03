@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
+use Alert;
 
 session_start();
 
@@ -66,7 +67,7 @@ class CartController extends Controller
 
         // return view('pages.home_cart')->with('categories',$dataCategory)->with('products',$dataProduct);
 
-        return redirect()->route('cart.show')->with('msg','Successfully add an item');
+        return redirect()->route('cart.show')->with('success','Successfully add an item');
     }
 
     public function save_cart_ajax(Request $request){
@@ -90,6 +91,7 @@ class CartController extends Controller
         $data['weight'] = '0';
         $data['options']['image'] = $dataProduct->product_image;
         $data['options']['category'] = $dataCategoryId->category_name;
+        
         
         // Set tax
         Cart::setGlobalTax(9);
@@ -158,6 +160,7 @@ class CartController extends Controller
         Cart::remove($rowId);
         $this->storeIntoDb();
         $this->display();
+        toast('Deleted an item!','info')->width('250px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(1000);
         return redirect()->route('cart.show')->with('msg','Successfully delete an item');
     }
 
@@ -167,7 +170,7 @@ class CartController extends Controller
         Cart::destroy();
         $this->storeIntoDb();
         $this->display();
-        return redirect()->route('cart.show')->with('msg','All cart items are successfully removed!');
+        return redirect()->route('cart.show')->with('success','All cart items are successfully removed!');
     }
 
     // Update
@@ -239,7 +242,9 @@ class CartController extends Controller
     // Delete session coupon
     public function session_coupon_del(){
         Session::forget('coupon');
-        return redirect()->back()->with('info','Coupon is removed!');
+        // return redirect()->back()->with('info','Coupon is removed!');
+        toast('Coupon is removed!','info')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(1500);
+        return redirect()->back();
     }
 
     // Test

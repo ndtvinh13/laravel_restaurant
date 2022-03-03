@@ -22,8 +22,8 @@ class CommentController extends Controller
         $comment->comment = $data['comment'];
         $comment->status = 1;
         $comment->save();
-
-        return redirect()->back()->with('msg', 'Thank you! Your review is being processed!');
+        
+        return redirect()->back()->with('success', 'Thank you! Your review is being processed!');
     }
 
     public function list_comment(){
@@ -63,7 +63,7 @@ class CommentController extends Controller
         if($request->ajax()){
             $query = $request->get('query');
             if($query != ''){
-                $data = Comment::where('comment','like','%'.$query.'%')->orderby('id','descd')->get();
+                $data = Comment::where('comment','like','%'.$query.'%')->orderby('id','desc')->get();
             }else{
                 $data = Comment::orderby('id','desc')->get();
             }
@@ -89,7 +89,7 @@ class CommentController extends Controller
                         <td>
                             <!-- Edit and Delete buttons -->
                             <!-- <a href="" class="btn btn-primary">Edit</a> -->
-                            <a onclick="return confirm(\'Do you want to delete?\')" href="'.route('custdelete',$comment->id).'" class="btn btn-danger">Delete</a>
+                            <a href="'.route('comment.delete',$comment->id).'" class="btn btn-danger submit-form">Delete</a>
                         </td>
                     </tr>';
                 }
@@ -97,8 +97,7 @@ class CommentController extends Controller
                 $result = '
                 <tr> 
                     <td align="center" colspan="5" class="fs-5 text-danger" >No data is found!!!</td>
-                </tr>
-            ';
+                </tr>';
             }
 
             $data = [];
@@ -108,5 +107,12 @@ class CommentController extends Controller
         }
     }
 
+
+    public function comment_delete($commentId){
+        $data = Comment::where('id',$commentId)->first();
+        $data->delete();
+        toast('Deleted a comment!','success')->width('400px')->padding('1rem')->position('top-end')->hideCloseButton()->timerProgressBar()->autoClose(1500);
+        return redirect()->back();
+    }
 
 }

@@ -42,6 +42,7 @@ Route::get('/product-detail/{product_id}', [MenuController::class, 'product_deta
 //Search products
 Route::get('/search', [MenuController::class, 'search_product'])->name('search.product');
 Route::post('/searching', [MenuController::class, 'search_result'])->name('search.result');
+Route::get('/search-ajax', [MenuController::class, 'search_product_ajax'])->name('search.product.ajax');
 //Sort products
 Route::get('/sort', [MenuController::class, 'sort_product'])->name('sort');
 
@@ -134,7 +135,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/list-comment', [CommentController::class, 'list_comment'])->name('comment.list');
     Route::get('/search-comment-ajax', [CommentController::class, 'comment_search_ajax'])->name('comment.search.ajax');
     Route::get('/approval-comment-ajax', [CommentController::class, 'comment_approval_ajax'])->name('comment.approval.ajax');
-
+    Route::get('/delete-comment/{commentId}', [CommentController::class, 'comment_delete'])->name('comment.delete');
 });
 
 // ---------------------------Admin Logout--------------------------//

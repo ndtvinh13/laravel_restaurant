@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js')}}"></script>
 
     <title>Restaurant</title>
   </head>
@@ -159,35 +160,10 @@
     ></script>
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
     <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
+    <script src="{{asset('public/frontend/js/custom.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
-    <script>
-      // Add cart using Ajax
-      $(function () {
-        $('.addItem').click(function (e) { 
-          let product_id = $(this).attr('product_id');
-          let category_id = $(this).attr('category_id');
-          console.log(category_id);
-          $.ajax({
-            type: "get",
-            url: "{{route('cart.save.ajax')}}",
-            data: {product_id: product_id, category_id: category_id, qty:1},
-            success: function (response) {
-              displayCart(response);
-            }
-          });
-        });
-      });
-
-      function displayCart(data){
-          let cart = JSON.parse(data);
-          let count = cart.count;
-          $('.cart-count').html(count);
-      }
-      
-    </script>
-
     <script>
       // Delete an item with - using Ajax
       $(function (){
@@ -201,6 +177,15 @@
           let pos = $(this).parent().parent().parent().parent();
           // Delete the item when its quantity = 0 - using ajax
           if(item_qty==0){
+            Swal.fire({
+              toast: true,
+              title: "No item in cart!",
+              icon: "error",
+              position: "top",
+              timer: 1500,
+              showConfirmButton: false,
+              timerProgressBar: true,
+            });
             $.ajax({
               type: "get",
               url: "{{route('cart.item.del.ajax')}}",
@@ -225,58 +210,58 @@
         });
       });
       
-      // Add an item with + using Ajax
-      $(function (){
-        $('.inc').click(function (e){
-          let row_id = $(this).attr("row_id");
-          let item_qty = $(this).prev().val();
-          let item_price = $(this).prev().attr('item_price');
-          let current = $(this).parent().parent().parent().next();
-          let sum = item_qty*item_price;
-          console.log(row_id,item_qty,item_price,current,sum);
-          $.ajax({
-            type: "get",
-            url: "{{route('cart.item.ajax')}}",
-            data: {row_id: row_id, item_qty: item_qty, item_price: item_price},
-            success: function (response) {
-              displayItem(response);
-              current.each(function(i){
-                console.log(current.eq(i).html("$"+sum.toFixed(2)));
-              });
-            }
-          });
-        });
-      });
+      // // Add an item with + using Ajax
+      // $(function (){
+      //   $('.inc').click(function (e){
+      //     let row_id = $(this).attr("row_id");
+      //     let item_qty = $(this).prev().val();
+      //     let item_price = $(this).prev().attr('item_price');
+      //     let current = $(this).parent().parent().parent().next();
+      //     let sum = item_qty*item_price;
+      //     console.log(row_id,item_qty,item_price,current,sum);
+      //     $.ajax({
+      //       type: "get",
+      //       url: "{{route('cart.item.ajax')}}",
+      //       data: {row_id: row_id, item_qty: item_qty, item_price: item_price},
+      //       success: function (response) {
+      //         displayItem(response);
+      //         current.each(function(i){
+      //           console.log(current.eq(i).html("$"+sum.toFixed(2)));
+      //         });
+      //       }
+      //     });
+      //   });
+      // });
 
-      // JSON Parse
-      function displayItem(data){
-        let coup = parseInt($('.coupon-discount').children().children().first().html());
-        let discount_val = $('.coupon-discount').children().children().first().attr('discount_val');
-        console.log(discount_val);
-        let item = JSON.parse(data);
-        let count = item.count;
-        let subtotal = item.subtotal;
-        let tax = item.tax;
-        let itemSub = item.itemSub;
-        // let total = item.total - coup;
-        let total_amount = item.total - coup;
-        let total_percent = item.total * (1 - coup/100);
+      // // JSON Parse
+      // function displayItem(data){
+      //   let coup = parseInt($('.coupon-discount').children().children().first().html());
+      //   let discount_val = $('.coupon-discount').children().children().first().attr('discount_val');
+      //   console.log(discount_val);
+      //   let item = JSON.parse(data);
+      //   let count = item.count;
+      //   let subtotal = item.subtotal;
+      //   let tax = item.tax;
+      //   let itemSub = item.itemSub;
+      //   // let total = item.total - coup;
+      //   let total_amount = item.total - coup;
+      //   let total_percent = item.total * (1 - coup/100);
         
-        if(discount_val == "amount")
-          if(total_amount < 0){
-            let neg_total = parseInt(0);
-            $('.total-ajax').html("$"+neg_total.toFixed(2));
-          }else{
-            $('.total-ajax').html("$"+total_amount.toFixed(2));
-          }
-        else
-          $('.total-ajax').html("$"+total_percent.toFixed(2));
+      //   if(discount_val == "amount")
+      //     if(total_amount < 0){
+      //       let neg_total = parseInt(0);
+      //       $('.total-ajax').html("$"+neg_total.toFixed(2));
+      //     }else{
+      //       $('.total-ajax').html("$"+total_amount.toFixed(2));
+      //     }
+      //   else
+      //     $('.total-ajax').html("$"+total_percent.toFixed(2));
         
         
-        $('.cart-count').html(count);
-        $('.subtotal-ajax').html("$"+subtotal);
-        $('.tax-ajax').html("$"+tax);
-      }
+      //   $('.cart-count').html(count);
+      //   $('.subtotal-ajax').html("$"+subtotal);
+      //   $('.tax-ajax').html("$"+tax);
+      // }
 
       function delItem(data,pos){
               let item = JSON.parse(data);
@@ -292,49 +277,5 @@
               $('.tax-ajax').html("$"+tax);
               posi.html(del_item);
             }
-    </script>
-
-    <script>
-      // Adding comment
-      // $(function () {
-        
-         
-      //   $('.btn-review').click(function (e) { 
-      //     e.preventDefault();
-      //     // var _token = $('input[name="_token"]').val();
-      //     var _token = $('.review-token').val();
-      //     var product_id = $('.productId').val();
-      //     var review_name = $('input[name="name"]').val();
-      //     var review_comment = $('.review-comment-text').val();
-
-      //     console.log(product_id,review_name, review_comment, _token);
-
-          
-      //     // $.ajaxSetup({
-      //     //   headers: {
-      //     //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      //     //   }
-      //     // });
-
-      //     $.ajax({
-      //       type: "POST",
-      //       url: "{{route('comment')}}",
-      //       data: {product_id: product_id, review_name: review_name, review_comment: review_comment, _token: _token},
-      //       success: function (response) {
-      //         // commentDisplay(response);
-      //         // $('.review-wrapper').children().html(response);
-      //         console.log(response);
-      //       }
-      //     });
-          
-      //   });
-
-      //   function commentDisplay(data){
-      //     let output = JSON.parse(data);
-          
-      //   }
-        
-      // });
-
     </script>
 </html>

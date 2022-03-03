@@ -28,6 +28,7 @@
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js')}}"></script>
 
     <title>Menu</title>
   </head>
@@ -95,7 +96,7 @@
                 @if (Auth::guard('customer')->check())
                   <div>Hello, {{ $user->user_name }} !</div>
                   <a href="{{route('customer.logout')}}">Log out</a>
-                  <div>{{(Cart::instance('default')->content()->count())}}</div>
+                  {{-- <div>{{(Cart::instance('default')->content()->count())}}</div> --}}
                 @else
                   <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
                 @endif
@@ -104,21 +105,26 @@
               </li>
             </ul>
             {{-- search bar --}}
-            <form class="d-flex search-bar-wrapper" action="{{route('search.result')}}" id="search-form" method="POST">
-              @csrf
+            <div class="search-bar-wrapper-wrapper">
 
-              <input
-                class="form-control me-2 box-search"
-                type="search"
-                placeholder="Find food ..."
-                aria-label="Search"
-                id="search_text"
-                name="search_item"
-              />
-              <button class="btn btn-search" type="submit" name="btn_search">
-                <i class="fa fa-search"></i>
-              </button>
-            </form>
+              <form class="d-flex search-bar-wrapper" action="{{route('search.result')}}" id="search-form-ajax" method="POST">
+                @csrf
+  
+                <input
+                  class="form-control me-2 box-search"
+                  type="search"
+                  placeholder="Find food ..."
+                  aria-label="Search"
+                  id="search_text_ajax"
+                  name="search_item"
+                />
+                <button class="btn btn-search" type="submit" name="btn_search">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+              <div id="product_list"></div>
+              
+            </div>
 
           </div>
         </div>
@@ -238,60 +244,11 @@
     ></script>
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
     <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
+    <script src="{{asset('public/frontend/js/custom.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script>
-      //Ajax search
-      $(document).ready(function () {
-          src = "{{ route('search.product') }}";
-          $("#search_text").autocomplete({
-              source: (request, response)  =>{
-                  $.ajax({
-                      url: src,
-                      data: {term: request.term,},
-                      dataType: "json",
-                      success: function (data) {
-                          response(data);
-                          console.log(request);
-                      },
-                      async: false
-                  });
-              },
-              minLength: 1,
-          });
-          
-
-          $(document).on("click", ".ui-menu-item", function () {
-              $("#search-form").submit();
-          });
-      });
-    </script>
-
-    {{-- Ajax add --}}
-    <script>
-      $(function () {
-        $('.addItem').click(function (e) { 
-          let product_id = $(this).attr('product_id');
-          let category_id = $(this).attr('category_id');
-          console.log(category_id);
-          $.ajax({
-          type: "get",
-          url: "{{route('cart.save.ajax')}}",
-          data: {product_id: product_id, category_id: category_id, qty:1},
-          success: function (response) {
-            displayCart(response);
-          }
-        });
-        });
-        
-      });
-
-      function displayCart(data){
-          let cart = JSON.parse(data)
-          let count = cart.count;
-          $('.cart-count').html(count);
-      }
-
-      
     </script>
     </html>
+
+    

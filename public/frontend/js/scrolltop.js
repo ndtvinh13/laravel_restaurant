@@ -35,8 +35,10 @@ $(function () {
     $(window).on("scroll", function () {
         if ($(window).scrollTop()) {
             $("header").addClass("nav-on-scroll");
+            // $(".search-bar-wrapper-wrapper").addClass("search-on-scroll");
         } else {
             $("header").removeClass("nav-on-scroll");
+            // $(".search-bar-wrapper-wrapper").removeClass("search-on-scroll");
         }
     });
 });

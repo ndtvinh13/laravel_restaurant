@@ -138,7 +138,7 @@
 </div>
 
 <div class="container-fluid end-text">
-  <h1>We ensure to bring to the customers our best service and experience</h1>
+  <h1> <span>BZ</span> </h1>
 </div>
 
 

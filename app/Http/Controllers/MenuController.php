@@ -69,14 +69,57 @@ class MenuController extends Controller
         }
     }
 
+    public function search_product_ajax(Request $request){
+        if($request->ajax()){
+            $query = $request->get('query');
+            $data = Product::where('product_name','like','%'.$query.'%')->orderby('product_id','desc')->get();
+            $dataCount = $data->count();
+            $output = '';
+            if($dataCount > 0){
+                $output .= '
+                <div class="filer-box">
+                    <ul class="menu-search">';
+
+                    foreach($data as $item){
+                        $output .= '
+                        <li class="search-item-product"><img src="'.url('/public/uploads/products/'.$item->product_image).'" width="30" height="25" /><span>'.$item->product_name.'</span></li>
+                        ';
+                    }
+
+                $output .= '
+                    </ul>
+                </div>
+                ';
+            } else {
+                $output .= '
+                <div class="filer-box">
+                    <ul class="menu-search">
+                        <li>Product not found!</li>
+                    </ul>
+                </div>';
+            }
+
+            $result = [];
+            $result['data'] = $output;
+
+            echo json_encode($result);
+        }
+    }
+
     //Search result 
     public function search_result(Request $request){
-        $item=$request->search_item;
+        $item = $request->search_item;
         //Use first() instead of get() -> to get the first value of the collection
-        $dataProduct=Product::where('product_name','LIKE','%'.$item.'%')->first();
-        
+        $dataProduct = Product::where('product_name','LIKE','%'.$item.'%')->first();
+        $productName = Product::select('product_name')->where('product_name','LIKE','%'.$item.'%')->value('product_name');
         if(isset($item)){
-            return redirect()->route('product.detail',['product_id'=>$dataProduct->product_id]);
+            if($item == $productName){
+                toast('Nice choice!','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+                return redirect()->route('product.detail',['product_id'=>$dataProduct->product_id]);
+            }else{
+                toast('No item found!','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+                return redirect()->route('menu');
+            }
 
         }else{
             return redirect()->route('menu');
@@ -86,18 +129,18 @@ class MenuController extends Controller
     //Sort products
     public function sort_product(Request $request){
         if($request->get('sort')=='price_des'){
-            $dataProduct=Product::orderby('product_price','desc')->paginate(9);
-            $dataCategory=Category::select('category_name','category_id')->orderby('category_id','desc')->get();
+            $dataProduct = Product::orderby('product_price','desc')->paginate(9);
+            $dataCategory = Category::select('category_name','category_id')->orderby('category_id','desc')->get();
             return view('pages.menu')->with('products',$dataProduct)->with('categories',$dataCategory);
 
         }elseif($request->get('sort')=='price_asc'){
-            $dataProduct=Product::orderby('product_price','asc')->paginate(9);
-            $dataCategory=Category::select('category_name','category_id')->orderby('category_id','desc')->get();
+            $dataProduct = Product::orderby('product_price','asc')->paginate(9);
+            $dataCategory = Category::select('category_name','category_id')->orderby('category_id','desc')->get();
             return view('pages.menu')->with('products',$dataProduct)->with('categories',$dataCategory);
 
         }elseif($request->get('sort')=='popularity'){
-            $dataProduct=Product::where('product_type',1)->paginate(9);
-            $dataCategory=Category::select('category_name','category_id')->orderby('category_id','desc')->get();
+            $dataProduct = Product::where('product_type',1)->paginate(9);
+            $dataCategory = Category::select('category_name','category_id')->orderby('category_id','desc')->get();
             return view('pages.menu')->with('products',$dataProduct)->with('categories',$dataCategory);
         }
     }

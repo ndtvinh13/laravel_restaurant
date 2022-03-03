@@ -30,7 +30,8 @@
                         <td>{{$category_product['category_name']}}</td>
                         <td class="col-2">
                             <a href="{{URL::to('/edit-category-product/'.$category_product['category_id'])}}" class="btn btn-primary">Edit</a>
-                            <a onclick="return confirm('Do you want to delete?')" href="{{URL::to('/delete-category-product/'.$category_product['category_id'])}}" class="btn btn-danger ">Delete</a>
+                            <a  href="{{URL::to('/delete-category-product/'.$category_product['category_id'])}}" product_id="{{$category_product->category_id}}" class="btn btn-danger submit-form">Delete</a>
+                            {{-- onclick="return confirm('Do you want to delete?')" --}}
                         </td>
                     </tr>
                 @endforeach
@@ -62,25 +63,9 @@
 </div>
 </div>
 
-<script>
-    $('#submitForm').on('click',function(e){
-        e.preventDefault();
-        var form = $(this).parents('form');
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
 
-                form.submit();
-            }
-        });
-    });
+<script>
+    
 </script>
 
 @endsection

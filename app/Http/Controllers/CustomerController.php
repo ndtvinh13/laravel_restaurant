@@ -85,8 +85,10 @@ class CustomerController extends Controller
         
         $userCount = Customer::where('email',$data['user_email'])->count();
         if($userCount>0){
+            toast('The account is already created!','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2500);
             return redirect()->back()->with('msg','The account is already created!');
         }elseif($data['user_password'] != $data['user_confirm_password']){
+            toast('Password is not matched!','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2500);
             return redirect()->back()->with('msg','Password is not matched!');
         }else{
             $customer = new Customer();
@@ -101,7 +103,8 @@ class CustomerController extends Controller
             ];
 
             if(Auth::guard('customer')->attempt($credentials)){
-                return redirect()->route('menu')->with('msg','Successfully registered');
+                toast('Successfully registered! Welcome.','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2500);
+                return redirect()->route('menu');
             }
 
         }
@@ -122,6 +125,7 @@ class CustomerController extends Controller
             'password'=>$pass
         ];
         if(Auth::guard('customer')->attempt($credentials)){
+            toast('Welcome back!','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
             return redirect()->route('menu');
         }else{
             return redirect()->back()->with('login_msg','Invalid email or password');
@@ -132,6 +136,8 @@ class CustomerController extends Controller
     public function logout()
     {
         Auth::guard('customer')->logout();
+
+        toast('Logged out!','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
         return redirect()->route('customer');
     }
 
