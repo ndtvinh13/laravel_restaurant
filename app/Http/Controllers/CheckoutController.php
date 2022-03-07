@@ -161,13 +161,24 @@ class CheckoutController extends Controller
 
     // Confirmation
     public function confirmation(){
-        $orderMethod = Payment::select('method')->orderby('payment_id','desc')->value('method');
         if($userId = Auth::guard('customer')->user()->user_id){
             $orderShipping = Shipping::where('user_id',$userId)->get();
+            $orderId = Order::select('order_id')->where('user_id',$userId)->latest('order_id')->value('order_id');
+            if($orderId){      //Use relation model to output product info
+                
+                $dataOrder = OrderDetails::with('toProduct')->where('order_id',$orderId)->get();
+
+                $orderMethod = Order::with('payment')->where('order_id',$orderId)->first();
+                $order = Order::where('order_id',$orderId)->first();
+                $couponCode = OrderDetails::select('coupon_code')->where('order_id',$orderId)->value('coupon_code');
+                
+                $coupon = Coupon::where('coupon_code', $couponCode)->first();
+                
+            }
         }
-        
-        alert()->success('Sweet!','Thank you for your support.')->autoClose(3000);
-        return view('pages.home_confirmation')->with('orderMethod',$orderMethod)->with('orderShipping',$orderShipping);
+
+        alert()->success('Order is being processed!','Thank you for your support.')->autoClose(3000);
+        return view('pages.home_confirmation')->with(compact('orderMethod','orderShipping','dataOrder','order','couponCode','coupon'));
     }
 
 }

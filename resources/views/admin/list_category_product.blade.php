@@ -16,7 +16,7 @@
                     <th scope="col" class="col-2">Action*</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="category_order">
                 
                 @if(Session::has('msg'))
                     <div class="alert alert-success">
@@ -25,7 +25,7 @@
                 @endif
                 <!-- Loop to display created cateogry-->
                 @foreach($category_products as $category_product)
-                    <tr class="tbl-content">
+                    <tr class="tbl-content" category_id="{{$category_product['category_id']}}">
                         <td>{{$category_product['category_id']}}</td>
                         <td>{{$category_product['category_name']}}</td>
                         <td class="col-2">
@@ -65,7 +65,18 @@
 
 
 <script>
-    
+    $(document).ready(function () {
+        $('#category_order').sortable({
+            placeholder: 'ui-state-highlight',
+            update:function(event,ui){
+                var category_id_array = new Array();
+                $('#category_order tr').each(function(){
+                    category_id_array.push($(this).attr('category_id'));
+                });
+                console.log(category_id_array);
+            }
+        })
+    });
 </script>
 
 @endsection

@@ -24,13 +24,13 @@
                             @endif
 
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" name="user_name">
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="&#xf007 Name" name="user_name">
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name="user_email">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="&#xf0e0 Email address" name="user_email">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="user_password">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="&#xf023 Password" name="user_password">
                                 @if ($errors->first('user_password'))
                                     @error('user_password')
                                         <div class="alert-warning"><i class="fas fa-exclamation"></i> {{$message}}</div>
@@ -40,7 +40,7 @@
                             </div>
                             
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" name="user_confirm_password">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="&#xf023 Confirm Password" name="user_confirm_password">
                             {{-- @error('user_confirm_password')
                                 <div class="alert-warning">{{$message}}</div>
                             @enderror --}}
@@ -71,10 +71,10 @@
                             @endif
 
                             <div class="mb-3">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name="userEmail">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="&#xf0e0 Email address" name="userEmail">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="userPassword">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="&#xf023 Password" name="userPassword">
                             </div>
                             <div class="cust-btn-div">
                                 <button type="submit" class="btn cust-btn" name="submit_login">Sign in</button>

@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 
-
+<input type="hidden" class="coupon-code" value="{{$coupon}}" />
 <!-- carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -141,5 +141,22 @@
   <h1> <span>BZ</span> </h1>
 </div>
 
+<script>  
+  // Coupon Alert
+  var coupon_code = $('.coupon-code').val();
+  console.log(coupon_code);
+  if (coupon_code != '' ){
+    Swal.fire({
+      title: "Don't miss out...",
+      html: 'Use coupon code <span class="span-code">'+ coupon_code +'</span> to get a discount!',
+      imageUrl: '/laravel_restaurant/public/frontend/images/coupon.jpg',
+      imageWidth: 550,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      background:'#FEFEFE',
+      confirmButtonColor:'#238B23',
+    })
+  }
+</script>
 
 @endsection 

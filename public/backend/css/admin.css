@@ -194,6 +194,7 @@ body > .container-fluid {
         /* display: block; */
         border-radius: 0;
         position: relative;
+        overflow: scroll;
     }
     .page-content {
         height: 100%;

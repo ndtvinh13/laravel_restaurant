@@ -34,7 +34,7 @@
         // $coupon = Session::get('coupon');
         // echo $coupon['code'];
         // print_r($coupon['function']);
-        print_r(json_encode(Session::get('coupon')));
+        // print_r(json_encode(Session::get('coupon')));
     @endphp
 
     {{-- Shopping cart --}}

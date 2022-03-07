@@ -30,6 +30,7 @@
     <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js')}}"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="{{asset('/public/backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     {{-- <script type="text/javascript">CKEDITOR.replace('ckeditor1')</script> --}}
     <!-- JQuery -->
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->

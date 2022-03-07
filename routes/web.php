@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Auth;
 //===================================Front-end===================================//
 Route::get('/', [HomeController::class, 'index'])->name('');
 Route::get('/main-page', [HomeController::class, 'index'])->name('main.page');
+Route::get('/404', [HomeController::class, 'error_404'])->name('main.404');
+Route::get('/500', [HomeController::class, 'error_500'])->name('main.500');
 Route::get('/contact-aaa', [ServiceController::class, 'index'])->name('contact');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');

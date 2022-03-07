@@ -42,6 +42,11 @@
     table-layout: fixed;
 }
 
+#category_order .ui-state-highlight {
+    cursor: move;
+    height: 50px;
+}
+
 /* prodlist table */
 .tbl-prodlist {
     font-size: 14.5px;

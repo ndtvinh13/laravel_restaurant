@@ -14,7 +14,8 @@
     justify-content: space-evenly; */
 }
 
-.form-wrapper {
+.form-control {
+    font-family: FontAwesome;
 }
 
 .cust-title {

@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 // session_start();
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -34,11 +36,34 @@ class AdminController extends Controller
     {
         $dataProduct = Product::all();
         $dataProductCount = count($dataProduct);
+
         $dataCategory = Category::all();
         $dataCategoryCount = count($dataCategory);
+
         $dataUser = Customer::all();
         $dataUserCount = count($dataUser);
-        return view('admin.dashboard', ['products' => $dataProductCount], ['categories' => $dataCategoryCount])->with(compact('dataUserCount'));
+
+        $commentCount = Comment::all()->count();
+
+        $orderCount = Order::all()->count();
+
+        $data = "
+            ['Product', ".$dataProductCount."],
+            ['Category', ".$dataCategoryCount."],
+            ['Customer', ".$dataUserCount."],
+            ['Comment', ".$commentCount."],
+            ['Order', ".$orderCount."]
+        ";
+
+        $commentApproved = Comment::where('status',0)->get()->count();
+        $commentUnpproved = Comment::where('status',1)->get()->count();
+        $dataComment = "
+            ['Approved', ".$commentApproved.", '#198754'],
+            ['Unapproved', ".$commentUnpproved.", '#FFD700']
+        ";
+        
+
+        return view('admin.dashboard', ['products' => $dataProductCount], ['categories' => $dataCategoryCount])->with(compact('dataUserCount','data', 'dataComment'));
         
     }
 
