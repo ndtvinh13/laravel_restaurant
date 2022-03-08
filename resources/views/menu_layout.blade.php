@@ -63,7 +63,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{URL::to('/menu')}}">Menu</a>
               </li>
-              <li class="nav-item dropdown active">
+              <li class="nav-item dropdown active service-dropdown-wrapper">
                 <a
                   class="nav-link dropdown-toggle active"
                   id="navbarDropdown"
@@ -71,7 +71,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Services
+                  Services <i class="fas fa-angle-down point-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="{{route('contact')}}">Contact</a></li>
@@ -94,9 +94,17 @@
                 @endphp
 
                 @if (Auth::guard('customer')->check())
-                  <div>Hello, {{ $user->user_name }} !</div>
-                  <a href="{{route('customer.logout')}}">Log out</a>
+                <div class="customer-wrapper">
+                  <div><u>Hello, {{ $user->user_name }}</u> <i class="fas fa-angle-double-down fa-xs point-down"></i></div>
+                  <ul class="dropdown-menu customer-dropdown">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-box fa-xs"></i> Order History</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-key fa-xs"></i> Change password</a></li>
+                    <li><a class="dropdown-item" href="{{route('customer.logout')}}"><i class="fas fa-sign-out-alt fa-sm"></i> Log out</a></li>
+                  </ul>
+                  {{-- <a href="{{route('customer.logout')}}">Log out</a> --}}
                   {{-- <div>{{(Cart::instance('default')->content()->count())}}</div> --}}
+                  
+                </div>
                 @else
                   <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
                 @endif
@@ -190,7 +198,7 @@
       
       {{-- Sort functions --}}
       <div class="container-fluid p-0">
-        <span class="fw-bold font-weight-bold">Sort By:</span>
+        <span class="fw-bold font-weight-bold"><i class="fas fa-sort"></i> Sort By:</span>
         <a href="{{route('menu')}}" class="sort-font">All</a>
         <a href="{{route('sort').'?sort=price_des'}}" class="sort-font">Price - High to Low</a>
         <a href="{{route('sort').'?sort=price_asc'}}" class="sort-font">Price - Low to High</a>

@@ -42,3 +42,41 @@ $(function () {
         }
     });
 });
+
+// icon direction
+$(function () {
+    $(".dropdown-toggle").on("click", function () {
+        if ($(".fa-angle-down").hasClass("point-down")) {
+            $(".fa-angle-down").removeClass("point-down");
+            $(".fa-angle-down").addClass("point-up");
+        } else {
+            $(".fa-angle-down").removeClass("point-up");
+            $(".fa-angle-down").addClass("point-down");
+        }
+    });
+
+    $(document).on("click", function (e) {
+        // When click on the screen -> there is no .dropdown-toggle class
+        // it then means false -> match the condition
+        if ($(e.target).is(".dropdown-toggle") === false) {
+            $(".fa-angle-down").removeClass("point-up");
+            $(".fa-angle-down").addClass("point-down");
+        }
+    });
+});
+
+$(function () {
+    $(".customer-wrapper")
+        .on("mouseenter", function () {
+            if ($(".fa-angle-double-down").hasClass("point-down")) {
+                $(".fa-angle-double-down").removeClass("point-down");
+                $(".fa-angle-double-down").addClass("point-up");
+            }
+        })
+        .on("mouseleave", function () {
+            if ($(".fa-angle-double-down").hasClass("point-up")) {
+                $(".fa-angle-double-down").removeClass("point-up");
+                $(".fa-angle-double-down").addClass("point-down");
+            }
+        });
+});

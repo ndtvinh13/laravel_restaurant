@@ -79,7 +79,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Services
+                  Services <i class="fas fa-angle-down point-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">Contact</a></li>
