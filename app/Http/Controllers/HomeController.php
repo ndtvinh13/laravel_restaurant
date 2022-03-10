@@ -16,7 +16,7 @@ class HomeController extends Controller
         $url_canonical = $request->getRequestUri();
 
         // Coupon popup
-        $coupon = Coupon::select('coupon_code')->where('status', 1)->value('coupon_code');
+        $coupon = Coupon::select('coupon_code')->inRandomOrder()->where('status', 1)->value('coupon_code');
         // $output = 'Discover the discount'.$coupon.'';
 
         // alert()->image('Dont miss out...',html($output),'https://media.gettyimages.com/photos/white-gift-box-with-red-ribbon-bow-on-blue-background-with-confetti-picture-id1190392505?b=1&k=20&m=1190392505&s=170667a&w=0&h=pQzA1o13vWagLtYFzq3JsXvehYurlhHgQ4nXEL0tP84=','500px','200px','0');

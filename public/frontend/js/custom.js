@@ -54,6 +54,7 @@ $(function () {
     $(document).on("click", ".search-item-product", function () {
         var name = $(this).children().next().text();
         $("#search_text_ajax").val(name);
+        $("#search-form-ajax").submit();
     });
 });
 

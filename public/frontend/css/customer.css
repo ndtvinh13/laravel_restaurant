@@ -44,3 +44,41 @@
 .cust-break {
     margin: 2rem;
 }
+
+/* =========== Customer order history ================ */
+.fa-eye {
+    background-color: #228b22;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    border: none;
+    position: relative;
+}
+
+.fa-eye:hover {
+    transition: 0.3s;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.order-process-status {
+    padding: 0px 4px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f39c12;
+    width: fit-content;
+    color: #fff;
+}
+
+.order-complete-status {
+    padding: 0px 4px;
+    border: none;
+    border-radius: 10px;
+    background-color: #73a724;
+    width: fit-content;
+    color: #fff;
+}
+
+.order-history-thead {
+    background-color: #f5f5f5;
+}

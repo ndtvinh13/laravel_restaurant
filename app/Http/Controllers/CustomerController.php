@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -109,6 +110,16 @@ class CustomerController extends Controller
 
         }
 
+    }
+
+    // Customer order history
+    public function order_history(){
+        if($userId = Auth::guard('customer')->user()->user_id){
+            $order = Order::where('user_id',$userId)->orderby('order_id','desc')->paginate(5);
+            $orderCount = Order::where('user_id',$userId)->count(); 
+        }
+        
+        return view('pages.home_order_history')->with(compact('order','orderCount'));
     }
 
     //Customer login

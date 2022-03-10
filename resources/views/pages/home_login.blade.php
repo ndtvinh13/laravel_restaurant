@@ -46,7 +46,7 @@
                             @enderror --}}
                             </div>
                             <div class="cust-btn-div">
-                                <button type="submit" class="btn cust-btn" name="submit_register">Sign up</button>
+                                <button type="submit" class="btn cust-btn" name="submit_register"><i class="fas fa-user-plus"></i> Sign up</button>
                             </div>
                         </div>
                     </form>
@@ -77,7 +77,7 @@
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="&#xf023 Password" name="userPassword">
                             </div>
                             <div class="cust-btn-div">
-                                <button type="submit" class="btn cust-btn" name="submit_login">Sign in</button>
+                                <button type="submit" class="btn cust-btn" name="submit_login"><i class="fas fa-sign-in-alt"></i> Sign in</button>
                             </div>
                         </div>
                     </form>

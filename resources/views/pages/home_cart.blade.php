@@ -177,7 +177,7 @@
             
             {{-- Coupon --}}
             <hr class="col-md-8 col-12">
-            <h6><i class="fas fa-tag"></i> Coupon</h6>
+            <h6><i class="fas fa-tag"></i> <b>Coupon</b></h6>
             <div class="col-md-8 col-12">
               @if(Session::has('coupon_msg'))
                 <div class="alert alert-success"><i class="far fa-check-circle"></i>

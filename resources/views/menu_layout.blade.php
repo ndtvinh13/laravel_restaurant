@@ -97,7 +97,7 @@
                 <div class="customer-wrapper">
                   <div><u>Hello, {{ $user->user_name }}</u> <i class="fas fa-angle-double-down fa-xs point-down"></i></div>
                   <ul class="dropdown-menu customer-dropdown">
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-box fa-xs"></i> Order History</a></li>
+                    <li><a class="dropdown-item" href="{{route('user.order.history')}}"><i class="fas fa-box fa-xs"></i> Order History</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-key fa-xs"></i> Change password</a></li>
                     <li><a class="dropdown-item" href="{{route('customer.logout')}}"><i class="fas fa-sign-out-alt fa-sm"></i> Log out</a></li>
                   </ul>
