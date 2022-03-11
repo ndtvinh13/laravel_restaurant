@@ -51,7 +51,7 @@
                                     <div class="order-complete-status">{{$item->status}}</div>
                                 @endif
                             </td>
-                            <td class="text-center"><a href="#"><i class="fas fa-eye"></i></a></td>
+                            <td class="text-center"><a href="{{route('user.order.history.details',$item->order_id)}}"><i class="fas fa-eye"></i></a></td>
                         </tr> 
                     @endforeach
                 @else

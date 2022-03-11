@@ -78,8 +78,10 @@ Route::middleware('loginCheck')->group(function () {
     Route::get('/payment',[CheckoutController::class,'payment'])->name('payment');
     Route::post('/place-order',[CheckoutController::class,'place_order'])->name('order');
     Route::get('/confirmation',[CheckoutController::class,'confirmation'])->name('confirmation');
-    Route::get('/reset-password',[CustomerController::class,'reset_password'])->name('user.reset.password');
+    Route::get('/reset-password',[CustomerController::class,'reset_password_index'])->name('user.reset.password');
     Route::get('/order-history',[CustomerController::class,'order_history'])->name('user.order.history');
+    Route::get('/order-history-details/{orderId}',[CustomerController::class,'order_history_details'])->name('user.order.history.details');
+    Route::post('/reset-password-customer',[CustomerController::class,'reset_password'])->name('user.reset.password.customer');
 
 });
 

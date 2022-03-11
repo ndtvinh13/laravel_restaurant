@@ -45,7 +45,7 @@
     margin: 2rem;
 }
 
-/* =========== Customer order history ================ */
+/* ============= Customer order history ================ */
 .fa-eye {
     background-color: #228b22;
     color: #fff;
@@ -81,4 +81,72 @@
 
 .order-history-thead {
     background-color: #f5f5f5;
+}
+
+/* ============= Customer order history Details================ */
+.order-history-details-wrapper {
+    margin-bottom: 20px;
+}
+
+.order-item-date > div {
+    margin: 20px 20px 20px 0;
+}
+
+.order-name-detail {
+    padding-left: 40px;
+}
+
+.order-item-info-wrapper {
+    border: solid 1px #c4c4c4;
+    background-color: #f1f1f1;
+    padding: 15px;
+}
+
+.order-item-details-wrapper {
+    border-bottom: solid 1px #c4c4c4;
+    padding: 15px 0;
+}
+
+.order-item-payment {
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+
+.order-item-summary-wrapper {
+    padding: 20px 0;
+}
+
+.order-item-summary-wrapper > div:first-child {
+    margin-bottom: 10px;
+}
+
+.order-item-sum {
+    justify-content: space-between;
+}
+
+/* ================= Reset password ================= */
+.reset-password-wrapper {
+    padding: 30px 0;
+    width: 400px;
+}
+
+.reset-password-wrapper > input:nth-child(n + 1) {
+    margin: 10px 0 25px 0;
+    border: none;
+    border-bottom: solid 2px #333;
+    outline: none;
+}
+
+.btn-reset-password {
+    background-color: #fd7e14;
+    border: none;
+    color: #fff;
+    width: 50%;
+    transform: translate(50%);
+}
+
+.btn-reset-password:hover {
+    background-color: #228b22;
+    transition: 0.4s;
+    border: none;
 }

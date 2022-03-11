@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Order;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Svg\Tag\Rect;
 
 class CustomerController extends Controller
 {
@@ -121,6 +122,40 @@ class CustomerController extends Controller
         
         return view('pages.home_order_history')->with(compact('order','orderCount'));
     }
+
+    // Customer order history details
+    public function order_history_details($orderId){
+        $orderById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_shipping.*', 'tbl_order_details.*','tbl_payment.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_shipping', 'tbl_order.shipping_id','=', 'tbl_shipping.shipping_id' )->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->join('tbl_payment','tbl_order.payment_id','=','tbl_payment.payment_id')->first();
+        
+        $couponCode = $orderById->coupon_code;
+                
+        $orderDetailsById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_order_details.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->get();
+
+
+        if($couponCode != "none"){
+            $coupon = Coupon::where('coupon_code',$couponCode)->first();
+            $couponFuction = $coupon->coupon_function;
+            $couponDiscount = $coupon->coupon_discount;
+            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponFuction','couponDiscount','couponCode'));
+
+        }else{
+            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponCode'));
+        }
+
+        
+    }
+
+    // Reset Password index page
+    public function reset_password_index(){
+        return view('pages.home_reset_password');
+    }
+
+    public function reset_password(Request $request){
+        $data = $request->all();
+
+        return  $data;
+    }
+
 
     //Customer login
     public function login(Request $request){

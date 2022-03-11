@@ -22,7 +22,7 @@ class OrderController extends Controller
 
     // Order View
     public function view_order($orderId){
-        //Create 2 array , 1 for order details if one order has many item
+        //Create 2 array , 1 for order details if one order has many items
         //1 for other information
         $orderById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_shipping.*', 'tbl_order_details.*','tbl_payment.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_shipping', 'tbl_order.shipping_id','=', 'tbl_shipping.shipping_id' )->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->join('tbl_payment','tbl_order.payment_id','=','tbl_payment.payment_id')->first();
         
