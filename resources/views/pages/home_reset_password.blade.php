@@ -14,7 +14,9 @@
     <form action="{{route('user.reset.password.customer')}}" method="POST" class="container d-flex justify-content-center flex-column reset-password-wrapper">
         @csrf
         <div><i class="fas fa-envelope"></i> Please enter your email address</div>
-        <input type="text" name="email">
+        <input type="email" name="email">
+        <div><i class="fas fa-lock-open"></i> Please enter your old password</div>
+        <input type="password" name="old_password">
         <div><i class="fas fa-lock"></i> Create a new password</div>
         <input type="password" name="password">
         <div><i class="fas fa-lock"></i> Reenter your new password</div>

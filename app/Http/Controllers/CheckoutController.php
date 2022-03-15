@@ -22,12 +22,11 @@ use function Psy\sh;
 class CheckoutController extends Controller
 {
     public function index(){
-        // if(Auth::guard('customer')->check()){
-        //     return view('pages.home_checkout');
-        // }
-        //     return redirect()->route('customer');
-
-            return view('pages.home_checkout');
+        if(Cart::content()->count() == 0){
+            alert()->warning('You need at least one item before checkout!','')->autoClose(3000);
+            return redirect()->back();
+        }
+        return view('pages.home_checkout');
     }
 
     public function save_checkout(Request $request){
@@ -155,6 +154,7 @@ class CheckoutController extends Controller
         // if($coupon_session == true){
         // }
         Session::forget('coupon');
+        Session::forget('success_paypal');
 
         return redirect()->route('confirmation')->with('msg','Your order has been confirmed!');
     }
@@ -176,6 +176,9 @@ class CheckoutController extends Controller
                 
             }
         }
+
+        Session::forget('success_paypal');
+        Session::forget('total_paypal');
 
         alert()->success('Order is being processed!','Thank you for your support.')->autoClose(3000);
         return view('pages.home_confirmation')->with(compact('orderMethod','orderShipping','dataOrder','order','couponCode','coupon'));

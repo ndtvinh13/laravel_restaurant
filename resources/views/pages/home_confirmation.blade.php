@@ -17,9 +17,9 @@
         Cart::destroy();
         Cart::store($userName);
         $sum = 0;
+        
     @endphp
-
-        {{$couponCode}}
+        {{-- {{$couponCode}} --}}
      {{-- Title --}}
      <h3 class="title-checkout">Your order has been placed, Thanks {{$userName}}!</h3>
 
@@ -73,7 +73,8 @@
                 </tr>
             @endforeach
                 <tr style="border-top: solid 1px #C0C0C0;">
-                    <td colspan="2"><h5>Tax (9%)</h5></td>
+                    <td colspan="2"></td>
+                    <td><h5>Tax (9%)</h5></td>
                     <td>
                         <h5>
                             @if ($couponCode != "none")
@@ -90,7 +91,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><h5>Total</h5></td>
+                    <td colspan="2"></td>
+                    <td><h5>Total</h5></td>
                     <td><h5>${{$order->total}}</h5></td>
                 </tr>
         </tbody>
@@ -100,9 +102,11 @@
 
     <div>
         <p><i class="fas fa-info-circle"></i> <b>Additional Details</b></p>
-        <div class="container-fluid">
+        <div class="container-fluid additional-details-wrapper">
             <div class="row">
                 <div class="col-md-6">
+                    <div><i class="fas fa-tags"></i> <b>Coupon</b></div>
+                    <p>{{$couponCode}}</p>
                     <p><i class="fas fa-cash-register"></i> <b>Payment</b></p>
                     <div>
                         {{-- {{$orderMethod}} --}}

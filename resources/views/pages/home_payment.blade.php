@@ -10,6 +10,8 @@
         $content=Cart::content();
         $cartCount=Cart::content()->count();
     @endphp
+
+    
     {{-- Title --}}
     <h3 class="title-checkout">{{$userName}}, You're almost there!</h3>
     {{-- Directions --}}
@@ -42,37 +44,71 @@
                         {{-- Payment table --}}
                         <table class="table table-borderless">
                             <tbody>
+                                @if (Session::get('success_paypal') == true)
+                                    <tr>
+                                        <th scope="row"><input id="pmDebit" type="radio" name="payment" value="debit" disabled></th>
+                                        <td><label class="payment-type" for="pmDebit">Debit</label></td>
+                                        <td>
+                                            <i class="fab fa-cc-visa fa-2x"></i>
+                                            <i class="fab fa-cc-mastercard fa-2x"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><input id="pmCredit" type="radio" name="payment" value="credit" disabled></th>
+                                        <td><label class="payment-type" for="pmCredit">Credit</label></td>
+                                        <td>
+                                            <i class="fab fa-cc-visa fa-2x"></i>
+                                            <i class="fab fa-cc-mastercard fa-2x"></i>
+                                            <i class="fab fa-apple-pay fa-2x"></i>
+                                            <i class="fab fa-cc-discover fa-2x"></i>
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <th scope="row"><input id="pmDebit" type="radio" name="payment" value="debit"></th>
+                                        <td><label class="payment-type" for="pmDebit">Debit</label></td>
+                                        <td>
+                                            <i class="fab fa-cc-visa fa-2x"></i>
+                                            <i class="fab fa-cc-mastercard fa-2x"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><input id="pmCredit" type="radio" name="payment" value="credit"></th>
+                                        <td><label class="payment-type" for="pmCredit">Credit</label></td>
+                                        <td>
+                                            <i class="fab fa-cc-visa fa-2x"></i>
+                                            <i class="fab fa-cc-mastercard fa-2x"></i>
+                                            <i class="fab fa-apple-pay fa-2x"></i>
+                                            <i class="fab fa-cc-discover fa-2x"></i>
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
-                                    <th scope="row"><input id="pmDebit" type="radio" name="payment" value="debit"></th>
-                                    <td><label class="payment-type" for="pmDebit">Debit</label></td>
-                                    <td>
-                                        <i class="fab fa-cc-visa fa-2x"></i>
-                                        <i class="fab fa-cc-mastercard fa-2x"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><input id="pmCredit" type="radio" name="payment" value="credit"></th>
-                                    <td><label class="payment-type" for="pmCredit">Credit</label></td>
-                                    <td>
-                                        <i class="fab fa-cc-visa fa-2x"></i>
-                                        <i class="fab fa-cc-mastercard fa-2x"></i>
-                                        <i class="fab fa-apple-pay fa-2x"></i>
-                                        <i class="fab fa-cc-discover fa-2x"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><input id="pmPaypal" type="radio" name="payment" value="paypal"></th>
+                                    <th scope="row"><input id="pmPaypal" type="radio" name="payment" value="paypal" @if (Session::get('success_paypal') == true)
+                                        checked
+                                    @endif></th>
                                     <td><label class="payment-type" for="pmPaypal">Paypal</label></td>
                                     <td><i class="fab fa-paypal fa-2x"></i></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="paypal-btn-wrapper"></td>
                                 </tr>
                             </tbody>
                         </table>
                         <input type="hidden" value="{{$shippingId}}" name="shipping_id">
                         <input type="hidden" value="{{$userId}}" name="user_id">
                         <div class="container-fluid checkout-text p-0">
-                            <div class="container-fluid btn-checkout-div p-0">
-                                <button class="btn btn-checkout-sub" type="submit">Make Payment</button>
-                            </div>
+                            @if (Session::get('success_paypal') == true)
+                                <div class="container-fluid btn-checkout-div p-0">
+                                    <button class="btn btn-checkout-sub-paypal" type="submit">Make Payment</button>
+                                </div>
+                            @else
+                                <div class="container-fluid btn-checkout-div p-0">
+                                    <button class="btn btn-checkout-sub" type="submit">Make Payment</button>
+                                </div>                                
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -106,13 +142,46 @@
                             <div>Sales Tax</div>
                             <div>${{Cart::tax()}}</div>
                         </div>
-                        <div class="review-text review-total-div">
-                            <h5 class="review-total">Total</h5>
-                            <h5 class="review-total">${{Cart::total()-2}}</h5>
-                            <input type="hidden" value="{{Cart::total()-2}}" name="cart_total">
+                        <div class="review-text">
+                            <h6>Discount:</h6>
+                            <h6 class="coupon-discount">
+                              @if ($cou = Session::get('coupon'))
+                                @if ($cou['function']==0)
+                                  <div class="d-flex">- <h6 discount_val="percent">{{$cou['discount']}}</h6>%<div>
+                                @else
+                                  {{-- - ${{$cou['discount']}} --}}
+                                  <div class="d-flex">- $<h6 discount_val="amount">{{$cou['discount']}}</h6><div>
+                                @endif 
+                              @else
+                                <div class="d-flex">- $<h6>0</h6><div> 
+                              @endif
+                            </h6>
+                        </div>
+                        <hr>
+                        <div class="review-text">
+                            <h5 class="review-text">Total:</h5>
+                            <h5 class="review-text total-ajax">
+                              @if ($cou = Session::get('coupon'))
+                                @if ($cou['function'] == 1)
+                                    @if (Cart::total() < $cou['discount'])
+                                        ${{$cart_total = number_format(0, 2)}}
+                                    @else
+                                        ${{$cart_total = Cart::total() - $cou['discount']}}
+                                        <input type="hidden" value="{{$cart_total}}" name="cart_total" />
+                                    @endif
+                                @else
+                                  ${{$cart_total = number_format(Cart::total()*( 1 - $cou['discount']/100), 2)}}
+                                  <input type="hidden" value="{{$cart_total}}" name="cart_total" />  
+                                @endif
+                              @else
+                                ${{$cart_total = Cart::total()}}
+                                <input type="hidden" value="{{$cart_total}}" name="cart_total" />
+                              @endif
+                            </h5>
                             @if ($cou == true)
                                 <input type="hidden" value="{{$cou['code']}}" name="coupon_code">
                             @endif
+                        
                         </div>
                         
 
@@ -121,9 +190,41 @@
             </div>
         </div>   
     </form>
-
+    {{-- Session put total amount --}}
+    @php
+        $total_paypal = $cart_total;
+        \Session::put('total_paypal',$total_paypal);
+    @endphp
+    {{$total_paypal}}
+    @if (Session::get('coupon') == true)
+        yes
+    @else
+        no
+    @endif
     <hr>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("input[type='radio']").change(function (e) { 
+            e.preventDefault();
+            
+            if($('#pmPaypal').is(':checked')){
+                var str = '<a class="paypal-btn" href="{{ route("processTransaction") }}"><i class="fab fa-paypal"></i> <span>Pay</span><span>Pal</span></a>';
+                $('.paypal-btn-wrapper').show().html(str);
+                $('.btn-checkout-sub').prop('disabled',true);
+                console.log('checked!');  
+            }
+            else{
+                $('.btn-checkout-sub').prop('disabled',false);
+                $('.paypal-btn-wrapper').hide();
+            }
+        });
+
+        
+
+    });
+</script>
 
 @endsection

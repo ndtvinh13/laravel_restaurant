@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Svg\Tag\Rect;
+use Alert;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -151,9 +152,62 @@ class CustomerController extends Controller
     }
 
     public function reset_password(Request $request){
+        // $validator = Validator::make($request->all(), [
+        //     'email'=>'required',
+        //     'old_password'=>'required',
+        //     'password'=>'required|min:6',
+        //     'confirm_password'=>'required|min:6'
+        // ]);
+        
+        // if ($validator->fails()) {
+        //     return back()->with('errors', $validator->messages()->all()[0])->withInput();
+        // }
+
         $data = $request->all();
 
-        return  $data;
+        $customerId = $data['user_id'];
+        $customerOldPassword = $data['old_password'];
+
+        $customerEmail = Customer::select('email')->where('user_id',$customerId)->value('email');
+        $customerPassword = Customer::select('password')->where('user_id',$customerId)->value('password');
+
+        $user = Auth::guard('customer')->user();
+        $check = Hash::check($customerOldPassword, Auth::guard('customer')->user()->password);
+        $check_old_new = Hash::check($data['password'],Auth::guard('customer')->user()->password);
+
+        // Check if email is matched
+        if($data['email'] == $customerEmail){
+            // Check if old password is matched
+            if($check){
+                if(!$check_old_new){
+                    // Check if password and confirmed password are matched
+                    if($data['password'] == $data['confirm_password']){
+    
+                        $user->fill([
+                            'password' => Hash::make($data['password'])
+                            ])->save();
+            
+                        toast('Your password is updated','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+            
+                        return redirect()->back();
+                    }else{
+                        toast('Password is not matched','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+    
+                        return  redirect()->back();
+                    }
+
+                }else{
+                    toast('Please use a different password','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+
+                    return  redirect()->back();
+                }
+            }
+
+        }
+
+        toast('Failed to update your password','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+
+        return  redirect()->back();
     }
 
 
@@ -168,13 +222,14 @@ class CustomerController extends Controller
         $pass = $request->userPassword;
         $credentials = [
             'email' => $email,
-            'password'=>$pass
+            'password'=> $pass
         ];
         if(Auth::guard('customer')->attempt($credentials)){
             toast('Welcome back!','success')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
             return redirect()->route('menu');
         }else{
-            return redirect()->back()->with('login_msg','Invalid email or password');
+            toast('Invalid email or password','error')->width('300px')->padding('20px')->position('top')->hideCloseButton()->timerProgressBar()->autoClose(2000);
+            return redirect()->back();
         }
     }
 

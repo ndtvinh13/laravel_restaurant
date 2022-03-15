@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PayPalController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -82,6 +83,12 @@ Route::middleware('loginCheck')->group(function () {
     Route::get('/order-history',[CustomerController::class,'order_history'])->name('user.order.history');
     Route::get('/order-history-details/{orderId}',[CustomerController::class,'order_history_details'])->name('user.order.history.details');
     Route::post('/reset-password-customer',[CustomerController::class,'reset_password'])->name('user.reset.password.customer');
+
+    // -------------------------- PayPal ----------------------------  //
+    Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+    Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+    Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+    Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 });
 

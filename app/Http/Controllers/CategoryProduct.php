@@ -84,7 +84,7 @@ class CategoryProduct extends Controller
         // return Redirect::to('/list-category-product'); 
 
             //===========================Another method=========================
-            $data=Category::find($request->category_product_id);
+            $data = Category::find($request->category_product_id);
             $data->category_name=$request->category_name;
             $data->update();
             return Redirect::to('/list-category-product')->with('success','Sucessfully Update category!!');

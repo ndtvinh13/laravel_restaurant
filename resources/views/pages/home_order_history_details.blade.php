@@ -28,6 +28,7 @@
                 <div class="col-md-4 col-4">
                     <div><strong>BurgerZ Company</strong></div>
                     <div><strong>Order #:</strong> {{$orderById->code}}</div>
+                    <div><strong>Name:</strong> {{$orderById->name}}</div>
                 </div>
                 <div class="col-md-4 col-4">
                     <div><strong>Address:</strong></div>

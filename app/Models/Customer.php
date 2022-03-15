@@ -12,7 +12,7 @@ class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    
+    protected $fillable = ['password'];   
     protected $table = 'tbl_user';
     protected $primaryKey = 'user_id';
 }

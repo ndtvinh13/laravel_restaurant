@@ -98,9 +98,9 @@
                                 <div class="d-flex">- $<h6>0</h6><div> 
                               @endif
                             </h6>
-                          </div>
-                          <hr>
-                          <div class="review-text">
+                        </div>
+                        <hr>
+                        <div class="review-text">
                             <h5 class="review-text">Total:</h5>
                             <h5 class="review-text total-ajax">
                               @if ($cou = Session::get('coupon'))
@@ -117,7 +117,7 @@
                                 ${{Cart::total()}}
                               @endif
                             </h5>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
