@@ -60,13 +60,16 @@ class PayPalController extends Controller
             }
 
             return redirect()
-                ->route('createTransaction')
+                ->route('payment')
                 ->with('error', 'Something went wrong.');
 
         } else {
+            // return redirect()
+            //     ->route('payment')
+            //     ->with('error', $response['message'] ?? 'Something went wrong.');
+            alert()->error('Oops...','Cannot proceed with a $0.00 order');
             return redirect()
-                ->route('createTransaction')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
+                ->route('payment');
         }
     }
 

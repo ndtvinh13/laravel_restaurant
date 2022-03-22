@@ -15,6 +15,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -90,6 +91,8 @@ Route::middleware('loginCheck')->group(function () {
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
+    // ---------------------------- Stripe --------------------------- //
+    Route::post('/stripe-payment',[StripeController::class,'stripePost'])->name('stripe.post');
 });
 
 

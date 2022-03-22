@@ -37,9 +37,9 @@
                     {{-- Shipping info --}}
                     <div class="cust-title">Payment Method</div>
                     <div class="container checkout-input">
-                        @if ($errors->any())
+                        {{-- @if ($errors->any())
                             <div class="alert alert-warning"><i class="far fa-times-circle"></i> Please choose your method below!</div>
-                        @endif
+                        @endif --}}
 
                         {{-- Payment table --}}
                         <table class="table table-borderless">
