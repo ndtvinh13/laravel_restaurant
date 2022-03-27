@@ -177,8 +177,13 @@ class CheckoutController extends Controller
             }
         }
 
+        // paypal payment session delete
         Session::forget('success_paypal');
         Session::forget('total_paypal');
+
+        // card payment session delete
+        Session::forget('success_card');
+        Session::forget('total_card');
 
         alert()->success('Order is being processed!','Thank you for your support.')->autoClose(3000);
         return view('pages.home_confirmation')->with(compact('orderMethod','orderShipping','dataOrder','order','couponCode','coupon'));

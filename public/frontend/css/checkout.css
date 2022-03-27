@@ -91,6 +91,29 @@
     color: #009cde;
 }
 
+.hide {
+    display: none;
+}
+
+.card-payment-wrapper {
+    margin-left: 0;
+    border: #dddddd 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.card-payment-wrapper .control-label {
+    font-weight: bold;
+}
+
+.btn-card-checkout {
+    margin-top: 7px;
+}
+
+.temp-remove {
+    display: none;
+}
+
 /* ======================Confirmation================= */
 .confirm-order {
     margin-top: 10px;

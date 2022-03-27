@@ -11,6 +11,10 @@
         $cartCount=Cart::content()->count();
     @endphp
 
+    {{-- Session test delete --}}
+    @php
+        Session::forget('success_card');
+    @endphp
     
     {{-- Title --}}
     <h3 class="title-checkout">{{$userName}}, You're almost there!</h3>
@@ -65,7 +69,9 @@
                                     </tr>
                                 @else
                                     <tr>
-                                        <th scope="row"><input id="pmDebit" type="radio" name="payment" value="debit"></th>
+                                        <th scope="row"><input id="pmDebit" type="radio" name="payment" value="debit" @if (Session::get('success_card'))
+                                            disabled
+                                        @endif></th>
                                         <td><label class="payment-type" for="pmDebit">Debit</label></td>
                                         <td>
                                             <i class="fab fa-cc-visa fa-2x"></i>
@@ -73,7 +79,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><input id="pmCredit" type="radio" name="payment" value="credit"></th>
+                                        <th scope="row"><input id="pmCredit" type="radio" name="payment" value="credit" @if (Session::get('success_card'))
+                                            checked
+                                        @endif></th>
                                         <td><label class="payment-type" for="pmCredit">Credit</label></td>
                                         <td>
                                             <i class="fab fa-cc-visa fa-2x"></i>
@@ -82,10 +90,13 @@
                                             <i class="fab fa-cc-discover fa-2x"></i>
                                         </td>
                                     </tr>
+
                                 @endif
                                 <tr>
                                     <th scope="row"><input id="pmPaypal" type="radio" name="payment" value="paypal" @if (Session::get('success_paypal') == true)
                                         checked
+                                    @elseif(Session::get('success_card') == true)
+                                        disabled
                                     @endif></th>
                                     <td><label class="payment-type" for="pmPaypal">Paypal</label></td>
                                     <td><i class="fab fa-paypal fa-2x"></i></td>
@@ -190,12 +201,74 @@
             </div>
         </div>   
     </form>
+    <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation card-payment-wrapper container col-md-6 col-12 temp-remove"
+    data-cc-on-file="false"
+    data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+    id="payment-form">
+        @csrf
+
+        <div class='form-row row'>
+            <div class='col-xs-12 form-group required'>
+                <label class='control-label'>Name on Card</label> <input
+                    class='form-control' size='4' type='text'>
+            </div>
+        </div>
+
+        <div class='form-row row'>
+            <div class='col-xs-12 form-group required'>
+                <label class='control-label'>Card Number</label> <input
+                    autocomplete='off' class='form-control card-number' size='20'
+                    type='text'>
+            </div>
+        </div>
+
+        <div class='form-row row'>
+            <div class='col-xs-12 col-md-4 form-group cvc required'>
+                <label class='control-label'>CVC</label> <input autocomplete='off'
+                    class='form-control card-cvc' placeholder='ex. 311' size='4'
+                    type='number' onKeyPress="if(this.value.length==3) return false;">
+            </div>
+            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                <label class='control-label'>Expiration Month</label> <input
+                    class='form-control card-expiry-month' placeholder='MM' size='2'
+                    type='number' onKeyPress="if(this.value.length==2) return false;">
+            </div>
+            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                <label class='control-label'>Expiration Year</label> <input
+                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                    type='number' onKeyPress="if(this.value.length==4) return false;">
+            </div>
+        </div>
+
+        <div class='form-row row'>
+            <div class='col-md-12 error form-group hide'>
+                <div class='alert-danger alert'>Please correct the errors and try
+                    again.</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-block btn-card-checkout" type="submit">Pay <i class="fas fa-credit-card"></i> (${{$cart_total + 5}})</button>
+            </div>
+        </div>
+        @php
+            $total_card = $cart_total + 5;
+            Session::put('total_card', $total_card);
+        @endphp
+    </form>
     {{-- Session put total amount --}}
     @php
         $total_paypal = $cart_total;
         \Session::put('total_paypal',$total_paypal);
     @endphp
+
     {{$total_paypal}}
+    @if (Session::get('success_card'))
+        yes.... success_card
+    @else
+        nooo!!! no succress_card
+    @endif
     @if (Session::get('coupon') == true)
         yes
     @else
@@ -220,11 +293,80 @@
                 $('.btn-checkout-sub').prop('disabled',false);
                 $('.paypal-btn-wrapper').hide();
             }
+
+            if($('#pmCredit').is(':checked')){
+                    // $('#payment-form').removeClass('temp-remove');
+                    $('#payment-form').fadeIn('slow', function(){
+                        $('#payment-form').removeClass('temp-remove');
+                    });
+                    $('.btn-checkout-sub').prop('disabled',true);
+                    console.log('checked!');  
+            }else{
+                    // $('#payment-form').addClass('temp-remove');
+                    $('#payment-form').fadeOut('slow', function(){
+                        $('#payment-form').addClass('temp-remove');
+                    });
+            }
         });
 
-        
-
     });
+</script>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  
+<script type="text/javascript">
+$(function() {
+    var $form         = $(".require-validation");
+    $('.require-validation').on('submit', function(e) {
+    var $form         = $(".require-validation"),
+        inputSelector = ['input[type=email]', 'input[type=password]',
+                         'input[type=text]', 'input[type=file]',
+                         'textarea','input[type=number]'].join(', '),
+        $inputs       = $form.find('.required').find(inputSelector),
+        $errorMessage = $form.find('div.error'),
+        valid         = true;
+        $errorMessage.addClass('hide');
+ 
+        $('.has-error').removeClass('has-error');
+    $inputs.each(function(i, el) {
+        var $input = $(el);
+        if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('hide');
+            e.preventDefault();
+        }
+    });
+  
+    if (!$form.data('cc-on-file')) {
+        e.preventDefault();
+        Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+        Stripe.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+        }, stripeResponseHandler);
+    }
+  
+  });
+  
+  function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('hide')
+                .find('.alert')
+                .text(response.error.message);
+        } else {
+            // token contains id, last4, and card type
+            var token = response['id'];
+            // insert the token into the form so it gets submitted to the server
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            $form.get(0).submit();
+        }
+    }
+  
+});
 </script>
 
 @endsection

@@ -20,11 +20,14 @@
             vertical-align: middle;
             width: 61%;
         }
+        .hid{
+            display: none;
+        }
     </style>
 </head>
 <body>
-  
-<div class="container">
+<!-- Card payment -->
+<div class="container card-payment-wrapper">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default credit-card-box">
@@ -84,7 +87,7 @@
                         </div>
   
                         <div class='form-row row'>
-                            <div class='col-md-12 error form-group hide'>
+                            <div class='col-md-12 error form-group hid'>
                                 <div class='alert-danger alert'>Please correct the errors and try
                                     again.</div>
                             </div>
@@ -111,22 +114,22 @@
 <script type="text/javascript">
 $(function() {
     var $form         = $(".require-validation");
-  $('form.require-validation').bind('submit', function(e) {
+    $('form.require-validation').on('submit', function(e) {
     var $form         = $(".require-validation"),
         inputSelector = ['input[type=email]', 'input[type=password]',
                          'input[type=text]', 'input[type=file]',
-                         'textarea'].join(', '),
+                         'textarea','input[type=number]'].join(', '),
         $inputs       = $form.find('.required').find(inputSelector),
         $errorMessage = $form.find('div.error'),
         valid         = true;
-        $errorMessage.addClass('hide');
+        $errorMessage.addClass('hid');
  
         $('.has-error').removeClass('has-error');
     $inputs.each(function(i, el) {
         var $input = $(el);
         if ($input.val() === '') {
             $input.parent().addClass('has-error');
-            $errorMessage.removeClass('hide');
+            $errorMessage.removeClass('hid');
             e.preventDefault();
         }
     });
@@ -147,7 +150,7 @@ $(function() {
   function stripeResponseHandler(status, response) {
         if (response.error) {
             $('.error')
-                .removeClass('hide')
+                .removeClass('hid')
                 .find('.alert')
                 .text(response.error.message);
         } else {

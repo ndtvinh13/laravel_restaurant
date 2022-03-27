@@ -9,42 +9,31 @@ class StripeController extends Controller
 {
     public function stripePost(Request $request)
     {
-        
+        // creating stipe customer
+        // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        // $stripe->customers->create([
+        //     'name' => 'vinh',
+        //     'description' => 'My First Test Customer (created for API docs)',
+        //   ]);
+        $total = Session::get('total_card');
+
+        if($total == 0){
+            return redirect()->back()->with('info','Total needs to be at least $1 before proceeding to checkout!');
+        }
+
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-                "amount" => 100 * 100,
+                "amount" => $total * 100,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
-                "description" => "This payment is tested purpose"
+                "description" => "Test payment from BurgerZ"
         ]);
-   
+        
+        Session::put('success_card',true);
         Session::flash('success', 'Payment successful!');
            
         return back();
         
     }
 
-    // public function stripePost()
-    // {   
-    //     // Enter Your Stripe Secret
-    //     \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        		
-	// 	$amount = 100;
-	// 	$amount *= 100;
-    //     $amount = (int) $amount;
-        
-    //     $payment_intent = \Stripe\PaymentIntent::create([
-	// 		'description' => 'Stripe Test Payment',
-	// 		'amount' => $amount,
-	// 		'currency' => 'INR',
-	// 		'description' => 'Payment From Codehunger',
-	// 		'payment_method_types' => ['card'],
-	// 	]);
-	// 	$intent = $payment_intent->client_secret;
-
-	// 	return back()->with(compact('intent'));
-
-    // }
-
-    
 }
