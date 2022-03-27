@@ -45,4 +45,6 @@ class StripeController extends Controller
 	// 	return back()->with(compact('intent'));
 
     // }
+
+    
 }
