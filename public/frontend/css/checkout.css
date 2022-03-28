@@ -73,6 +73,8 @@
     font-family: "PayPal-Sans", Helvetica Neue, Arial, sans-serif;
     font-size: 1rem;
     text-decoration: none;
+    display: none;
+    width: fit-content;
 }
 
 .paypal-btn:hover {
@@ -112,6 +114,29 @@
 
 .temp-remove {
     display: none;
+}
+
+.card-number::-webkit-outer-spin-button,
+.card-number::-webkit-inner-spin-button,
+.card-cvc::-webkit-inner-spin-button,
+.card-expiry-month::-webkit-inner-spin-button,
+.card-expiry-year::-webkit-inner-spin-button {
+    /* Hide arrows for input type number */
+    -webkit-appearance: none;
+}
+
+.card-number-wrapper {
+    position: relative;
+}
+
+.card-type-val {
+    display: none;
+    position: absolute;
+    color: #333;
+    margin-right: 25px;
+    top: 27px;
+    right: 0;
+    font-size: 22px;
 }
 
 /* ======================Confirmation================= */

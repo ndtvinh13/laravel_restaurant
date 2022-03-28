@@ -104,7 +104,9 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td class="paypal-btn-wrapper"></td>
+                                    <td class="paypal-btn-wrapper">
+                                        <a class="paypal-btn" href="{{ route("processTransaction") }}"><i class="fab fa-paypal"></i> <span>Pay</span><span>Pal</span></a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -215,10 +217,10 @@
         </div>
 
         <div class='form-row row'>
-            <div class='col-xs-12 form-group required'>
+            <div class='col-xs-12 form-group required card-number-wrapper'>
                 <label class='control-label'>Card Number</label> <input
                     autocomplete='off' class='form-control card-number' size='20'
-                    type='text'>
+                    type='text' placeholder="---- ---- ---- ----" onKeyPress="if(this.value.length==19) return false;"><div class="card-type-val"></div>
             </div>
         </div>
 
@@ -278,22 +280,28 @@
 
 </div>
 
+
 <script>
     $(document).ready(function () {
         $("input[type='radio']").change(function (e) { 
             e.preventDefault();
             
+            // when paypal is checked
             if($('#pmPaypal').is(':checked')){
-                var str = '<a class="paypal-btn" href="{{ route("processTransaction") }}"><i class="fab fa-paypal"></i> <span>Pay</span><span>Pal</span></a>';
-                $('.paypal-btn-wrapper').show().html(str);
+                // var str = '<a class="paypal-btn" href="{{ route("processTransaction") }}"><i class="fab fa-paypal"></i> <span>Pay</span><span>Pal</span></a>';
+                // $('.paypal-btn-wrapper').show(1000).html(str);
+                $('.paypal-btn').show('slow');
                 $('.btn-checkout-sub').prop('disabled',true);
                 console.log('checked!');  
             }
             else{
                 $('.btn-checkout-sub').prop('disabled',false);
-                $('.paypal-btn-wrapper').hide();
+                // $('.paypal-btn-wrapper').hide();
+                $('.paypal-btn').hide('slow');
+
             }
 
+            // when credit is checked
             if($('#pmCredit').is(':checked')){
                     // $('#payment-form').removeClass('temp-remove');
                     $('#payment-form').fadeIn('slow', function(){
@@ -310,6 +318,11 @@
         });
 
     });
+    
+    $(document).ready(function ($) {
+        $('.card-number').mask("9999 9999 9999 9999");
+    });
+
 </script>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -368,5 +381,32 @@ $(function() {
   
 });
 </script>
+
+
+<script>
+    $(document).ready(function ($) {
+        $('.card-number').validateCreditCard(function(result) {
+            // $('.card-type-val').html(result.card_type == null ? '' : result.card_type.name);
+            if(result.card_type == null){
+                $('.card-type-val').html('');
+            }else{
+                console.log(result.card_type.name);
+                if(result.card_type.name == 'visa'){
+                    $('.card-type-val').html('<i class="fab fa-cc-visa fa-lg"></i>');
+                }else if (result.card_type.name == 'mastercard'){
+                    $('.card-type-val').html('<i class="fab fa-cc-mastercard fa-lg"></i>');
+                } else if (result.card_type.name == 'amex'){
+                    $('.card-type-val').html('<i class="fab fa-cc-amex fa-lg"></i>');
+                } else if (result.card_type.name == 'discover'){
+                    $('.card-type-val').html('<i class="fab fa-cc-discover fa-lg"></i>');
+                }else if (result.card_type.name == 'jcb'){
+                    $('.card-type-val').html('<i class="fab fa-cc-jcb fa-lg"></i>');
+                }
+            }   
+            
+        });        
+    });
+</script>
+
 
 @endsection

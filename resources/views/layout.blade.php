@@ -36,6 +36,8 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <script src="{{asset('public/frontend/js/jquery.creditCardValidator.js')}}"></script>
 
     <title>Restaurant</title>
   </head>
