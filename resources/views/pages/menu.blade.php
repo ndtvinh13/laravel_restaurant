@@ -3,7 +3,7 @@
 
 
     <div class="menu-items col-md-9">
-        <div class="menu-title">Food</div>
+        <div class="menu-title">@lang('lang.food')</div>
         <div class="menu-product">
             <div class="container">
                 <div class="row">

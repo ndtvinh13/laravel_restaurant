@@ -58,10 +58,10 @@
           >
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{URL::to('/main-page')}}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{URL::to('/main-page')}}">@lang('lang.home')</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{URL::to('/menu')}}">Menu</a>
+                <a class="nav-link active" aria-current="page" href="{{URL::to('/menu')}}">@lang('lang.menu')</a>
               </li>
               <li class="nav-item dropdown active service-dropdown-wrapper">
                 <a
@@ -71,12 +71,12 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Services <i class="fas fa-angle-down point-down"></i>
+                  @lang('lang.services') <i class="fas fa-angle-down point-down"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{{route('contact')}}">Contact</a></li>
-                  <li><a class="dropdown-item" href="#">About Us</a></li>
-                  <li><a class="dropdown-item" href="#">Location</a></li>
+                  <li><a class="dropdown-item" href="{{route('contact')}}">@lang('lang.contact')</a></li>
+                  <li><a class="dropdown-item" href="#">@lang('lang.about us')</a></li>
+                  <li><a class="dropdown-item" href="#">@lang('lang.location')</a></li>
                 </ul>
               </li>
               <li class="nav-item">
@@ -95,18 +95,18 @@
 
                 @if (Auth::guard('customer')->check())
                 <div class="customer-wrapper">
-                  <div><u>Hello, {{ $user->user_name }}</u> <i class="fas fa-angle-double-down fa-xs point-down"></i></div>
+                  <div><u>@lang('lang.hello'), {{ $user->user_name }}</u> <i class="fas fa-angle-double-down fa-xs point-down"></i></div>
                   <ul class="dropdown-menu customer-dropdown">
-                    <li><a class="dropdown-item" href="{{route('user.order.history')}}"><i class="fas fa-box fa-xs"></i> Order History</a></li>
-                    <li><a class="dropdown-item" href="{{route('user.reset.password')}}"><i class="fas fa-key fa-xs"></i> Change password</a></li>
-                    <li><a class="dropdown-item" href="{{route('customer.logout')}}"><i class="fas fa-sign-out-alt fa-sm"></i> Log out</a></li>
+                    <li><a class="dropdown-item" href="{{route('user.order.history')}}"><i class="fas fa-box fa-xs"></i> @lang('lang.order history')</a></li>
+                    <li><a class="dropdown-item" href="{{route('user.reset.password')}}"><i class="fas fa-key fa-xs"></i> @lang('lang.change password')</a></li>
+                    <li><a class="dropdown-item" href="{{route('customer.logout')}}"><i class="fas fa-sign-out-alt fa-sm"></i> @lang('lang.log out')</a></li>
                   </ul>
                   {{-- <a href="{{route('customer.logout')}}">Log out</a> --}}
                   {{-- <div>{{(Cart::instance('default')->content()->count())}}</div> --}}
                   
                 </div>
                 @else
-                  <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                  <a class="nav-link active" aria-current="page" href="{{route('customer')}}"><i class="fa fa-user" aria-hidden="true"></i> @lang('lang.log in')</a>
                 @endif
               </li>
               
@@ -209,7 +209,7 @@
       <div class="menu-content container-fluid col-auto p-0">
         <div class="row">
           <div class="categories col-md-3">
-            <div class="menu-title">Categories</div>
+            <div class="menu-title">@lang('lang.categories')</div>
 
             {{-- Loop for outputing all categories --}}
             @foreach($categories as $category)
@@ -236,6 +236,13 @@
             <a href="#"><i class="fab fa-facebook-square fa-lg"></i></a>
             <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
             <a href="#"><i class="fab fa-github fa-lg"></i></a>
+            <div class="dropdown">
+              <button class="btn-secondary dropdown-toggle btn-language" type="button" id="dropdownMenuLanguage" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-language fa-xl"> </i><i class="fas fa-sort-down language-sort-down"></i></button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLanguage">
+                <li><a class="dropdown-item language-item" href="{{url('lang/en')}}">English</a></li>
+                <li><a class="dropdown-item language-item" href="{{url('lang/esp')}}">Espanol</a></li>
+              </ul>
+            </div>
           </div>
         </div>
         <hr style="color:#fd7e14;">

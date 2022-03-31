@@ -382,7 +382,7 @@ main {
     }
 }
 
-/* footer======================== */
+/* ================ footer ======================== */
 .end-text {
     padding: 20px 0;
     /* display: flex;
@@ -442,7 +442,32 @@ main {
     text-shadow: 2px 2px black;
 }
 
-/* =====Move top btn========= */
+.btn-language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    border: solid 1px #fd7e14;
+    border-radius: 10px;
+    box-shadow: none;
+    background-color: #333;
+    color: #fd7e14;
+    font-size: 22px;
+}
+
+.btn-language:hover {
+    border-radius: 10px;
+}
+
+.fa-language {
+    margin-right: 5px;
+}
+
+.language-sort-down {
+    margin-bottom: 8px;
+}
+
+/* ======== Move top btn ========= */
 .btn-top-wrapper {
     display: flex;
     justify-content: flex-end;

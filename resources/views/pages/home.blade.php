@@ -52,7 +52,7 @@
     <h1 class="order-p2"><span> with us now!</span></h1>
   </div>
   <button class="btn btn-order" id="btn-order">
-    <a class="btn-order-link" href="{{route('menu')}}">Order</a>
+    <a class="btn-order-link" href="{{route('menu')}}">@lang('lang.order')</a>
   </button>
 </div>
 
@@ -61,7 +61,7 @@
     <div class="row">
         <div class="col-lg-6 column-left"><img src="public/frontend/images/burger_about_1.jpg"></div>
         <div class="col-lg-6 column-right ">
-          <h1 class="aboutus-heading text-center">About Us</h1>
+          <h1 class="aboutus-heading text-center">@lang('lang.about us')</h1>
           <p class="paragraph">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
           </p>
@@ -72,7 +72,7 @@
 <!-- <div class="container-fluid" id="break-line"></div> -->
 
 <div class="testimonials">
-  <h1>Customer reviews</h1>
+  <h1>@lang('lang.customer reviews')</h1>
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -129,7 +129,7 @@
 </div>
 
 <div class="container-fluid m-specials">
-  <h1 class="text-center">Here are our specials</h1>
+  <h1 class="text-center">@lang('lang.Here are our specials')</h1>
   <div class="row">
     <div class="col-md-4"><span>Drink</span><img src="{{('public/frontend/images/side_1.jpeg')}}"></div>
     <div class="col-md-4"><span>main course</span><img src="{{('public/frontend/images/side_2.jpeg')}}"></div>

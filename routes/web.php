@@ -50,6 +50,17 @@ Route::get('/search-ajax', [MenuController::class, 'search_product_ajax'])->name
 //Sort products
 Route::get('/sort', [MenuController::class, 'sort_product'])->name('sort');
 
+
+// Change language
+Route::get('lang/{locale}', function($locale){
+    if(!in_array($locale, ['en','esp'])){
+        abort((404));
+    }else{
+        Session()->put('locale',$locale);
+        return redirect()->back();
+    }
+});
+
 //-----------------------------Customer login--------------------------//
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
 Route::post('/customer-register', [CustomerController::class, 'register'])->name('customer.register');
