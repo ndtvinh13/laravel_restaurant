@@ -59,7 +59,7 @@
                                 </td>
                                 <td>
                                     <!-- Edit and Delete buttons -->
-                                    <a onclick="return confirm('Do you want to delete?')" href="{{route('coupon.delete',$item->coupon_id)}}" class="text-danger"><i class="fas fa-eraser"></i></a>
+                                    <a href="{{route('coupon.delete',$item->coupon_id)}}" class="text-danger"><i class="fas fa-eraser submit-form"></i></a>
                                 </td>
                             </tr>
                         @endforeach

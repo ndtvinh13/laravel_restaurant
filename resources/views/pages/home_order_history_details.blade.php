@@ -19,7 +19,13 @@
         <label><strong>LIST ORDER DETAILS</strong> <i class="fas fa-caret-down"></i></label>
         <div class="container d-flex order-item-date">
             <div><strong>Order Date:</strong> {{date('m-d-Y', strtotime($orderById->created_at))}}</div>
-            <div class="d-flex"><strong>Order Status: </strong> <div class="order-process-status">{{$orderById->status}}</div></div>
+            <div class="d-flex"><strong>Order Status: </strong>
+                @if ($mangeOrderStatus == "Processing")
+                    <div class="order-process-status">{{$mangeOrderStatus}}</div>
+                @else
+                    <div class="order-complete-status">{{$mangeOrderStatus}}</div>
+                @endif 
+            </div>   
         </div>
 
         {{-- General Info --}}

@@ -129,6 +129,7 @@ class CustomerController extends Controller
         $orderById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_shipping.*', 'tbl_order_details.*','tbl_payment.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_shipping', 'tbl_order.shipping_id','=', 'tbl_shipping.shipping_id' )->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->join('tbl_payment','tbl_order.payment_id','=','tbl_payment.payment_id')->first();
         
         $couponCode = $orderById->coupon_code;
+        $mangeOrderStatus = Order::select('status')->where('order_id',$orderId)->value('status');
                 
         $orderDetailsById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_order_details.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->get();
 
@@ -137,10 +138,10 @@ class CustomerController extends Controller
             $coupon = Coupon::where('coupon_code',$couponCode)->first();
             $couponFuction = $coupon->coupon_function;
             $couponDiscount = $coupon->coupon_discount;
-            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponFuction','couponDiscount','couponCode'));
+            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponFuction','couponDiscount','couponCode','mangeOrderStatus'));
 
         }else{
-            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponCode'));
+            return view('pages.home_order_history_details')->with(compact('orderById','orderDetailsById','couponCode','mangeOrderStatus'));
         }
 
         

@@ -31,10 +31,18 @@
                                 <td>{{$item->code}}</td>
                                 <td>{{$item->payment_id}}</td>
                                 <td>{{$item->total}}</td>
-                                <td>{{$item->status}}</td>
+                                <td>
+
+                                    @if ($item->status == "Processing")
+                                        <input type="button" value="Processing" order_status="Received" class="order-status-btn order-status-process" order_id="{{$item->order_id}}">
+                                    @else 
+                                        <input type="button" value="Received" order_status="Processing" class="order-status-btn order-status-receive" order_id="{{$item->order_id}}">
+                                    @endif
+
+                                </td>
                                 <td class="col-2">
                                     <a href="{{route('order.view',$item->order_id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                    <a onclick="return confirm('Do you want to delete?')" href="{{route('order.delete',$item->order_id)}}" class="btn btn-danger"><i class="fas fa-eraser"></i></a>
+                                    <a  href="{{route('order.delete',$item->order_id)}}" class="btn btn-danger submit-form"><i class="fas fa-eraser"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -43,6 +51,38 @@
                     </table>
             </div>
             {{-- Divs --}}
-
+        
+            <script>
+                $(document).ready(function () {
+                    $(document).on ("click", ".order-status-btn", function () {
+                        let status = $(this).attr('order_status');
+                        let orderId = $(this).attr('order_id');
+                        console.log(status, orderId);
+                        let current = $(this);
+                        Swal.fire({
+                            toast: true,
+                            title: "Order status is updated!",
+                            icon: "success",
+                            position: "top-end",
+                            padding: '1rem',
+                            width: '400px',
+                            timer: 1500,
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                        });
+                        $.ajax({
+                            type: "get",
+                            url: "{{route('order.status')}}",
+                            data: {status: status, orderId: orderId},
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response);
+                                current.replaceWith(response);
+                            }
+                        });
+                    });
+                   
+                });
+            </script>
 
 @endsection

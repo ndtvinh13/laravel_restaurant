@@ -50,7 +50,7 @@
                                 <td>
                                     <!-- Edit and Delete buttons -->
                                     <a href="{{URL::to('/edit-product/'.$product['product_id'])}}" class="btn btn-primary">Edit</a>
-                                    <a onclick="return confirm('Do you want to delete?')" href="{{URL::to('/delete-product/'.$product['product_id'])}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{URL::to('/delete-product/'.$product['product_id'])}}" class="btn btn-danger submit-form">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

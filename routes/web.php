@@ -137,6 +137,7 @@ Route::middleware('auth')->group(function () {
 
     //-----------------------------Order-----------------------------//
     Route::get('/manage-order', [OrderController::class, 'manage_order'])->name('order.manage');
+    Route::get('/manage-order-status', [OrderController::class, 'manage_order_status'])->name('order.status');
     Route::get('/view-order/{orderId}', [OrderController::class, 'view_order'])->name('order.view');
     Route::get('/delete-order/{orderId}', [OrderController::class, 'delete_order'])->name('order.delete');
     Route::get('/print-order/{code}', [OrderController::class, 'print_order'])->name('order.print');

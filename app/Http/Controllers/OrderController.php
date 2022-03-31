@@ -20,6 +20,31 @@ class OrderController extends Controller
         return view('admin.manage_order')->with('orderData',$orderData);
     }
 
+    // Order status change
+    public function manage_order_status(Request $request){
+        if($request->ajax()){
+            $status = $request->input('status');
+            $orderId = $request->input('orderId');
+
+            $data = Order::find($orderId);
+            $data->status = $status;
+            $data->save();   
+
+            if($status == "Received") {
+                $result = '<input type="button" value="'.$status.'" order_status="Processing" class="order-status-btn order-status-receive" order_id="'.$orderId.'">';
+
+                echo json_encode($result);
+            } else {
+                $result = '<input type="button" value="'.$status.'" order_status="Received" class="order-status-btn order-status-process" order_id="'.$orderId.'">';
+
+                echo json_encode($result);
+            }
+            
+            
+        }
+
+    }
+
     // Order View
     public function view_order($orderId){
         //Create 2 array , 1 for order details if one order has many items
@@ -27,6 +52,7 @@ class OrderController extends Controller
         $orderById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_shipping.*', 'tbl_order_details.*','tbl_payment.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_shipping', 'tbl_order.shipping_id','=', 'tbl_shipping.shipping_id' )->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->join('tbl_payment','tbl_order.payment_id','=','tbl_payment.payment_id')->first();
         
         $couponCode = $orderById->coupon_code;
+
                 
         $orderDetailsById = Order::select('tbl_order.*', 'tbl_user.*', 'tbl_order_details.*')->where('tbl_order.order_id',$orderId)->join('tbl_user', 'tbl_order.user_id','=', 'tbl_user.user_id')->join('tbl_order_details', 'tbl_order.order_id','=','tbl_order_details.order_id' )->get();
 

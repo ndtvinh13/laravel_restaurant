@@ -90,6 +90,22 @@
     color: #2d6ed5;
 }
 
+/* ========== Manage Order ================= */
+.order-status-process {
+    padding: 0 8px;
+    border-radius: 10px;
+    background-color: #ffc107;
+    width: fit-content;
+}
+
+.order-status-receive {
+    padding: 0 8px;
+    border-radius: 10px;
+    background-color: #198754;
+    width: fit-content;
+    color: #fff;
+}
+
 /* ================== Comments ================= */
 .btn-comment {
     border-radius: 5px;
