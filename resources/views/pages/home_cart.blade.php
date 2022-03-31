@@ -4,7 +4,7 @@
 <div class="cart-wrapper">
 
     {{-- Title --}}
-    <h3 class="title-checkout">Your Shopping Cart</h3>
+    <h3 class="title-checkout"><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h3>
 
     <div class="container-fluid shopping-option">
         <a class="btn" href="{{route('menu')}}"><i class="fas fa-chevron-circle-left"></i> Continue shopping</a>
@@ -116,7 +116,7 @@
             {{-- payment method --}}
             <div class="col-md-4">
                 <div class="card card-checkout">
-                    <div class="card-header">Oder Summary</div>
+                    <div class="card-header"><i class="fas fa-tasks"></i> <strong>Oder Summary</strong></div>
                     <div class="card-body">
                         <div class="cart-text">
                           <h6 class="card-text">Subtotal:</h6>

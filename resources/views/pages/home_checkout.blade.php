@@ -9,7 +9,7 @@
         $cartCount=Cart::content()->count();
     @endphp
     {{-- Title --}}
-    <h3 class="title-checkout">Welcome, {{$userName}}!</h3>
+    <h3 class="title-checkout"><i class="fas fa-address-book"></i> Welcome, {{$userName}}!</h3>
     {{-- Directions --}}
     <div class="container-fluid shopping-option">
         <a class="btn" href="{{route('menu')}}">Continue shopping</a>
@@ -56,7 +56,7 @@
                 </div>
                 {{-- Review table --}}
                 <div class="col-md-5">
-                    <div class="cust-title">Review & Payment</div>
+                    <div class="cust-title"><i class="fas fa-shopping-bag"></i> Review & Payment</div>
                     <div class="container-fluid review-div">
                         <div class="review-text">
                             <h5>Order Summary ({{$cartCount}})</h5>

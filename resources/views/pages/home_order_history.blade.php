@@ -31,27 +31,21 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $i = 0;
-                @endphp
                 @if ($orderCount > 0)
-                    @foreach ($order as $item)
-                        @php
-                            $i++;
-                        @endphp
+                    @foreach ($order as $key => $value)
                         <tr>
-                            <td>{{$i}}</td>
-                            <td>{{$item->code}}</td>
-                            <td>{{date('m-d-Y', strtotime($item->created_at))}}</td>
-                            <td>${{$item->total}}</td>
+                            <td>{{$order->firstItem() + $key}}</td>
+                            <td>{{$value->code}}</td>
+                            <td>{{date('m-d-Y', strtotime($value->created_at))}}</td>
+                            <td>${{$value->total}}</td>
                             <td>
-                                @if ($item->status == 'Processing')
-                                    <div class="order-process-status">{{$item->status}}</div>
+                                @if ($value->status == 'Processing')
+                                    <div class="order-process-status">{{$value->status}}</div>
                                 @else
-                                    <div class="order-complete-status">{{$item->status}}</div>
+                                    <div class="order-complete-status">{{$value->status}}</div>
                                 @endif
                             </td>
-                            <td class="text-center"><a href="{{route('user.order.history.details',$item->order_id)}}"><i class="fas fa-eye"></i></a></td>
+                            <td class="text-center"><a href="{{route('user.order.history.details',$value->order_id)}}"><i class="fas fa-eye"></i></a></td>
                         </tr> 
                     @endforeach
                 @else

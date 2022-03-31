@@ -5,7 +5,7 @@
         <div class="detail-wrapper">
 
             {{-- Title --}}
-            <h3 class="title-checkout">Food Detail</h3>
+            <h3 class="title-checkout"><i class="fas fa-hamburger"></i> Food Detail</h3>
 
             <div class="container-fluid">
                 <a class="btn" href="{{route('menu')}}">Back to Menu</a>

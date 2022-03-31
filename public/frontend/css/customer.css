@@ -68,6 +68,7 @@
     background-color: #f39c12;
     width: fit-content;
     color: #fff;
+    margin-left: 4px;
 }
 
 .order-complete-status {
@@ -77,6 +78,7 @@
     background-color: #73a724;
     width: fit-content;
     color: #fff;
+    margin-left: 4px;
 }
 
 .order-history-thead {

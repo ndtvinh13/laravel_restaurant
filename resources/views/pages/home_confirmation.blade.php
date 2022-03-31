@@ -21,7 +21,7 @@
     @endphp
         {{-- {{$couponCode}} --}}
      {{-- Title --}}
-     <h3 class="title-checkout">Your order has been placed, Thanks {{$userName}}!</h3>
+     <h3 class="title-checkout"><i class="fas fa-clipboard-check"></i> Your order has been placed, Thanks {{$userName}}!</h3>
 
      <div class="container-fluid shopping-option">
          <a class="btn" href="{{route('menu')}}"><i class="fas fa-chevron-circle-left"></i> Continue shopping</a>

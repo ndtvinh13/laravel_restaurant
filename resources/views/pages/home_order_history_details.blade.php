@@ -16,14 +16,14 @@
     @endphp
     <!-- Manage order details -->
     <div class="container-fluid order-history-details-wrapper">
-        <label><strong>LIST ORDER DETAILS</strong> <i class="fas fa-caret-down"></i></label>
+        <label><strong><i class="fas fa-list-ul"></i> LIST ORDER DETAILS</strong> <i class="fas fa-caret-down"></i></label>
         <div class="container d-flex order-item-date">
             <div><strong>Order Date:</strong> {{date('m-d-Y', strtotime($orderById->created_at))}}</div>
-            <div class="d-flex"><strong>Order Status: </strong>
+            <div class="d-flex"><strong>Order Status: </strong> 
                 @if ($mangeOrderStatus == "Processing")
-                    <div class="order-process-status">{{$mangeOrderStatus}}</div>
+                    <div class="order-process-status">{{$mangeOrderStatus}}  <i class="fas fa-ellipsis-h"></i></div>
                 @else
-                    <div class="order-complete-status">{{$mangeOrderStatus}}</div>
+                    <div class="order-complete-status">{{$mangeOrderStatus}} <i class="fas fa-check"></i></div>
                 @endif 
             </div>   
         </div>
@@ -32,18 +32,18 @@
         <div class="container order-item-info-wrapper">
             <div class="row">
                 <div class="col-md-4 col-4">
-                    <div><strong>BurgerZ Company</strong></div>
-                    <div><strong>Order #:</strong> {{$orderById->code}}</div>
-                    <div><strong>Name:</strong> {{$orderById->name}}</div>
+                    <div><i class="fas fa-building"></i> <strong>BurgerZ Company</strong></div>
+                    <div><i class="fas fa-clipboard-list"></i> <strong>Order #:</strong> {{$orderById->code}}</div>
+                    <div><i class="fas fa-user"></i> <strong>Name:</strong> {{$orderById->name}}</div>
                 </div>
                 <div class="col-md-4 col-4">
-                    <div><strong>Address:</strong></div>
+                    <div><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong></div>
                     <div>{{$orderById->address}}</div>
                     <div>{{$orderById->email}}</div>
                     <div>{{$orderById->phone}}</div>
                 </div>
                 <div class="col-md-4 col-4">
-                    <div><strong>Order Total:</strong></div>
+                    <div><i class="fas fa-coins"></i> <strong>Order Total:</strong></div>
                     <div>${{$orderById->total}}</div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
         {{-- payment and Summary --}}
         <div class="container order-item-summary-wrapper">
-            <div><strong>Payment Details</strong></div>
+            <div><i class="fas fa-money-check"></i> <strong>Payment Details</strong></div>
             <div class="row">
                 <div class="col-md-5 order-item-payment">
                     <div><strong>Payment Method</strong></div>

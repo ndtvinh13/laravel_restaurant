@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-md-7">
                     {{-- Shipping info --}}
-                    <div class="cust-title">Payment Method</div>
+                    <div class="cust-title"><i class="fas fa-credit-card"></i> Payment Method</div>
                     <div class="container checkout-input">
                         {{-- @if ($errors->any())
                             <div class="alert alert-warning"><i class="far fa-times-circle"></i> Please choose your method below!</div>
@@ -127,7 +127,7 @@
                 </div>
                 {{-- Review table --}}
                 <div class="col-md-5">
-                    <div class="cust-title">Review & Payment</div>
+                    <div class="cust-title"><i class="fas fa-shopping-bag"></i> Review & Payment</div>
                     <div class="container-fluid review-div">
                         <div class="review-text">
                             <h5>Order Summary ({{$cartCount}})</h5>
