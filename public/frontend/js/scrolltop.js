@@ -80,3 +80,11 @@ $(function () {
             }
         });
 });
+
+// Live time using moment.js
+$(function ($) {
+    setInterval(() => {
+        let now_time = moment();
+        $(".live-time").html(now_time.format("h:mm:ss a"));
+    }, 1000);
+});

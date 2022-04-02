@@ -382,7 +382,7 @@ main {
     }
 }
 
-/* ================ footer ======================== */
+/* ===================== footer ======================== */
 .end-text {
     padding: 20px 0;
     /* display: flex;
@@ -467,6 +467,24 @@ main {
     margin-bottom: 8px;
 }
 
+/* live time display */
+.live-clock-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+.live-clock {
+    color: #fff;
+    text-shadow: 2px 2px black;
+}
+
+.live-time {
+    font-family: "Pacifico", "cursive";
+    font-size: 20px;
+    text-shadow: 2px 2px black;
+    margin: 0 5px;
+    color: #fff;
+}
 /* ======== Move top btn ========= */
 .btn-top-wrapper {
     display: flex;

@@ -231,7 +231,13 @@
     {{-- footer --}}
     <div class="container-fluid footer">
         <div class="footer-info">
-          <a class="navbar-brand footer-left" href="{{URL::to('/main-page')}}">BurgerZ</a>
+          <div class=" footer-left">
+            <a class="navbar-brand " href="{{URL::to('/main-page')}}">BurgerZ </a>
+            <div class="live-clock-wrapper">
+              <i class="fas fa-clock live-clock"></i>
+              <div class="live-time" style="color: #fff"></div>
+            </div>
+          </div>
           <div class="footer-right">
             <a href="#"><i class="fab fa-facebook-square fa-lg"></i></a>
             <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
@@ -260,10 +266,9 @@
     <script src="{{asset('public/frontend/js/quantity.js')}}"></script>
     <script src="{{asset('public/frontend/js/scrolltop.js')}}"></script>
     <script src="{{asset('public/frontend/js/custom.js')}}"></script>
+    <script src="{{asset('public/frontend/js/moment.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script>
-    </script>
     </html>
 
     
