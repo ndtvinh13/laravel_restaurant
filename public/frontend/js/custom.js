@@ -60,26 +60,30 @@ $(function () {
 
 // ====================== Cart Ajax Display ================== //
 $(function () {
-    $(".cart-display, .cart-item-hover")
-        .on("mouseover", function (e) {
-            e.preventDefault;
-            let cart_count = $(".cart-display").next().attr("cart_count");
-            let cart_content = $(".cart-display").next().attr("cart_content");
-            // console.log(cart_content);
-            $.ajax({
-                type: "get",
-                data: { cart_content: cart_content },
-                url: "/laravel_restaurant/cart-item-hover-ajax",
-                dataType: "json",
-                success: function (response) {
-                    $(".cart-item-hover").html(response);
-                    console.log(response);
-                },
-            });
-        })
-        .on("mouseleave", function () {
-            $(".cart-item-hover").html("");
+    $(".cart-display").on("mouseenter", function (e) {
+        e.preventDefault;
+        let cart_count = $(".cart-display").next().attr("cart_count");
+        let cart_content = $(".cart-display").next().attr("cart_content");
+        // console.log(cart_content);
+        $.ajax({
+            type: "get",
+            data: { cart_content: cart_content },
+            url: "/laravel_restaurant/cart-item-hover-ajax",
+            dataType: "json",
+            success: function (response) {
+                $(".cart-item-hover").slideDown("fast");
+                $(".cart-item-hover")
+                    .html(response)
+                    .addClass("cart-hover-show");
+                // console.log(response);
+            },
         });
+    });
+    $(".cart-item-hover").on("mouseleave", function (e) {
+        e.preventDefault;
+        $(".cart-item-hover").slideUp("fast");
+        $(".cart-item-hover").removeClass("cart-hover-show");
+    });
 });
 
 // ====================== Ajax adding cart =================== //
@@ -167,6 +171,10 @@ $(function () {
         let current = $(this).parent().parent().parent().next();
         let sum = item_qty * item_price;
         console.log(row_id, item_qty, item_price, current, sum);
+
+        let item_id = $(this).find(".item-display-id").attr("row_id");
+        console.log(item_id);
+
         $.ajax({
             type: "get",
             // url: "{{route('cart.item.ajax')}}",
@@ -202,6 +210,8 @@ function displayItem(data) {
     let subtotal = item.subtotal;
     let tax = item.tax;
     let itemSub = item.itemSub;
+    let itemQty = item.itemQty;
+    let itemId = item.itemId;
     // let total = item.total - coup;
     let total_amount = item.total - coup;
     let total_percent = item.total * (1 - coup / 100);
@@ -218,7 +228,15 @@ function displayItem(data) {
     $(".cart-count").html(count);
     $(".subtotal-ajax").html("$" + subtotal);
     $(".tax-ajax").html("$" + tax);
+    $(".cart-display-subtotal").html("$" + subtotal);
+    // if(){
+    //     $(".cart-display-qty").html(itemQty);
+    // }
 }
+
+$(function () {
+    let abc = $(".item-display-id").prop("data-id");
+});
 
 // function delItem(data, pos) {
 //     let item = JSON.parse(data);

@@ -119,7 +119,7 @@ class CartController extends Controller
         $this->storeIntoDb();
         
         // $this->display();
-        $this->item_display_ajax($itemPrice,$itemQty);
+        $this->item_display_ajax($itemPrice,$itemQty,$rowId);
     }
 
     // Del cart ajax
@@ -143,7 +143,7 @@ class CartController extends Controller
     }
 
     // display each item Ajax
-    public function item_display_ajax($price,$qty){
+    public function item_display_ajax($price,$qty,$id){
         $result = [];
         $itemSub = number_format($price * $qty,2);
         $result['count'] = Cart::content()->count();
@@ -151,6 +151,8 @@ class CartController extends Controller
         $result['total'] = Cart::total();
         $result['tax'] = Cart::tax();
         $result['itemSub'] = $itemSub;
+        $result['itemQty'] = $qty;
+        $result['itemId'] = $id;
         echo json_encode($result);
     }
 
@@ -188,17 +190,20 @@ class CartController extends Controller
                     $output .= '
                     <tr>
                         <td><img src="'.url('/public/uploads/products/'.$item->options->image).'" width="50" height="40" /></td>
-                        <td><span class="cart-item-hover-name">'.$item->name.'</span><br>'.$item->qty.' x '.$item->price.'</td>
-                        <td><i class="fas fa-backspace fa-xs"></i></td>
+                        <td><span class="cart-item-hover-name">'.$item->name.'</span><br><span class="cart-display-qty">'.$item->qty.'</span> x '.$item->price.'</td>
+                        <td>
+                            <input type="hidden" row_id="'.$item->rowId.'" class="item-display-id"/>
+                            <i class="fas fa-backspace fa-xs"></i>
+                        </td>
                     </tr>';
             }
                 $output .= '
                     <tr>
                         <td colspan="2"><b>Subtotal</b></td>
-                        <td>$'.$cart_subtotal.'</td>
+                        <td class="cart-display-subtotal">$'.$cart_subtotal.'</td>
                     </tr>
                     <tr>
-                        <td colspan="3"><a class="btn">View Cart</a></td>
+                        <td colspan="3" class="text-center"><a class="btn btn-view-cart-display" href="'.url('/cart').'">View Cart</a></td>
                     </tr>
                 ';
             
@@ -209,14 +214,15 @@ class CartController extends Controller
             echo json_encode($output);
         }else{
             $output .= 
-            '<table>
+            '<table class="table cart-item-hover-wrapper">
                 <tbody>';
-            foreach($cart_decode as $item){
                     $output .= '
                     <tr>
-                        <td>There is cart item!</td>
+                        <td class="text-center">There is no cart item!</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-center"><a class="btn btn-view-cart-display">View Cart</a></td>
                     </tr>';
-            }
             
             $output .= 
             '   </tbody>
