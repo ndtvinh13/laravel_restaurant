@@ -90,7 +90,9 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('cart.show')}}"><i class="fa fa-shopping-cart fa-sm" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
+                <a class="nav-link active cart-display" aria-current="page" href="{{route('cart.show')}}"><i class="fa fa-shopping-cart fa-sm" aria-hidden="true"></i><span class="cart-count">{{Cart::content()->count();}}</span></a>
+                <input type="hidden" cart_count="{{Cart::content()->count()}}" cart_content="{{Cart::content()}}">
+                <div class="cart-item-hover"></div>
               </li>
               <li>
               <li class="nav-item">
@@ -222,6 +224,21 @@
             }
           });
           }
+        });
+
+        $('.item-delete').click(function (e) { 
+          let row_id = $(this).attr('row_id');
+          let pos = $(this).parent().parent();
+          console.log(pos);
+          $.ajax({
+              type: "get",
+              url: "{{route('cart.item.del.ajax')}}",
+              data: {row_id: row_id},
+              success: function (response) {
+                delItem(response,pos);
+            }
+          });
+          
         });
       });
       

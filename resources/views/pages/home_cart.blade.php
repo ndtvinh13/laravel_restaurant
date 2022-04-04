@@ -8,7 +8,6 @@
 
     <div class="container-fluid shopping-option">
         <a class="btn" href="{{route('menu')}}"><i class="fas fa-chevron-circle-left"></i> Continue shopping</a>
-        <a class="btn">Go to Checkout <i class="fas fa-chevron-circle-right"></i></a>
     </div>
 
     <hr>
@@ -95,7 +94,8 @@
                             {{-- Total = price * qty --}}
                             <td class="item-sub-ajax">${{$total = $each_content->price * $each_content->qty}}</td>
                             <td>
-                              <a href="{{route('cart.delete',['rowId' => $each_content->rowId])}}"><i class="fa fa-trash fa-lg"></i></a>
+                              {{-- <a href="{{route('cart.delete',['rowId' => $each_content->rowId])}}"><i class="fa fa-trash fa-lg"></i></a> --}}
+                              <a class="item-delete"  row_id="{{$each_content->rowId}}"><i class="fa fa-trash fa-lg"></i></a>
                             </td>
                           </tr>
                         @endforeach
@@ -104,7 +104,7 @@
                       {{-- If there is no cart item --}}
                         <tr> 
                           <td colspan="5" rowspan="5" class="no-cart-item" >
-                            <h5>No Cart Item</h5>
+                            <h5><i class="fas fa-ghost"></i> No Cart Item</h5>
                             <a class="btn" href="{{route('menu')}}">Check Our Menu</a>
                           </td>
                         </tr>

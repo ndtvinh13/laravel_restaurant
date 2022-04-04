@@ -23,7 +23,7 @@ $(function () {
     });
 });
 
-// ========================== Search Ajax ver2======================= //
+// ========================== Search Ajax ver2 ======================= //
 $(function () {
     $(document).on("keyup", "#search_text_ajax", function () {
         var query = $(this).val();
@@ -56,6 +56,30 @@ $(function () {
         $("#search_text_ajax").val(name);
         $("#search-form-ajax").submit();
     });
+});
+
+// ====================== Cart Ajax Display ================== //
+$(function () {
+    $(".cart-display, .cart-item-hover")
+        .on("mouseover", function (e) {
+            e.preventDefault;
+            let cart_count = $(".cart-display").next().attr("cart_count");
+            let cart_content = $(".cart-display").next().attr("cart_content");
+            // console.log(cart_content);
+            $.ajax({
+                type: "get",
+                data: { cart_content: cart_content },
+                url: "/laravel_restaurant/cart-item-hover-ajax",
+                dataType: "json",
+                success: function (response) {
+                    $(".cart-item-hover").html(response);
+                    console.log(response);
+                },
+            });
+        })
+        .on("mouseleave", function () {
+            $(".cart-item-hover").html("");
+        });
 });
 
 // ====================== Ajax adding cart =================== //

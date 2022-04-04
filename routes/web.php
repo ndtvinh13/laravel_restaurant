@@ -80,7 +80,7 @@ Route::get('/cart-item-ajax',[CartController::class,'cart_item_ajax'])->name('ca
 Route::get('/cart-item-del-ajax',[CartController::class,'cart_item_del_ajax'])->name('cart.item.del.ajax');
 Route::post('/coupon-check',[CartController::class,'coupon_check'])->name('coupon.check');
 Route::get('/coupon-check',[CartController::class,'session_coupon_del'])->name('coupon.session.del');
-
+Route::get('/cart-item-hover-ajax',[CartController::class,'cart_item_hover_ajax'])->name('cart.item.hover.ajax');
 
 //==================== Middleware Customer ====================//
 Route::middleware('loginCheck')->group(function () {

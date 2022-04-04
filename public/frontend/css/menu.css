@@ -221,6 +221,28 @@
     position: relative;
 }
 
+/* Cart display */
+.cart-item-hover-wrapper {
+    font-size: 16px;
+}
+
+.cart-item-hover-name {
+    font-size: 18px;
+}
+
+.cart-item-hover {
+    position: absolute;
+    right: 200px;
+    width: 250px;
+    display: block;
+    padding: 10px;
+    border: 3px solid #f7f7f7;
+    border-radius: 10px;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
 /* =========Responsive========= */
 @media only screen and (max-width: 767px) {
     .cat-name-wrapper {

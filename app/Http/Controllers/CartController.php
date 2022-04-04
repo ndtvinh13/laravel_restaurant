@@ -173,6 +173,59 @@ class CartController extends Controller
         return redirect()->route('cart.show')->with('success','All cart items are successfully removed!');
     }
 
+    // Cart display on hover
+    public function cart_item_hover_ajax(Request $request){
+        $cart_count = Cart::content()->count();
+        $cart_subtotal = Cart::subtotal();
+        $cart = $request->input('cart_content');
+        $cart_decode = json_decode($cart);
+        $output = '';
+        if($cart_count > 0){
+            $output .= 
+            '<table class="table cart-item-hover-wrapper">
+                <tbody>';
+            foreach($cart_decode as $item){
+                    $output .= '
+                    <tr>
+                        <td><img src="'.url('/public/uploads/products/'.$item->options->image).'" width="50" height="40" /></td>
+                        <td><span class="cart-item-hover-name">'.$item->name.'</span><br>'.$item->qty.' x '.$item->price.'</td>
+                        <td><i class="fas fa-backspace fa-xs"></i></td>
+                    </tr>';
+            }
+                $output .= '
+                    <tr>
+                        <td colspan="2"><b>Subtotal</b></td>
+                        <td>$'.$cart_subtotal.'</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><a class="btn">View Cart</a></td>
+                    </tr>
+                ';
+            
+            $output .= 
+            '   </tbody>
+            </table>';
+            
+            echo json_encode($output);
+        }else{
+            $output .= 
+            '<table>
+                <tbody>';
+            foreach($cart_decode as $item){
+                    $output .= '
+                    <tr>
+                        <td>There is cart item!</td>
+                    </tr>';
+            }
+            
+            $output .= 
+            '   </tbody>
+            </table>';
+            
+            echo json_encode($output);
+        }
+    }
+
     // Update
     public function update_cart(Request $request){
         $rowId = $request->rowId_qty;
