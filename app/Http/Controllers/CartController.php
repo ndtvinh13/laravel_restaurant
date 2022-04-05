@@ -221,7 +221,7 @@ class CartController extends Controller
                         <td class="text-center">There is no cart item!</td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-center"><a class="btn btn-view-cart-display">View Cart</a></td>
+                        <td colspan="3" class="text-center"><a class="btn btn-view-cart-display" href="'.url('/cart').'">View Cart</a></td>
                     </tr>';
             
             $output .= 
