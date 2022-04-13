@@ -84,7 +84,7 @@
                   @lang('lang.services') <i class="fas fa-angle-down point-down"></i>
                 </a>
                 <ul class="dropdown-menu service-dropdown" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">@lang('lang.contact')</a></li>
+                  <li><a class="dropdown-item" href="{{route('contact')}}">@lang('lang.contact')</a></li>
                   <li><a class="dropdown-item" href="#">@lang('lang.about us')</a></li>
                   <li><a class="dropdown-item" href="#">@lang('lang.location')</a></li>
                 </ul>

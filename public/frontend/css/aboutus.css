@@ -40,3 +40,60 @@
 .swal2-image {
     border-radius: 5px;
 }
+
+/* ============== Contact Page ================= */
+.contact-wrapper {
+    margin-bottom: 20px;
+}
+
+.contact-row-wrapper {
+    margin: 40px 0;
+}
+
+.fa-heart {
+    color: palevioletred;
+    margin: 0 10px;
+}
+
+.contact-form > input {
+    margin-bottom: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    padding: 5px 17px;
+}
+
+.contact-form > textarea {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    width: 100%;
+    padding: 10px 20px;
+    border-color: #ced4da;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.contact-form > button {
+    float: right;
+    width: 30%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+
+.contact-info-table > tbody > tr > td {
+    padding: 17px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.contact-info-table > tbody > tr > td:first-child {
+    font-size: 20px;
+}
+
+.contact-social-icon {
+    text-align: center;
+    font-size: 18px;
+}
+
+.contact-social-icon > a {
+    margin: 0 5px;
+    color: #ff6153;
+}
