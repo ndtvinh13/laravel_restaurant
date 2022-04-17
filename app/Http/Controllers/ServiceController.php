@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 
 class ServiceController extends Controller
 {
-    public function index(){
+    public function index_contact(){
         return view('pages.home_contact');
+    }
+
+    public function index_aboutus(){
+        $dataProduct = Product::where('category_id','!=',2)->take(9)->get();
+        return view('pages.home_aboutus')->with(compact('dataProduct'));
     }
 
     public function send_email(Request $request){

@@ -62,5 +62,22 @@
             </div>
         </div>
 
+        {{-- Google map --}}
+        <div class="map-wrapper">
+            <div id="googleMap" style="width:100%;height:400px;"></div>
+        </div>
+
     </div>
+
+    <script>
+        function myMap() {
+        var mapProp= {
+          center:new google.maps.LatLng(34.2410, -118.5277),
+          zoom:10,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+        </script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF16UOehjlVeTQ6Q9wwc92FuTKUVIzZk4&callback=myMap"></script>
 @endsection

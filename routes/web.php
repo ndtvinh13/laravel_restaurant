@@ -37,8 +37,9 @@ Route::get('/404', [HomeController::class, 'error_404'])->name('main.404');
 Route::get('/500', [HomeController::class, 'error_500'])->name('main.500');
 
 // =============== Services ================= //
-Route::get('/contact', [ServiceController::class, 'index'])->name('contact');
+Route::get('/contact', [ServiceController::class, 'index_contact'])->name('contact');
 Route::post('/send-email', [ServiceController::class, 'send_email'])->name('contact.send.email');
+Route::get('/about-us', [ServiceController::class, 'index_aboutus'])->name('aboutus');
 
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
