@@ -35,6 +35,26 @@
                 </div>
             </div>
         </div>
+
+        <div class="container aboutus-category">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        @foreach ($dataCategory as $item)
+                            <div class="col-6">
+                                <a href="{{route('menu.category',$item->category_id)}}">{{$item->category_name}}</a>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Our serving categories</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                </div>
+            </div>
+        </div>
         
     </div>
 @endsection

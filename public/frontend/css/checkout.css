@@ -158,3 +158,18 @@
 .additional-details-wrapper {
     padding: 25px 20px;
 }
+
+.additional-details-wrapper .row .col-md-6 {
+    padding-left: 10%;
+}
+
+.confirmation-end-text {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.confirmation-end-text > a {
+    font-weight: bold;
+    margin-left: 10px;
+    color: #50a9d4;
+}

@@ -152,6 +152,7 @@
       imageUrl: '/laravel_restaurant/public/frontend/images/coupon.jpg',
       imageWidth: 550,
       imageHeight: 200,
+      timer: 2000,
       imageAlt: 'Custom image',
       background:'#FEFEFE',
       confirmButtonColor:'#238B23',

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -50,7 +51,7 @@ class ProductController extends Controller
         $data->product_price = $request->product_price;
         $data->product_type = $request->product_type;
         $data->save();
-        return Redirect::to('/add-product')->with('msg','Sucessfully Add a Product!!');
+        return Redirect::to('/add-product')->with('success','Sucessfully Add a Product!!');
     }
 
     public function list_product(){
@@ -102,7 +103,7 @@ class ProductController extends Controller
         $data->product_price = $request->product_price;
         $data->product_type = $request->product_type;
         $data->update();
-        return Redirect::to('/list-product')->with('msg','Sucessfully Update a Product!!');
+        return Redirect::to('/list-product')->with('success','Sucessfully Update a Product!!');
     }
 
 

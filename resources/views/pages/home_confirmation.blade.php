@@ -72,31 +72,35 @@
                     <td class="col-2 align-middle">${{$each_content->product_price}}</td>
                 </tr>
             @endforeach
-                <tr style="border-top: solid 1px #C0C0C0;">
-                    <td colspan="2"></td>
-                    <td><h5>Tax (9%)</h5></td>
-                    <td>
-                        <h5>
-                            @if ($couponCode != "none")
-                                @if ($coupon->coupon_function == 1)
-                                    ${{number_format($order->total + $coupon->coupon_discount - $sum,2)}}
-                                    
-                                @else
-                                    ${{number_format($order->total/(1 - $coupon->coupon_discount/100) - $sum,2)}}
-                                @endif
-                            @else
-                                ${{number_format($order->total - $sum,2)}}
-                            @endif
-                        </h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td><h5>Total</h5></td>
-                    <td><h5>${{$order->total}}</h5></td>
-                </tr>
         </tbody>
     </table>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-6"></div>
+            <div class="col-md-4 col-6">
+                <div class="d-flex justify-content-between">
+                    <h6>Tax (9%)</h6>
+                    <h6>
+                        @if ($couponCode != "none")
+                            @if ($coupon->coupon_function == 1)
+                                ${{number_format($order->total + $coupon->coupon_discount - $sum,2)}}
+                                
+                            @else
+                                ${{number_format($order->total/(1 - $coupon->coupon_discount/100) - $sum,2)}}
+                            @endif
+                        @else
+                            ${{number_format($order->total - $sum,2)}}
+                        @endif
+                    </h6>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h5 class="fw-bold">Total</h5>
+                    <h5 class="fw-bold">${{$order->total}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <hr>
 
@@ -104,7 +108,7 @@
         <p><i class="fas fa-info-circle"></i> <b>Additional Details</b></p>
         <div class="container-fluid additional-details-wrapper">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-6">
                     <div><i class="fas fa-tags"></i> <b>Coupon</b></div>
                     <p>{{$couponCode}}</p>
                     <p><i class="fas fa-cash-register"></i> <b>Payment</b></p>
@@ -123,7 +127,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-6">
                     <p>
                         <i class="fas fa-map-marker-alt"></i> <b>Billing</b> 
                         <div>
@@ -141,4 +145,5 @@
     </div>
 
 </div>
+<p class="confirmation-end-text"><em>If you have any question, please contact us at:</em> <a href="{{route('contact')}}">burgerz.elaravel@gmail.com</a></p>
 @endsection

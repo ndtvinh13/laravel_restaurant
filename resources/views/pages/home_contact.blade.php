@@ -79,5 +79,5 @@
         }
         </script>
         
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF16UOehjlVeTQ6Q9wwc92FuTKUVIzZk4&callback=myMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=myMap"></script>
 @endsection

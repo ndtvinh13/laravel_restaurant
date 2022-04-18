@@ -115,6 +115,11 @@
     color: #17a8fd;
 }
 
+.img-thumbnail-icon {
+    height: 70px;
+    text-align: center;
+}
+
 /* ====== Paginate ==== */
 .comment-paginate {
     width: 100%;

@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-6 mx-0">
                             <h5 class="card-title"><strong>{{$product['product_name']}}</strong></h5>
-                            <h6 class="card-title">${{$product['product_price']}}</h6>
+                            <h6 class="card-title"><b>${{$product['product_price']}}</b></h6>
                             <input type="hidden" name="category_hidden" value="{{$product['category_id']}}">
                             <p class="card-text">{{$product['product_desc']}}</p>
                             <p class="card-text fst-italic fw-bold">{{$product['product_type']==0 ? 'None featured' : 'Featured'}}</p>
@@ -106,8 +106,8 @@
             @foreach ($dataComment as $comment)
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-2 col-2">
-                            <img src="{{asset("/public/frontend/images/ava_icon.png")}}" class="img-thumbnail rounded">
+                        <div class="col-md-2 col-2 text-center">
+                            <img src="{{asset("/public/frontend/images/ava_icon.png")}}" class="img-thumbnail-icon">
                         </div>
                         <div class="col-md-8 col-10">
                             <div class="row">
